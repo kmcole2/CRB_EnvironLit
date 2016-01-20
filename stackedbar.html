@@ -1,0 +1,46 @@
+  
+  <div id="chart_div"></div>
+      
+
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      google.charts.load('current', {packages: ['corechart', 'bar']});
+			google.charts.setOnLoadCallback(drawStacked);
+
+			function drawStacked() {
+			      var data = google.visualization.arrayToDataTable([
+			        ['City', 'banana', 'strawberry'],
+			        ['calories', 8175000, 8008000],
+			        ['fat', 3792000, 3694000],
+			        ['protein', 2695000, 2896000],
+			        ['vitamin D', 2099000, 1953000],
+			      ]);
+
+			      var options = {
+			        title: 'Nutrition',
+			        chartArea: {width: '50%'},
+			        isStacked: true,
+			        hAxis: {
+			          title: 'Percent of Daily Value',
+			          minValue: 0,
+			        },
+			        vAxis: {
+			          title: 'City'
+			        }
+			      };
+			      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+			      chart.draw(data, options);
+			    }
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>
