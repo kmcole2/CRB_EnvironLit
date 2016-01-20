@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+.droptarget {
+    float: left; 
+    width: 100px; 
+    height: 35px;
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+</style>
+</head>
+<body>
+
+<script>
+var food = 
+[{name: "lamb", carbonkilo:39.2, carbonlbs:86.24, mile:91, price:0, calories:20, fat:20},
+{name: "beef", carbonkilo:27,   carbonlbs: 59.4, mile: 63, price:4.276, calories:20 ,fat: 20},
+{name: "cheese", carbonkilo:13.5, carbonlbs: 86.24, mile: 91, price:0, calories:20 ,fat:20 },
+{name: "pork", carbonkilo:12.1, carbonlbs:20 , mile:20 , price:20, calories:20 ,fat:20 },
+{name: "turkey", carbonkilo:10.9, carbonlbs:10 , mile:10 , price:10, calories:10 ,fat:10}];
+
+for(i=0; i<food.length;i++)
+{
+    
+    document.write(food[i].name+ " ");
+    document.write(food[i].carbonkilo+ " ");
+    document.write(food[i].carbonlbs+ " ");
+    document.write(food[i].mile+ " ");
+    document.write(food[i].price+ " ");
+    document.write(food[i].calories+ "<br><br>");
+
+}
+
+</script>
+
+</body>
+</html>

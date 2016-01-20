@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+.droptarget {
+    float: left; 
+    width: 100px; 
+    height: 35px;
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+</style>
+</head>
+<body>
+
+<p>Drag the p element back and forth between the two rectangles:</p>
+
+<div class="droptarget" ondrop="dropback(event)" ondragover="allowDrop(event)" style="height:300px">
+  <p ondragstart="dragStart1(event)" ondragend="dragEnd1(event)" draggable="true" id="dragtarget">lamb</p>
+ <!--  <p ondragstart="dragStart2(event)" ondragend="dragEnd2(event)" draggable="true" id="dragtarget">Drag me 2</p>
+  <p ondragstart="dragStart3(event)" ondragend="dragEnd3(event)" draggable="true" id="dragtarget">Drag me 3</p> -->
+</div>
+
+<div class="droptarget" ondrop="dropplate(event)" ondragover="allowDrop(event)" style="height:300px"></div>
+
+<p id="demo"></p>
+
+<script>
+
+// var foods = [ {
+// name: lamb,             carbonkilo:39.2, carbonlbs: 86.24, mile: 91, price:0, calories: ,fat: },
+// name: beef,             carbonkilo:27,   carbonlbs: 59.4, mile: 63, price:4.276, calories: ,fat: },
+// name: cheese,       carbonkilo:13.5, carbonlbs: 86.24, mile: 91, price:0, calories: ,fat: },
+// name: pork,             carbonkilo:12.1, carbonlbs: , mile: , price:, calories: ,fat: },
+// name: turkey,       carbonkilo:10.9, carbonlbs: , mile: , price:, calories: ,fat: }]
+
+var foods = [ 
+{name: lamb,    carbonkilo:39.2, carbonlbs: 86.24, mile: 91, price:0, calories: 20,fat:20 },
+{name: beef,    carbonkilo:27,   carbonlbs: 59.4, mile: 63, price:4.276, calories:20 ,fat: 20},
+{name: cheese,  carbonkilo:13.5, carbonlbs: 86.24, mile: 91, price:0, calories:20 ,fat:20 },
+{name: pork,    carbonkilo:12.1, carbonlbs:20 , mile:20 , price:20, calories:20 ,fat:20 },
+{name: turkey,  carbonkilo:10.9, carbonlbs:10 , mile:10 , price:10, calories:10 ,fat:10}];
+
+
+document.getElementById("demo").innerHTML = cars;
+//dragme1
+function dragStart1(event) {
+    event.dataTransfer.setData("Text", event.target.id);
+    document.getElementById("demo").innerHTML = "Started to drag target 1 element";
+}
+//dragme1
+function dragStart2(event) {
+    event.dataTransfer.setData("Text", event.target.id);
+    document.getElementById("demo").innerHTML = "Started to drag target 2 element";
+}
+//dragme1
+function dragStart3(event) {
+    event.dataTransfer.setData("Text", event.target.id);
+    document.getElementById("demo").innerHTML = "Started to drag target 3 element";
+}
+//end text
+function dragEnd1(event) {
+    document.getElementById("demo").innerHTML = "Finished dragging the target1.";
+}
+//end text
+function dragEnd2(event) {
+    document.getElementById("demo").innerHTML = "Finished dragging target 2";
+}
+//end text
+function dragEnd3(event) {
+    document.getElementById("demo").innerHTML = "Finished dragging target3 ";
+}
+function allowDrop(event) {
+    event.preventDefault();
+}
+//what happens after the drop 
+function dropback(event) {
+    event.preventDefault();
+    var data = event.dataTransfer.getData("Text");
+    event.target.appendChild(document.getElementById(data));
+}
+function dropplate(event) {
+    event.preventDefault();
+    // var data = event.dataTransfer.getData("Text");
+   // console.log(foods[0]);
+   document.write(food[0] + "<br>");
+    // event.target.appendChild(document.getElementById(data));
+    event.target.appendChild(document.getElementById(info));
+}
+
+for(i=0; i<foods.length;i++)
+{
+    document.write(foods[i].name + "<br>");
+}
+</script>
+
+</body>
+</html>

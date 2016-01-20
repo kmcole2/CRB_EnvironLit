@@ -15,14 +15,15 @@
 			function drawStacked() {
 			      var data = google.visualization.arrayToDataTable([
 			        ['City', 'banana', 'strawberry'],
-			        ['calories', 8175000, 8008000],
-			        ['fat', 3792000, 3694000],
-			        ['protein', 2695000, 2896000],
-			        ['vitamin D', 2099000, 1953000],
+			        ['calories', 2175/2500, 3008/2500],
+			        ['fat', 37/65, 36.9/65],
+			        ['protein', 26.9/50, 28.96/50],
+			        ['vitamin D', 209/400, 195/400],
 			      ]);
 
 			      var options = {
 			        title: 'Nutrition',
+			        animation: {"startup": true},	//does nothing
 			        chartArea: {width: '50%'},
 			        isStacked: true,
 			        hAxis: {
