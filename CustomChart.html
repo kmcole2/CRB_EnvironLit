@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+	#div1 {padding:10px;border:1px solid #aaaaaa;}
+	#div2 {padding:10px;border:1px solid #aaaaaa;}
+	#options{padding:10px;margin-left:10px;}
+</style>
+
+</head>
+<body>
+
+<table>
+  <colgroup>
+    <col span="2" >
+    <col >
+  </colgroup>
+  <tr>
+    <th>	
+    	<div id="options">
+			  <h5 id="drag1" draggable="true" ondragstart="drag(event)" width="336" height="69">carbon</h5>
+				<h5 id="drag2" draggable="true" ondragstart="drag(event)" width="336" height="69">price</h5>
+				<h5 id="drag3" draggable="true" ondragstart="drag(event)" width="336" height="69">calories</h5>
+				<h5 id="drag4" draggable="true" ondragstart="drag(event)" width="336" height="69">protein</h5>
+				<h5 id="drag5" draggable="true" ondragstart="drag(event)" width="336" height="69">fat</h5>
+			</div>
+		</th>
+    <th>
+	<p id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" style="height:400px; width:100px; margin-top:10px; margin-left:100px;">y axis</p>
+    </th>
+    <th>
+    		<p id="div2" ondrop="drop(event)" ondragover="allowDrop(event)" style="height:100px; width:400px; margin-top: 310px;">x axis</p>
+    </th>
+<!--   </tr>
+  <tr>
+    <td>3476896</td>
+    <td>My first HTML</td>
+    <td>$53</td>
+  </tr>
+  <tr>
+    <td>5869207</td>
+    <td>My first CSS</td>
+    <td>$49</td>
+  </tr> -->
+</table>
+
+
+
+
+
+	<div id="chart"></div>
+
+	<script>
+	function allowDrop(ev) {
+	    ev.preventDefault();
+	}
+
+	function drag(ev) {
+	    ev.dataTransfer.setData("text", ev.target.id);
+	}
+
+	function drop(ev) {
+	    ev.preventDefault();
+	    var data = ev.dataTransfer.getData("text");
+	    ev.target.appendChild(document.getElementById(data));
+	}
+	</script>
+
+</body>
+</html>

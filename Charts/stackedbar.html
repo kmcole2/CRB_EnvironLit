@@ -1,7 +1,6 @@
   
   <div id="chart_div"></div>
       
-
 <html>
   <head>
     <!--Load the AJAX API-->
@@ -14,11 +13,12 @@
 
 			function drawStacked() {
 			      var data = google.visualization.arrayToDataTable([
-			        ['City', 'banana', 'strawberry'],
-			        ['calories', 2175/2500, 3008/2500],
+			        ['Nutrients', 'banana', 'strawberry'],
 			        ['fat', 37/65, 36.9/65],
 			        ['protein', 26.9/50, 28.96/50],
 			        ['vitamin D', 209/400, 195/400],
+			        ['vitamin E', 209/400, 195/400],
+
 			      ]);
 
 			      var options = {
@@ -31,7 +31,7 @@
 			          minValue: 0,
 			        },
 			        vAxis: {
-			          title: 'City'
+			          title: 'Nurtients'
 			        }
 			      };
 			      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
