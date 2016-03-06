@@ -21,20 +21,20 @@ html{
 
 </style>  </head>
 
-  <body>
+  <body> 
 
   </div>
   <div id="H20" class="container draggable js-drag " style="transform: translate(1096px,0px);">
-    <span id="chartTotal1" style="text-align:center;"></span>
     <div id ="chart_div1" class="chart"></div>
+    <p id="chartTotal1" style="text-align:center; width: 300px; background-color: #b0afaf; transform: translate(0px,-16px);"></p>
   </div>
   <div id="C02" class=" draggable js-drag" style="transform: translate(-9px,339px);">
-      <span id="chartTotal2" style="text-align:center;"></span>
       <div id ="chart_div2" class="chart"></div>
+      <p id="chartTotal2" style="text-align:center; width: 300px; background-color: #96ccda; transform: translate(0px,-16px);"></p>
   </div>
   <div id="Calories" class="container draggable js-drag"  style="transform: translate(1096px,99px);">
-      <span id="chartTotal3" style="text-align:center;"></span>
       <div id ="chart_div3" class="chart"></div>
+      <p id="chartTotal3" style="text-align:center; width: 300px; background-color: #abd79f; transform: translate(0px,-16px);"></p>
   </div>
   <div id="cost">
     <table style="border-collapse: collapse; transform: translate(-616px,-581px);" id="table" class="draggable js-drag table" >
@@ -377,9 +377,9 @@ var exist = 0;
             exist = 1;
 
             //accumulator for preexisting chart elements
-            H2O_data.setValue(0, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('water')));//setRowProperty(rowIndex, name, value)
-            CO2_data.setValue(0, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('CO2')));
-            Cal_data.setValue(0, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('Cal')));
+            H2O_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('water')));//setRowProperty(rowIndex, name, value)
+            CO2_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('CO2')));
+            Cal_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('Cal')));
         }  
       }
       //add element if it doesn't exist 
@@ -490,14 +490,14 @@ function setupDropzone1(el, accept) {
 
               // h2o_arr.remove 
               console.log("entered");
-              console.log(item.value);//remove from array 
+             // console.log(item.value);//remove from array 
               // if (item.quant > 1){
               //   //adjust column value subtract
               // }
               // else{
               //   remove element entirely
               // }
-              item = event.relatedTarget;
+              //item = event.relatedTarget;
 
       //update chart 
 
@@ -506,15 +506,25 @@ function setupDropzone1(el, accept) {
       for(var a = 0; a < f.length; a++){
         //if more than one instance exists decrement
         if (f[a].name == event.relatedTarget.getAttribute('name')){
+          console.log("aslready exists");
           if(f[a].quant > 1){
-            f[a].quant = parseFloat(f[a].quant) - 1 ;
-            f[a].price = parseFloat(f[a].price) - parseFloat(event.relatedTarget.getAttribute('cost')); 
+            f[a].quant = parseFloat(f[a].quant) - 1;
+            f[a].price = parseFloat(f[a].price) - parseFloat(event.relatedTarget.getAttribute('cost'));
+
+            //decrement chart values
+            H2O_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('water')));//setRowProperty(rowIndex, columnIdx, value)
+            CO2_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('CO2')));
+            Cal_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('Cal')));
           }
           else{
             f.splice(a,1);
           }  
         }  
       }
+
+    H2O_chart.draw(H2O_data, H2O_options);
+    CO2_chart.draw(CO2_data, CO2_options);
+    Cal_chart.draw(Cal_data, Cal_options);
     var food_table = '<tr><td width=80 height=50 >Item</td><td width=50>Quantity</td><td>Price</td></tr><br>';
 
 
@@ -538,20 +548,17 @@ function setupDropzone1(el, accept) {
     }
     document.getElementById('totalprice').innerHTML = "$ " + parseFloat(total).toFixed(2);
 
-    if(item.value != 0){
-      var start = item.value;
-        H2O_data.removeRow(item.value-1);
-        CO2_data.removeRow(item.value-1);
-        Cal_data.removeRow(item.value-1);   
+    // if(item.value != 0){
+    //   var start = item.value;
+    //     H2O_data.removeRow(item.value-1);
+    //     CO2_data.removeRow(item.value-1);
+    //     Cal_data.removeRow(item.value-1);   
 
-    }
+    // }
 
     console.log(H2O_data);
     console.log(h2o_arr);
 
-    H2O_chart.draw(H2O_data, H2O_options);
-    CO2_chart.draw(CO2_data, CO2_options);
-    Cal_chart.draw(Cal_data, Cal_options);
             });
     }
     function addClass (element, className) {
