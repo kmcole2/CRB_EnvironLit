@@ -40,13 +40,17 @@ body { font-family: Helvetica, Arial, sans-serif; }
 
 .draggable.-drop-possible { 
  }
-
-    @font-face {
-    font-family: UniverseLight;
-    src: url(UniversLTStd-Light.otf);
+/*    @font-face {
+      font-family: UniverseLight;
+      src: url(fonts/UniversLTStd-Light.otf) format("opentype");
     }
+    @font-face {
+      font-family: UniverseLight;
+      src: url(fonts/UniversLTStd-Bold.otf) format("opentype");
+      font-weight: bold;
+    }*/
       body{
-        font-family: UniverseLight;
+        /*font-family: UniverseLight;*/
  /*       background-image: url("img/Table.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;*/

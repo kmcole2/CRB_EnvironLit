@@ -6,17 +6,16 @@
     <!--Load the AJAX API-->
 <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="http://www.google.com/uds/modules/gviz/gviz-api.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
     <script src="http://code.interactjs.io/v1.2.6/interact.min.js"></script>
-        <script src="js/resize.js"></script>
+    <script src="js/resize.js"></script>
     <link rel="stylesheet" href="css/dropzones.css">
 
 <style>
 html{
   background: url(img/table0.png) no-repeat center center fixed; 
-  background-size: 100%;
+  background-size: cover;
 }
 
 </style>  </head>
@@ -46,73 +45,73 @@ html{
     </table>
   </div>
 <br>
-  <!-- <div id="drop1" name="trash" class="dropzone js-drop plate" style="border-style: solid;"></div> -->
-   <img src= "img/Plate.png" id="drop2" name="plate" class="dropzone js-drop plate rotate-area">
+   <img src= "img/Plate.png" id="drop2" name="plate" class="dropzone js-drop plate">
 
-<!-- FIRST SET -->
-   <img src="img/food/Burger.png" id="drag1" class="draggable js-drag food rotate-area"  
+   <img src="img/food/Burger.png" id="drag1" class="draggable js-drag food"  
    name="Burger"          cost="4.276"  water="15400" CO2="27"    Cal="191"  quant="1" 
    style="transform: translate(-44px,-204px);">
-   <img src="img/food/Steak.png" id="drag1" class="draggable js-drag food rotate-area" 
-   name="Steak"           cost="8.997"  water="15415" CO2="49"    Cal="413"  quant="1" 
+   <img src="img/food/Steak.png" id="drag1" class="draggable js-drag food" 
+   name="Steak"           cost="8.997"  water="15415" CO2="49"    Cal="413"  quant="1"
    style="transform: translate(4px,-97px);">
-   <img src="img/food/Cheese.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Cheese.png" id="drag1" class="draggable js-drag food"
    name="Cheese"          cost="6.089"  water="5060"  CO2="13.5"  Cal="114"  quant="1"
      style="transform: translate(-92px,-634px);">
-   <img src="img/food/Bacon.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Bacon.png" id="drag1" class="draggable js-drag food"
    name="Bacon"           cost="5.04"   water="6000"  CO2="12.1"  Cal="65"   quant="1"
      style="transform: translate(-69px,-71px);">
-   <img src="img/food/Chicken.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Chicken.png" id="drag1" class="draggable js-drag food"
    name="Chicken"         cost="3.141"  water="4330"  CO2="6.9"   Cal="367"  quant="1"
      style="transform: translate(-264px,-138px);">   
-   <img src="img/food/Egg.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Egg.png" id="drag1" class="draggable js-drag food"
    name="Egg"                cost="2.396"  water="3265"  CO2="4.8"   Cal="77"   quant="1"
      style="transform: translate(-440px,-546px);">
-   <img src="img/food/Potoato.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Potoato.png" id="drag1" class="draggable js-drag food"
    name="Potato"           cost="0.55"   water="287"   CO2="2.9"   Cal="117"  quant="1"
      style="transform: translate(-495px,-398px);">
-   <img src="img/food/Fries.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Fries.png" id="drag1" class="draggable js-drag food"
    name="Fries"            cost="0.284"  water="1045"  CO2="26.2"  Cal="542"  quant="1"
      style="transform: translate(-654px,-414px);">
-   <img src="img/food/Chips.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Chips.png" id="drag1" class="draggable js-drag food"
    name="Chips"            cost="4.247"  water="1040"  CO2="26.2"  Cal="291"  quant="1"
      style="transform: translate(-731px,-344px);">
-   <img src="img/food/Rice.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Rice.png" id="drag1" class="draggable js-drag food"
    name="Rice"             cost="0.732"  water="2497"  CO2="2.7"   Cal="204"  quant="1"
    style="transform: translate(-631px,-61px);">
-   <img src="img/food/PeanutButter.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/PeanutButter.png" id="drag1" class="draggable js-drag food"
    name="Peanut Butter"   cost="2.475"  water="3970"  CO2="2.3"   Cal="173"  quant="1"
    style="transform: translate(427px,-693px);">
-   <img src="img/food/Tofu.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Tofu.png" id="drag1" class="draggable js-drag food"
    name="Tofu"            cost="1.514"  water="924"   CO2="2"     Cal="113"  quant="1" 
    style="transform: translate(318px,-201px);">
-   <img src="img/food/Beans.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Beans.png" id="drag1" class="draggable js-drag food"
    name="Beans"           cost="1.514"  water="162"   CO2="0.9"   Cal="157"  quant="1"
    style="transform: translate(400px,-114px);">
-   <img src="img/food/Lettuc.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Lettuc.png" id="drag1" class="draggable js-drag food"
    name="Lettuce"         cost="1.936"  water="240"   CO2="2"     Cal="8"    quant="1"
    style="transform: translate(246px,-605px);">
-   <img src="img/food/Brocoli.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Brocoli.png" id="drag1" class="draggable js-drag food"
    name="Broccoli"        cost="1.732"  water="128"   CO2="2"     Cal="34"   quant="1"
    style="transform: translate(127px,-546px);">
-   <img src="img/food/Corn.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Corn.png" id="drag1" class="draggable js-drag food"
    name="Corn"            cost="0.98"   water="1220"  CO2="2"     Cal="156"  quant="1"
    style="transform: translate(167px,-656px);">
-   <img src="img/food/Strawberry.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Strawberry.png" id="drag1" class="draggable js-drag food"
    name="Strawberry"      cost="3.44"   water="124"   CO2="1.1"   Cal="53"   quant="1"
    style="transform: translate(-89px,-271px);">
-   <img src="img/food/Tomato.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Tomato.png" id="drag1" class="draggable js-drag food"
    name="Tomato"          cost="1.948"  water="214"   CO2="1.1"   Cal="22"   quant="1"
    style="transform: translate(-183px,-348px);">
-   <img src="img/food/Orange.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Orange.png" id="drag1" class="draggable js-drag food"
    name="Orange"           cost="2.352"  water="560"   CO2="1.1"   Cal="86"   quant="1"
    style="transform: translate(-190px,-420px);">
-   <img src="img/food/Banana.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Banana.png" id="drag1" class="draggable js-drag food"
    name="Bananas"         cost="0.592"  water="790"   CO2="1.1"   Cal="121"  quant="1"
    style="transform: translate(-246px,-361px);">
-   <img src="img/food/Bread.png" id="drag1" class="draggable js-drag food rotate-area"
+   <img src="img/food/Bread.png" id="drag1" class="draggable js-drag food"
    name="Bread"           cost="3.028"  water="1608"  CO2="2.4"   Cal="69"   quant="1"
    style="transform: translate(-378px,-575px);">
+
+  <img src="img/trash.jpg" id="drop1" name="trash" class="dropzone js-drop" style="transform: translate(-9px,-150px);">
 
   </body>
 
@@ -156,7 +155,7 @@ html{
         title: 'H2O', 
         titleTextStyle: {
           color: '#e8e3da', 
-          fontName: 'UniverseLight', 
+          //fontName: 'UniverseLight', 
           fontSize: '16', 
           fontWidth: 'normal'},
         hAxis: {
@@ -181,7 +180,7 @@ html{
         title: 'CO2',
         titleTextStyle: {
           color: '#e8e3da', 
-          fontName: 'UniverseLight', 
+         // fontName: 'UniverseLight', 
           fontSize: '16', 
           fontWidth: 'normal'
         },
@@ -206,7 +205,7 @@ html{
         title: 'Calories',
         titleTextStyle: {
           color: '#e8e3da', 
-          fontName: 'UniverseLight', 
+          //fontName: 'UniverseLight', 
           fontSize: '16', 
           fontWidth: 'normal'
         },
@@ -254,7 +253,6 @@ var exist = 0;
      return total;
    }
 
- //graph data/??
   var h2o_arr = new Array();
   var co2_arr = new Array();
   var cal_arr = new Array();
@@ -300,7 +298,6 @@ var exist = 0;
         .on('drop', function (event) {
             // document.getElementById('')
       //chart.draw(data, options);
-      console.log("hi");
         });
 
     // setup drop areas.
@@ -318,6 +315,9 @@ var exist = 0;
      * @param {HTMLElement|String} el
      * @param {String} accept
      */
+
+    var item;
+
     function setupDropzone(el, accept) {
         interact(el)
             .dropzone({
@@ -335,7 +335,7 @@ var exist = 0;
                 // change style if it was previously not active
                 if (active === 0) {
                     addClass(event.target, '-drop-possible');
-                    event.target.textContent = 'Trash';
+                    event.target.textContent = 'Drop me here!';
                 }
 
                 event.target.setAttribute('active', active + 1);
@@ -347,7 +347,7 @@ var exist = 0;
                 // but will no longer be active
                 if (active === 1) {
                     removeClass(event.target, '-drop-possible');
-                    event.target.textContent = 'Trash';
+                    event.target.textContent = 'Dropzone';
                 }
 
                 event.target.setAttribute('active', active - 1);
@@ -364,94 +364,81 @@ var exist = 0;
 
                 removeClass(event.target, '-drop-over');
                 event.relatedTarget.textContent = 'Dropped';
- //               console.log("event.relatedTarget = " + event.relatedTarget.value);
 
                  console.log("event.target = " + event.target);
                  console.log(event.relatedTarget.getAttribute('name'));
 
-              if(f.length < 8){
-              //if(.f.)
-                //check for prexisting - edit array
-                for(var a = 0; a < f.length; a++){
-                  if (f[a].name == event.relatedTarget.getAttribute('name')){
-                      f[a].quant = parseFloat(f[a].quant) + 1 ;
-                      f[a].price = parseFloat(f[a].price) + parseFloat(event.relatedTarget.getAttribute('cost')); 
-                      exist = 1;
-                  }  
-                }
-                //add element if it doesn't exist 
-                if(exist == 0){
-                  var item = event.relatedTarget;
-                  var cost = item.getAttribute('cost')
-                    
-                    f.push({  
-                      name:  item.getAttribute('name'),
-                      price: parseFloat(cost).toFixed(2),
-                      quant: item.getAttribute('quant'),
-                      water: item.getAttribute('water'),
-                      CO2:   item.getAttribute('CO2'),
-                      Cal:   item.getAttribute('Cal')
-                    });   
-                }
-                //reset flag
-                exist = 0;
-                var food_table = '<tr><td width=80 height=50 >Item</td><td width=50>Quantity</td><td>Price</td></tr><br>';
+console.log(f.length);
+
+    // if (f.length < 8){
+      //check for prexisting - edit array
+      for(var a = 0; a < f.length; a++){
+        if (f[a].name == event.relatedTarget.getAttribute('name')){
+            f[a].quant = parseFloat(f[a].quant) + 1 ;
+            f[a].price = parseFloat(f[a].price) + parseFloat(event.relatedTarget.getAttribute('cost')); 
+            exist = 1;
+        }  
+      }
+      //add element if it doesn't exist 
+      if(exist == 0){
+        item = event.relatedTarget;
+        var cost = item.getAttribute('cost')
+          
+          f.push({  
+            name:  item.getAttribute('name'),
+            price: parseFloat(cost).toFixed(2),
+            quant: item.getAttribute('quant'),
+            water: item.getAttribute('water'),
+            CO2:   item.getAttribute('CO2'),
+            Cal:   item.getAttribute('Cal')
+          });   
+      }
+      //reset flag
+      exist = 0;
+    
+      var food_table = '<tr><td width=80 height=50 >Item</td><td width=50>Quantity</td><td>Price</td></tr><br>';
 
 
-              //populate food table array html to print array as table 
-              for(var i = 0; i < f.length; i ++){
-              //console.log(f[i].name + f[i].quant + f[i].price);
-                food_table +=
-                '<tr ' + 'id=\"' + f[i].name + '"\'> <td>' + f[i].name + ' </td> <td> x ' + f[i].quant + '</td> <td class=\"price\">' + parseFloat(f[i].price).toFixed(2) + '</td> </tr>';
-              }
-              //update cost table
-              food_table +=  '<tr class="bottom_line"><td>TOTAL</td><td></td><td id="totalprice"></td></tr></table>'; //<td colspan = "2"
-              document.getElementById('table').innerHTML = food_table; 
+    //populate food table array html to print array as table 
+    for(var i = 0; i < f.length; i ++){
+    //console.log(f[i].name + f[i].quant + f[i].price);
+      food_table +=
+      '<tr ' + 'id=\"' + f[i].name + '"\'> <td>' + f[i].name + ' </td> <td> x ' + f[i].quant + '</td> <td class=\"price\">' + parseFloat(f[i].price).toFixed(2) + '</td> </tr>';
+    }
+    //update cost table
+    food_table +=  '<tr class="bottom_line"><td>TOTAL</td><td></td><td id="totalprice"></td></tr></table>'; //<td colspan = "2"
+    document.getElementById('table').innerHTML = food_table; 
 
-              //calculate total cost
-              var fooditems = document.getElementById('cost').getElementsByTagName('td');
-              var total = 0;
-              for(var i = 0; i < fooditems.length; i++){
-                  if(fooditems[i].className == 'price'){
-                    total += isNaN(fooditems[i].innerHTML) ? 0: parseFloat(fooditems[i].innerHTML);
-                  }
-              }
-              document.getElementById('totalprice').innerHTML = "$ " + parseFloat(total).toFixed(2);
+    //calculate total cost
+    var fooditems = document.getElementById('cost').getElementsByTagName('td');
+    var total = 0;
+    for(var i = 0; i < fooditems.length; i++){
+        if(fooditems[i].className == 'price'){
+          total += isNaN(fooditems[i].innerHTML) ? 0: parseFloat(fooditems[i].innerHTML);
+        }
+    }
+    document.getElementById('totalprice').innerHTML = "$ " + parseFloat(total).toFixed(2);
 
-       //       var att = document.createAttribute("val");
-              item.value = h2o_arr.push(item.getAttribute('id'), H2O_data.addRow([item.getAttribute('name'), parseInt(item.getAttributeNode('water'))]));
-              //console.log("att value =" + att.value);
-             // att.setAttributeNode(att);
-//              event.relatedTarget.setAttributeNode(att); 
-  //            console.log(event.relatedTarget.value);
+    item.value = h2o_arr.push(H2O_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('water'))]));
+    co2_arr.push(CO2_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('CO2'))]));
+    cal_arr.push(Cal_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('Cal'))]));
 
-// var anchor = document.getElementById("myAnchor");  // Get the <a> element with id="myAnchor"
-// var att = document.createAttribute("href");        // Create a "href" attribute
-// att.value = "http://www.w3schools.com";            // Set the value of the href attribute
-// anchor.setAttributeNode(att);
-
-             // console.log(att.value);
-             console.log("idx=" + co2_arr.push(item.getAttribute('id'), CO2_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('CO2'))])));
-
-              cal_arr.push(item.getAttribute('id'), Cal_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('Cal'))]));
-
+    console.log("initial item idx=" + item.value);
 
     document.getElementById('chartTotal1').innerHTML = "Total    " + graphtotal(H2O_data);
     document.getElementById('chartTotal2').innerHTML = "Total    " + graphtotal(CO2_data);
     document.getElementById('chartTotal3').innerHTML = "Total    " + graphtotal(Cal_data);
     
-   // console.log(h2o_arr.length);
+ //   console.log(H2O_data);
+
 
     H2O_chart.draw(H2O_data, H2O_options);
     CO2_chart.draw(CO2_data, CO2_options);
     Cal_chart.draw(Cal_data, Cal_options);
-}    });
+            });
 
     }
-
-
-
-    function setupDropzone1(el, accept) {
+function setupDropzone1(el, accept) {
         interact(el)
             .dropzone({
                 accept: accept,
@@ -468,7 +455,7 @@ var exist = 0;
                 // change style if it was previously not active
                 if (active === 0) {
                     addClass(event.target, '-drop-possible');
-                    event.target.textContent = 'TRASH';
+                    event.target.textContent = 'Drop me here!';
                 }
 
                 event.target.setAttribute('active', active + 1);
@@ -480,7 +467,7 @@ var exist = 0;
                 // but will no longer be active
                 if (active === 1) {
                     removeClass(event.target, '-drop-possible');
-                    event.target.textContent = '       ';
+                    event.target.textContent = 'Dropzone';
                 }
 
                 event.target.setAttribute('active', active - 1);
@@ -494,26 +481,67 @@ var exist = 0;
                 event.relatedTarget.textContent = 'Drag me…';
             })
             .on('drop', function (event) {
+
                 removeClass(event.target, '-drop-over');
                 event.relatedTarget.textContent = 'Dropped';
 
-                //identify dropped element
-               // console.log(event.relatedTarget);
-                H2O_data.removeRow(1);
+              // h2o_arr.remove 
+              console.log("entered");
+              console.log(item.value);//remove from array 
+              // if (item.quant > 1){
+              //   //adjust column value subtract
+              // }
+              // else{
+              //   remove element entirely
+              // }
+              item = event.relatedTarget;
+
+      //update cost table
+      //if element exists decrement quantity and subtract unit price
+      for(var a = 0; a < f.length; a++){
+        if (f[a].name == event.relatedTarget.getAttribute('name')){
+          if(f[a].quant > 1){
+            f[a].quant = parseFloat(f[a].quant) - 1 ;
+            f[a].price = parseFloat(f[a].price) - parseFloat(event.relatedTarget.getAttribute('cost')); 
+          }
+          else{
+            f.splice(a,1);
+          }  
+        }  
+      }
+    var food_table = '<tr><td width=80 height=50 >Item</td><td width=50>Quantity</td><td>Price</td></tr><br>';
 
 
+    //populate food table array html to print array as table 
+    for(var i = 0; i < f.length; i ++){
+    //console.log(f[i].name + f[i].quant + f[i].price);
+      food_table +=
+      '<tr ' + 'id=\"' + f[i].name + '"\'> <td>' + f[i].name + ' </td> <td> x ' + f[i].quant + '</td> <td class=\"price\">' + parseFloat(f[i].price).toFixed(2) + '</td> </tr>';
+    }
+    //update cost table
+    food_table +=  '<tr class="bottom_line"><td>TOTAL</td><td></td><td id="totalprice"></td></tr></table>'; //<td colspan = "2"
+    document.getElementById('table').innerHTML = food_table; 
 
-// var anchor = document.getElementById("myAnchor");  // Get the <a> element with id="myAnchor"
-// var att = document.createAttribute("href");        // Create a "href" attribute
-// att.value = "http://www.w3schools.com";            // Set the value of the href attribute
-// anchor.setAttributeNode(att);  
-                //find element in graph indices
-                //remove element, update graph totals
-                //find element in tabulated receipt
-                //decrement price
+    //calculate total cost
+    var fooditems = document.getElementById('cost').getElementsByTagName('td');
+    var total = 0;
+    for(var i = 0; i < fooditems.length; i++){
+        if(fooditems[i].className == 'price'){
+          total += isNaN(fooditems[i].innerHTML) ? 0: parseFloat(fooditems[i].innerHTML);
+        }
+    }
+    document.getElementById('totalprice').innerHTML = "$ " + parseFloat(total).toFixed(2);
+
+              // H2O_data.removeRow(item.value-1);
+              // CO2_data.removeRow(item.value-1);
+              // Cal_data.removeRow(item.value-1); 
+
+
+    H2O_chart.draw(H2O_data, H2O_options);
+    CO2_chart.draw(CO2_data, CO2_options);
+    Cal_chart.draw(Cal_data, Cal_options);
             });
     }
-
     function addClass (element, className) {
         if (element.classList) {
             return element.classList.add(className);
