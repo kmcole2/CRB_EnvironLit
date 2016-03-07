@@ -1,10 +1,9 @@
-<!-- ctrl t -->
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
   <head>
     <!--Load the AJAX API-->
-<meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="http://www.google.com/uds/modules/gviz/gviz-api.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -13,13 +12,23 @@
     <script src="js/resize.js"></script>
     <link rel="stylesheet" href="css/dropzones.css">
 
-<style>
-html{
-  background: url(img/table0.png) no-repeat center center fixed; 
-  background-size: cover;
-}
-
-</style>  </head>
+  <style>
+      @font-face {
+        font-family: UniverseLight;
+        src: url(fonts/UniversLTStd-Light.otf) format("opentype");
+      }
+      @font-face {
+        font-family: UniverseLight;
+        src: url(fonts/UniversLTStd-Bold.otf) format("opentype");
+        font-weight: bold;
+      }
+      html {
+        background: url(img/table0.png) no-repeat center center fixed; 
+        background-size: cover;
+        font-family: UniverseLight;
+      }
+  </style>  
+</head>
 
   <body> 
 
@@ -36,7 +45,7 @@ html{
       <div id ="chart_div3" class="chart"></div>
       <p id="chartTotal3" style="text-align:center; width: 300px; background-color: #abd79f; transform: translate(0px,-16px);"></p>
   </div>
-  <div id="cost">
+  <div id="cost" style="font-family: UniverseLight;">
     <table style="border-collapse: collapse; transform: translate(-616px,-581px);" id="table" class="draggable js-drag table" >
       <tr>
         <td>Item</td>
@@ -367,7 +376,14 @@ var exist = 0;
                  console.log("event.target = " + event.target);
                  console.log(event.relatedTarget.getAttribute('name'));
 
-    // if (f.length < 8){
+    //8 limit cap 
+    var item_quant = 0
+    for(var a = 0; a < f.length; a++){
+      item_quant += parseFloat(f[a].quant);
+    }
+      console.log(item_quant + " " +" " + f.length);
+
+    if (f.length < 8 && item_quant < 8){
       //check for prexisting - edit array
       item = event.relatedTarget;
       for(var a = 0; a < f.length; a++){
@@ -401,7 +417,10 @@ var exist = 0;
       }
       //reset flag
       exist = 0;
-    
+      }
+      else{
+        console.log("more than 8");
+      }
       var food_table = '<tr><td width=80 height=50 >Item</td><td width=50>Quantity</td><td>Price</td></tr><br>';
 
 
@@ -489,7 +508,7 @@ function setupDropzone1(el, accept) {
                 event.relatedTarget.textContent = 'Dropped';
 
               // h2o_arr.remove 
-              console.log("entered");
+              console.log("to remove item");
              // console.log(item.value);//remove from array 
               // if (item.quant > 1){
               //   //adjust column value subtract
@@ -506,7 +525,7 @@ function setupDropzone1(el, accept) {
       for(var a = 0; a < f.length; a++){
         //if more than one instance exists decrement
         if (f[a].name == event.relatedTarget.getAttribute('name')){
-          console.log("aslready exists");
+          console.log("already exists");
           if(f[a].quant > 1){
             f[a].quant = parseFloat(f[a].quant) - 1;
             f[a].price = parseFloat(f[a].price) - parseFloat(event.relatedTarget.getAttribute('cost'));
@@ -518,6 +537,9 @@ function setupDropzone1(el, accept) {
           }
           else{
             f.splice(a,1);
+            H2O_data.removeRow(a);
+            CO2_data.removeRow(a);
+            Cal_data.removeRow(a);
           }  
         }  
       }

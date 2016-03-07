@@ -1,5 +1,5 @@
-body { font-family: Helvetica, Arial, sans-serif; }
 
+  
 .dropzone-wrapper {
     position: absolute;
     margin: auto;
@@ -40,20 +40,12 @@ body { font-family: Helvetica, Arial, sans-serif; }
 
 .draggable.-drop-possible { 
  }
-/*    @font-face {
-      font-family: UniverseLight;
-      src: url(fonts/UniversLTStd-Light.otf) format("opentype");
-    }
-    @font-face {
-      font-family: UniverseLight;
-      src: url(fonts/UniversLTStd-Bold.otf) format("opentype");
-      font-weight: bold;
-    }*/
+
       body{
-        /*font-family: UniverseLight;*/
- /*       background-image: url("img/Table.png");
+        font-family: UniverseLight;
+        background-image: url("img/Table.png");
         background-repeat: no-repeat;
-        background-size: 100% 100%;*/
+        background-size: 100% 100%;
       }
       tr.bottom_line td{
         border-top: 1pt solid black;
@@ -80,6 +72,7 @@ body { font-family: Helvetica, Arial, sans-serif; }
           text-align: center;
        }
       .chart{
+        /*font-family: UniverseLight;*/
         width: 300px;
         margin-top: 100px;
         /*align:center;*/
@@ -114,11 +107,11 @@ body { font-family: Helvetica, Arial, sans-serif; }
         background-color: #ea8524;
       }
 
-            .droptarget {
-          float: left; 
-          width: 100px; 
-          height: 35px;
-          margin-top: 200px;
-          padding: 10px;
-          border: 1px solid #aaaaaa;
+      .droptarget {
+        float: left; 
+        width: 100px; 
+        height: 35px;
+        margin-top: 200px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
       }
