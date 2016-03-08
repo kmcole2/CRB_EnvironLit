@@ -23,7 +23,7 @@
         font-weight: bold;
       }
       html {
-        background: url(img/table0.png) no-repeat center center fixed; 
+        background: url(img/WoodenTable.png) no-repeat center center fixed; 
         background-size: cover;
         font-family: UniverseLight;
       }
@@ -33,16 +33,16 @@
   <body> 
 
   </div>
-  <div id="H20" class="container draggable js-drag " style="transform: translate(1096px,0px);">
-    <div id ="chart_div1" class="chart"></div>
+  <div id="H20" class="container draggable js-drag gesture-area" style="transform: translate(1096px,0px);">
+    <div id ="chart_div1" class="chart scale-element"></div>
     <p id="chartTotal1" style="text-align:center; width: 300px; background-color: #b0afaf; transform: translate(0px,-16px);"></p>
   </div>
-  <div id="C02" class=" draggable js-drag" style="transform: translate(-9px,339px);">
-      <div id ="chart_div2" class="chart"></div>
+  <div id="C02" class=" draggable js-drag gesture-area" style="transform: translate(-9px,339px);">
+      <div id ="chart_div2" class="chart scale-element"></div>
       <p id="chartTotal2" style="text-align:center; width: 300px; background-color: #96ccda; transform: translate(0px,-16px);"></p>
   </div>
-  <div id="Calories" class="container draggable js-drag"  style="transform: translate(1096px,99px);">
-      <div id ="chart_div3" class="chart"></div>
+  <div id="Calories" class="container draggable js-drag gesture-area" style="transform: translate(1096px,99px);">
+      <div id ="chart_div3" class="chart scale-element"></div>
       <p id="chartTotal3" style="text-align:center; width: 300px; background-color: #abd79f; transform: translate(0px,-16px);"></p>
   </div>
   <div id="cost" style="font-family: UniverseLight;">
@@ -55,6 +55,7 @@
     </table>
   </div>
 <br>
+
    <img src= "img/Plate.png" id="drop2" name="plate" class="dropzone js-drop plate">
 
    <img src="img/food/Burger.png" id="drag1" class="draggable js-drag food"  

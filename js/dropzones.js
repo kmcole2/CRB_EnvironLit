@@ -66,7 +66,7 @@
                 // change style if it was previously not active
                 if (active === 0) {
                     addClass(event.target, '-drop-possible');
-                    event.target.textContent = 'Drop me here!';
+                    event.target.textContent = 'Drop me here!'; 
                 }
 
                 event.target.setAttribute('active', active + 1);

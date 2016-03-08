@@ -1,5 +1,5 @@
 
-  
+
 .dropzone-wrapper {
     position: absolute;
     margin: auto;
@@ -43,7 +43,6 @@
 
       body{
         font-family: UniverseLight;
-        background-image: url("img/Table.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;
       }
