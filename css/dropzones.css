@@ -56,17 +56,16 @@
         font-family: UniverseLight;
         padding: 5px;
       }
-      .container{
+/*      .container{
         width: 200px;
         height: 2px;
         margin: 0 auto;
         position: relative;
-       /* border: 4px solid green;*/
         display:inline-block;
-       } 
-       .container{
+       } */
+    /*   .container{
         float:center;
-       }
+       }*/
        span{
           text-align: center;
        }
@@ -98,8 +97,7 @@
              display: inline-block;
       }
       #drop1{
-        height:50px;
-        width:50px;
+        width:100px;
         display:inline;
       }
       #table{

@@ -1,6 +1,6 @@
 var scale = 1,
-    gestureArea = document.getElementByClassName('gesture-area'),
-    scaleElement = document.getElementByClassName('scale-element'),
+    gestureArea = document.getElementsByClassName('gesture-area'),
+    scaleElement = document.getElementsByClassName('scale-element'),
     resetTimeout;
 
 interact(gestureArea)
