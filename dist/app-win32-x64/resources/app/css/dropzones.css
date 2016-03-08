@@ -1,0 +1,114 @@
+
+
+.dropzone-wrapper {
+    position: absolute;
+    margin: auto;
+    padding: auto;
+}
+
+.dropzone {
+    overflow: hidden;
+    margin: .5em;
+    padding: 1em;
+    color: #666;
+    text-align: center;
+    line-height: 4em;
+    border: 4px dashed transparent;
+    transition: background .15s linear, border-color .15s linear;
+}
+
+.dropzone.-drop-possible { border-color: #666; }
+
+.dropzone.-drop-over {
+    background: #666;
+    color: #fff;
+}
+
+.draggable {
+    position: relative;
+    z-index: 10;
+    width: 200px;
+    margin: 0 em;
+    padding: 1em 0.5em;
+ 
+    color: #fff;
+    text-align: center;
+
+    -ms-touch-action: none;
+        touch-action: none;
+}
+
+.draggable.-drop-possible { 
+ }
+
+      body{
+        font-family: UniverseLight;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
+      tr.bottom_line td{
+        border-top: 1pt solid black;
+      } 
+      #cost{
+        transform: translate(-550px,340px);
+        height:300px;
+        float:right;
+        font-family: UniverseLight;
+        padding: 5px;
+      }
+/*      .container{
+        width: 200px;
+        height: 2px;
+        margin: 0 auto;
+        position: relative;
+        display:inline-block;
+       } */
+    /*   .container{
+        float:center;
+       }*/
+       span{
+          text-align: center;
+       }
+      .chart{
+        /*font-family: UniverseLight;*/
+        width: 300px;
+        margin-top: 100px;
+        /*align:center;*/
+        margin:auto;
+        /*position:absolute;*/
+      }      
+      #drop2{
+        width:400px;
+        /*float:center;*/
+        /*float:right;*/
+/*        right: 50px;*/
+        /*margin: auto;*/
+        transform: translate(487.00px,-153px);
+      }
+
+      #drag1{
+        text-align: center;
+      }
+      #drop1{
+        width:100%;
+      }
+      .food{  height:50px;
+             width:50px;
+             display: inline-block;
+      }
+      #drop1{
+        width:100px;
+        display:inline;
+      }
+      #table{
+        background-color: #ea8524;
+      }
+
+      .droptarget {
+        float: left; 
+        width: 100px; 
+        height: 35px;
+        margin-top: 200px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
+      }
