@@ -1,4 +1,8 @@
+Environmental Literacies Project
 
-https://www.microsoft.com/en-us/download/confirmation.aspx?id=40773 
+See motivations - CRB Narrative
 
-https://www.microsoft.com/en-us/download/confirmation.aspx?id=49983
+To run 
+	Mac -  launch FoodForThought application
+	Windows - open app.exe (dist > app-win32-x64 > app.exe)
+
