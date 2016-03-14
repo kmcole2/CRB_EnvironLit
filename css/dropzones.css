@@ -1,5 +1,16 @@
-
-
+  body {
+     overflow:hidden;
+   }
+  @font-face {
+    font-family: UniverseLight;
+    src: url(fonts/UniversLTStd-Light.otf) format("opentype");
+  }
+  @font-face {
+    font-family: UniverseLight;
+    src: url(fonts/UniversLTStd-Bold.otf) format("opentype");
+    font-weight: bold;
+  }
+ 
 .dropzone-wrapper {
     position: absolute;
     margin: auto;
