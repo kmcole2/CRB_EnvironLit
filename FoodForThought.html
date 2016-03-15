@@ -9,11 +9,12 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
     <script src="http://code.interactjs.io/v1.2.6/interact.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/dropzones.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/dropzones.css"> -->
     <script  type="text/javascript" src="js/dropzones_edit.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/food.css">
 
   <style>
-      @font-face {
+    @font-face {
         font-family: UniverseLight;
         src: url(fonts/UniversLTStd-Light.otf) format("opentype");
       }
@@ -29,27 +30,289 @@
       }
   </style>  
 
+<style>
+  body {
+     overflow:hidden;
+   }
+  .container{
+    width: 200px;
+    height: 2px;
+    margin: 0 auto;
+    position: relative;
+    display:inline-block;
+   } 
+  #CO2{
+    width:300px; 
+  }
+
+  .food{  
+    height:70px;
+    width: 70px;
+    display: inline-block;
+  }
+  #cost{
+    transform: translate(-1000px,-1800px);
+    height:300px;
+    float:right;
+    font-family: UniverseLight;
+    padding: 5px;
+  }
+.table {
+  /*background-color: #ccc;*/
+  border: dashed 4px transparent;
+  border-radius: 4px;
+  margin: 10px auto 30px;
+  padding: 10px;
+  /*background: lightblue;*/
+  transition: background-color 0.3s;
+}#outer-dropzone {
+  width: 1920px;
+  height:1080px;
+
+}
+
+.plate {
+  /*background-color: #ccc;*/
+  border: dashed 4px transparent;
+  border-radius: 4px;
+  margin: 10px auto 30px;
+  padding: 10px;
+  background: lightpink;
+ /* width: 70%;*/
+  /*transition: background-color 0.3s;*/
+}#inner-dropzone {
+  height: 400px;
+  width:  400px;
+  transform: translate(10px,-800px);
+} 
+
+.drop-active {
+  border-color: #aaa;
+}
+.drop-target {
+  /*background-color: #29e;*/
+  border-color: #fff;
+  border-style: solid;
+}
+.drag-drop {
+  display: inline-block;
+  min-width: 40px;
+  padding: 2em 0.5em;
+
+  color: #fff;
+  /*background-color: #29e;*/
+  border: solid 2px #fff;
+
+  -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+
+  transition: background-color 0.3s;
+}
+.drag-drop.can-drop {
+  color: #000;
+  background-color: #4e4;
+}
+
+.draggable {
+    position: relative;
+    z-index: 10;
+    margin: .25em;
+    padding: 1em 2em;
+    /*color: #fff;*/
+    text-align: center;
+
+    -ms-touch-action: none;
+        touch-action: none;
+}
+
+.draggable.-drop-possible { background-color: #42bd41; }
+
+</style>
+<script>
+interact('.table').dropzone({
+  // only accept elements matching this CSS selector
+  accept: '#drag1',
+  // Require a 75% element overlap for a drop to be possible
+  overlap: 0.75,
+
+  // listen for drop related events:
+
+  ondropactivate: function (event) {
+    // add active dropzone feedback
+    event.target.classList.add('drop-active');
+  },
+  ondragenter: function (event) {
+    var draggableElement = event.relatedTarget,
+        dropzoneElement = event.target;
+
+    // feedback the possibility of a drop
+    dropzoneElement.classList.add('drop-target');
+    draggableElement.classList.add('can-drop');
+    draggableElement.textContent = 'Dragged in';
+  },
+  ondragleave: function (event) {
+    // remove the drop feedback style
+    event.target.classList.remove('drop-target');
+    event.relatedTarget.classList.remove('can-drop');
+    event.relatedTarget.textContent = 'Dragged out';
+  },
+  ondrop: function (event) {
+    event.relatedTarget.textContent = 'Dropped';
+    console.log("dropzone 0");
+
+    halfsize(event.relatedTarget);            //half image size
+    chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
+    costTable_redraw();                       //redraw table
+    calc_cost();  
+  },
+  ondropdeactivate: function (event) {
+    // remove active dropzone feedback
+    event.target.classList.remove('drop-active');
+    event.target.classList.remove('drop-target');
+  }
+});
+interact('.plate').dropzone({
+  // only accept elements matching this CSS selector
+  accept: '#drag1',
+  // Require a 75% element overlap for a drop to be possible
+  overlap: 0.75,
+
+  // listen for drop related events:
+
+  ondropactivate: function (event) {
+    // add active dropzone feedback
+    event.target.classList.add('drop-active');
+  },
+  ondragenter: function (event) {
+    var draggableElement = event.relatedTarget,
+        dropzoneElement = event.target;
+
+    // feedback the possibility of a drop
+    dropzoneElement.classList.add('drop-target');
+    draggableElement.classList.add('can-drop');
+    draggableElement.textContent = 'Dragged in';
+  },
+  ondragleave: function (event) {
+    // remove the drop feedback style
+    event.target.classList.remove('drop-target');
+    event.relatedTarget.classList.remove('can-drop');
+    event.relatedTarget.textContent = 'Dragged out';
+  },
+  ondrop: function (event) {
+    event.relatedTarget.textContent = 'Dropped';
+    console.log("dropzone 1");
+    
+    //double image size
+    doublesize(event.relatedTarget);
+    chart_cost_add(event);
+    costTable_redraw();
+    calc_cost();
+  },
+  ondropdeactivate: function (event) {
+    // remove active dropzone feedback
+    event.target.classList.remove('drop-active');
+    event.target.classList.remove('drop-target');
+  }
+});
+//     (function (interact) {
+
+//     'use strict';
+
+    var transformProp;
+
+    interact.maxInteractions(Infinity);
+
+    // setup draggable elements.
+    interact('.draggable')
+        .draggable({ max: Infinity })
+        .on('dragstart', function (event) {
+            event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+            event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+        })
+        .on('dragmove', function (event) {
+            event.interaction.x += event.dx;
+            event.interaction.y += event.dy;
+
+            if (transformProp) {
+                event.target.style[transformProp] =
+                    'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+            }
+            else {
+                event.target.style.left = event.interaction.x + 'px';
+                event.target.style.top  = event.interaction.y + 'px';
+            }
+        })
+        .on('dragend', function (event) {
+            event.target.setAttribute('data-x', event.interaction.x);
+            event.target.setAttribute('data-y', event.interaction.y);
+        });
+</script>
 </head>
   <body> 
 
-  </div>
-  <div id="H20" class="container draggable js-drag gesture-area" style="transform: translate(900px,0px);">
+    <div id="outer-dropzone" class="table js-drop">table</div>
+    <div id="inner-dropzone" class="plate js-drop">plate</div>
+
+   <img src="img/food/Burger.png" id="drag1" class="draggable js-drag food"  
+   name="Burger"          cost="4.276"  water="15400" CO2="27"    Cal="191"  quant="1">
+   <img src="img/food/Steak.png" id="drag1" class="draggable js-drag food" 
+   name="Steak"           cost="8.997"  water="15415" CO2="49"    Cal="413"  quant="1">
+   <img src="img/food/Cheese.png" id="drag1" class="draggable js-drag food"
+   name="Cheese"          cost="6.089"  water="5060"  CO2="13.5"  Cal="114"  quant="1">
+   <img src="img/food/Bacon.png" id="drag1" class="draggable js-drag food"
+   name="Bacon"           cost="5.04"   water="6000"  CO2="12.1"  Cal="65"   quant="1">
+   <img src="img/food/Chicken.png" id="drag1" class="draggable js-drag food"
+   name="Chicken"         cost="3.141"  water="4330"  CO2="6.9"   Cal="367"  quant="1">
+   <img src="img/food/Egg.png" id="drag1" class="draggable js-drag food"
+   name="Egg"                cost="2.396"  water="3265"  CO2="4.8"   Cal="77"   quant="1">
+   <img src="img/food/Potoato.png" id="drag1" class="draggable js-drag food"
+   name="Potato"           cost="0.55"   water="287"   CO2="2.9"   Cal="117"  quant="1">
+   <img src="img/food/Fries.png" id="drag1" class="draggable js-drag food"
+   name="Fries"            cost="0.284"  water="1045"  CO2="26.2"  Cal="542"  quant="1">
+   <img src="img/food/Chips.png" id="drag1" class="draggable js-drag food"
+   name="Chips"            cost="4.247"  water="1040"  CO2="26.2"  Cal="291"  quant="1">
+   <img src="img/food/Rice.png" id="drag1" class="draggable js-drag food"
+   name="Rice"             cost="0.732"  water="2497"  CO2="2.7"   Cal="204"  quant="1">
+   <img src="img/food/PeanutButter.png" id="drag1" class="draggable js-drag food"
+   name="Peanut Butter"   cost="2.475"  water="3970"  CO2="2.3"   Cal="173"  quant="1">
+   <img src="img/food/Tofu.png" id="drag1" class="draggable js-drag food"
+   name="Tofu"            cost="1.514"  water="924"   CO2="2"     Cal="113"  quant="1"> 
+   <img src="img/food/Beans.png" id="drag1" class="draggable js-drag food"
+   name="Beans"           cost="1.514"  water="162"   CO2="0.9"   Cal="157"  quant="1">
+   <img src="img/food/Lettuc.png" id="drag1" class="draggable js-drag food"
+   name="Lettuce"         cost="1.936"  water="240"   CO2="2"     Cal="8"    quant="1">
+   <img src="img/food/Brocoli.png" id="drag1" class="draggable js-drag food"
+   name="Broccoli"        cost="1.732"  water="128"   CO2="2"     Cal="34"   quant="1">
+   <img src="img/food/Corn.png" id="drag1" class="draggable js-drag food"
+   name="Corn"            cost="0.98"   water="1220"  CO2="2"     Cal="156"  quant="1">
+   <img src="img/food/Strawberry.png" id="drag1" class="draggable js-drag food"
+   name="Strawberry"      cost="3.44"   water="124"   CO2="1.1"   Cal="53"   quant="1">
+   <img src="img/food/Tomato.png" id="drag1" class="draggable js-drag food"
+   name="Tomato"          cost="1.948"  water="214"   CO2="1.1"   Cal="22"   quant="1">
+   <img src="img/food/Orange.png" id="drag1" class="draggable js-drag food"
+   name="Orange"           cost="2.352"  water="560"   CO2="1.1"   Cal="86"   quant="1">
+   <img src="img/food/Banana.png" id="drag1" class="draggable js-drag food"
+   name="Bananas"         cost="0.592"  water="790"   CO2="1.1"   Cal="121"  quant="1">
+   <img src="img/food/Bread.png" id="drag1" class="draggable js-drag food"
+   name="Bread"           cost="3.028"  water="1608"  CO2="2.4"   Cal="69"   quant="1">
+
+  <div id="H20" class="container draggable js-drag gesture-area" style="transform: translate(-800px,-1700px);">
     <div id ="chart_div1" class="chart scale-element"></div>
       <p style="text-align:center; width: 300px; background-color: #575757; transform: translate(0px,-16px);padding-top:5px;"></p>
       <p id="chartTotal1" style="text-align:center; width: 300px; background-color: #b0afaf; transform: translate(0px,-32px);padding-top:5px;">Total: 0</p>
   </div>
-  <div id="C02" class=" draggable js-drag gesture-area" style="transform: translate(-9px,-200px);">
+  <div id="C02" class=" container draggable js-drag gesture-area" style="transform: translate(-9px,-1700px);">
       <div id ="chart_div2" class="chart scale-element"></div>
       <p style="text-align:center; width: 300px; background-color: #276f82; transform: translate(0px,-16px);padding-top:5px;"></p>
       <p id="chartTotal2" style="text-align:center; width: 300px; background-color: #96ccda; transform: translate(0px,-32px);padding-top:5px;">Total: 0</p>
   </div>
-  <div id="Calories" class="container draggable js-drag gesture-area" style="transform: translate(875px,-200px);">
+  <div id="Calories" class="container draggable js-drag gesture-area" style="transform: translate(-875px,-1700px);">
       <div id ="chart_div3" class="chart scale-element"></div>
         <p style="text-align:center; width: 300px; background-color: #3c8d44; transform: translate(0px,-16px);padding-top:5px;"></p>
         <p id="chartTotal3" style="text-align:center; width: 300px; background-color: #abd79f; transform: translate(0px,-32px);padding-top:5px;">Total: 0</p>
   </div>
   <div id="cost" style="font-family: UniverseLight; font-size: 13px;" class="draggable js-drag table" >
-    <table style="border-collapse: collapse; transform: translate(-616px,-781px);" id="table" >
+    <table style="border-collapse: collapse; transform: translate(-616px,-2100px);" id="table" >
 			<tr><td width=80 height=50>Item</td><td width=50>Quantity</td><td width=50>Price</td></tr><br>
     </table>
     <p style="text-align:center; height: 1px; width: 186px;background-color: #bd6528; transform: translate(-616px,-797px); padding-top:5px;"></p>
@@ -58,74 +321,7 @@
   </div>
 <br>
 
-   <img src= "img/Plate.png" id="drop2" name="plate" class="dropzone js-drop plate" style="transform: translate(450px,-775px);">
-
-   <img src="img/food/Burger.png" id="drag1" class="draggable js-drag food"  
-   name="Burger"          cost="4.276"  water="15400" CO2="27"    Cal="191"  quant="1" 
-   style="transform: translate(-26px,-834px);">
-   <img src="img/food/Steak.png" id="drag1" class="draggable js-drag food" 
-   name="Steak"           cost="8.997"  water="15415" CO2="49"    Cal="413"  quant="1"
-   style="transform: translate(-1px,-744px);">
-   <img src="img/food/Cheese.png" id="drag1" class="draggable js-drag food"
-   name="Cheese"          cost="6.089"  water="5060"  CO2="13.5"  Cal="114"  quant="1"
-     style="transform: translate(-106px,-1261px);">
-   <img src="img/food/Bacon.png" id="drag1" class="draggable js-drag food"
-   name="Bacon"           cost="5.04"   water="6000"  CO2="12.1"  Cal="65"   quant="1"
-     style="transform: translate(-80px,-706px);">
-   <img src="img/food/Chicken.png" id="drag1" class="draggable js-drag food"
-   name="Chicken"         cost="3.141"  water="4330"  CO2="6.9"   Cal="367"  quant="1"
-     style="transform: translate(-263px,-787px);">   
-   <img src="img/food/Egg.png" id="drag1" class="draggable js-drag food"
-   name="Egg"                cost="2.396"  water="3265"  CO2="4.8"   Cal="77"   quant="1"
-     style="transform: translate(-432px,-1166px);">
-   <img src="img/food/Potoato.png" id="drag1" class="draggable js-drag food"
-   name="Potato"           cost="0.55"   water="287"   CO2="2.9"   Cal="117"  quant="1"
-     style="transform: translate(-495px,-1048px);">
-   <img src="img/food/Fries.png" id="drag1" class="draggable js-drag food"
-   name="Fries"            cost="0.284"  water="1045"  CO2="26.2"  Cal="542"  quant="1"
-     style="transform: translate(-637px,-1033px);">
-   <img src="img/food/Chips.png" id="drag1" class="draggable js-drag food"
-   name="Chips"            cost="4.247"  water="1040"  CO2="26.2"  Cal="291"  quant="1"
-     style="transform: translate(-718px,-964px);">
-   <img src="img/food/Rice.png" id="drag1" class="draggable js-drag food"
-   name="Rice"             cost="0.732"  water="2497"  CO2="2.7"   Cal="204"  quant="1"
-   style="transform: translate(-662px,-718px);">
-   <img src="img/food/PeanutButter.png" id="drag1" class="draggable js-drag food"
-   name="Peanut Butter"   cost="2.475"  water="3970"  CO2="2.3"   Cal="173"  quant="1"
-   style="transform: translate(435px,-1335px);">
-   <img src="img/food/Tofu.png" id="drag1" class="draggable js-drag food"
-   name="Tofu"            cost="1.514"  water="924"   CO2="2"     Cal="113"  quant="1" 
-   style="transform: translate(317px,-880px);">
-   <img src="img/food/Beans.png" id="drag1" class="draggable js-drag food"
-   name="Beans"           cost="1.514"  water="162"   CO2="0.9"   Cal="157"  quant="1"
-   style="transform: translate(351px,-769px);">
-   <img src="img/food/Lettuc.png" id="drag1" class="draggable js-drag food"
-   name="Lettuce"         cost="1.936"  water="240"   CO2="2"     Cal="8"    quant="1"
-   style="transform: translate(255px,-1271px);">
-   <img src="img/food/Brocoli.png" id="drag1" class="draggable js-drag food"
-   name="Broccoli"        cost="1.732"  water="128"   CO2="2"     Cal="34"   quant="1"
-   style="transform: translate(140px,-1209px);">
-   <img src="img/food/Corn.png" id="drag1" class="draggable js-drag food"
-   name="Corn"            cost="0.98"   water="1220"  CO2="2"     Cal="156"  quant="1"
-   style="transform: translate(175px,-1312px);">
-   <img src="img/food/Strawberry.png" id="drag1" class="draggable js-drag food"
-   name="Strawberry"      cost="3.44"   water="124"   CO2="1.1"   Cal="53"   quant="1"
-   style="transform: translate(-84px,-935px);">
-   <img src="img/food/Tomato.png" id="drag1" class="draggable js-drag food"
-   name="Tomato"          cost="1.948"  water="214"   CO2="1.1"   Cal="22"   quant="1"
-   style="transform: translate(-173px,-1003px);">
-   <img src="img/food/Orange.png" id="drag1" class="draggable js-drag food"
-   name="Orange"           cost="2.352"  water="560"   CO2="1.1"   Cal="86"   quant="1"
-   style="transform: translate(-179px,-1075px);">
-   <img src="img/food/Banana.png" id="drag1" class="draggable js-drag food"
-   name="Bananas"         cost="0.592"  water="790"   CO2="1.1"   Cal="121"  quant="1"
-   style="transform: translate(-230px,-1007px);">
-   <img src="img/food/Bread.png" id="drag1" class="draggable js-drag food"
-   name="Bread"           cost="3.028"  water="1608"  CO2="2.4"   Cal="69"   quant="1"
-   style="transform: translate(-365px,-1216px);">
-
-  <img src="img/Compost.png" id="drop1" name="trash" class="dropzone js-drop" style="transform: translate(-60px,-800px);" style="width:100px">
-
+   <!-- <img src= "img/Plate.png" id="drop2" name="plate" class="dropzone js-drop plate" style="transform: translate(450px,-775px);"> -->
   </body>
 
 </html>

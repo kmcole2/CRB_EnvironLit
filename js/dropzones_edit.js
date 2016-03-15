@@ -238,7 +238,7 @@ function halfsize(target){
         title: 'H2O', 
         titleTextStyle: {
           color: '#e8e3da', 
-          fontName: 'UniverseLight', 
+          // fontName: 'UniverseLight', 
           fontSize: '16', 
           fontWidth: 'normal'},
         hAxis: {
@@ -268,7 +268,7 @@ function halfsize(target){
         title: 'CO2',
         titleTextStyle: {
           color: '#e8e3da', 
-          fontName: 'UniverseLight', 
+          // fontName: 'UniverseLight', 
           fontSize: '16', 
           fontWidth: 'normal'
         },
@@ -298,7 +298,7 @@ function halfsize(target){
         title: 'Calories',
         titleTextStyle: {
           color: '#e8e3da', 
-          fontName: 'UniverseLight', 
+          // fontName: 'UniverseLight', 
           fontSize: '16', 
           fontWidth: 'normal'
         },
