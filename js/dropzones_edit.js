@@ -113,7 +113,6 @@ var exist = 0;                    //exist flag
             //double image size
             doublesize(event.relatedTarget);
             chart_cost_add(event);
-
             costTable_redraw();
             calc_cost();
   });
@@ -253,13 +252,14 @@ function halfsize(target){
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:18000,
+              max:1000,
               min:0
           }
        },
         legend: {position: 'none'},
-        width: 300,
-        backgroundColor: '#827f7f',
+        width: 400,
+        height: 300,
+        backgroundColor: '#5099ab',
         bar:{ groupWidth:20},
         colors: ['#e8e3da']
       };
@@ -288,8 +288,9 @@ function halfsize(target){
           }
         },
         legend: {position: 'none'},
-        backgroundColor: '#5099ab',
-        width: 300,
+        width: 400,
+        height: 300,
+        backgroundColor: '#827f7f',
         bar:{ groupWidth:20},
         colors: ['#e8e3da']
       };
@@ -313,13 +314,14 @@ function halfsize(target){
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:500,
+              max:600,
               min:0
           }
         },
         legend: {position: 'none'},
         backgroundColor: '#57b947',
-        width: 300,
+        width: 400,
+        height: 300,
         bar:{ groupWidth:20},
         colors: ['#e8e3da']
       };
@@ -354,7 +356,7 @@ function halfsize(target){
       for(var a = 0; a < f.length; a++){
         item_quant += parseFloat(f[a].quant);
       }
-        console.log(item_quant + " " +" " + f.length);
+        // console.log(item_quant + " " +" " + f.length);
 
       if (f.length < 8 && item_quant < 8){
         //check for prexisting - edit array
@@ -379,7 +381,7 @@ function halfsize(target){
             f.push({  
               name:  item.getAttribute('name'),
               price: parseFloat(cost).toFixed(2),
-              quant: item.getAttribute('quant'),
+              quant: 1,//item.getAttribute('quant'),
               water: item.getAttribute('water'),
               CO2:   item.getAttribute('CO2'),
               Cal:   item.getAttribute('Cal'),
@@ -426,7 +428,7 @@ function halfsize(target){
               total += isNaN(fooditems[i].innerHTML) ? 0: parseFloat(fooditems[i].innerHTML);
             }
         }
-        document.getElementById('totalprice').innerHTML = "$ " + parseFloat(total).toFixed(2);
+        document.getElementById('totalprice').innerHTML = "Total $" + parseFloat(total).toFixed(2);
 
 
     }

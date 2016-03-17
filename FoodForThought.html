@@ -25,7 +25,6 @@
       }
       html {
         background: url(img/WoodenTable.png) no-repeat center center fixed; 
-        background-size: cover;
         font-family: UniverseLight;
       }
   </style>  
@@ -34,6 +33,10 @@
   body {
      overflow:hidden;
    }
+   p{
+    text-align:center;
+    padding-top:5px;
+   }
   .container{
     width: 200px;
     height: 2px;
@@ -41,22 +44,88 @@
     position: relative;
     display:inline-block;
    } 
-  #CO2{
-    width:300px; 
+  #H20{
+    transform: translate(200px,-1500px);
   }
-
-  .food{  
-    height:70px;
-    width: 70px;
-    display: inline-block;
+  #C02{
+    width:300px; 
+    transform: translate(-1200px,-1100px);
+  }
+  #Calories{
+    transform: translate(-100px,-1050px);
   }
   #cost{
-    transform: translate(-1000px,-1800px);
-    height:300px;
+    transform: translate(-1800px,-1800px);
+    height:100px;
+    width:185px;
     float:right;
     font-family: UniverseLight;
     padding: 5px;
+    font-size: 13px;
   }
+    #table{
+    border-collapse: collapse; 
+    transform: translate(0px,0px);
+    background-color: #ea8524;
+  }
+  .food{  
+    height:50px;
+    width: 50px;
+/*    display: inline-block;*/
+position:absolute;
+  }
+
+  #chartTotal1{
+    background-color: #96ccda;
+  }
+  #chartTotal2{
+    background-color: #b0afaf;
+  }
+  #chartTotal3{
+    background-color: #abd79f;
+  }
+/*    .tabletotal{
+      width: 186px;
+      background-color: #f4b87e; 
+      transform: translate(0px,-32px);
+    }*/
+    .tableline{
+      width: 185px;
+      height: 3px;
+      background-color: #bd6528; 
+      transform: translate(0px,-18px);
+    }
+    #totalprice{
+      width: 185px; 
+      background-color: #f4b87e; 
+      transform: translate(0px,-32px);  
+    }
+  .graphpadding{
+      padding: 20px 0px 15px 0px ; 
+  }
+  .chartbase{
+/*    width: 300px;*/
+    width: 400px;
+    transform: translate(0px,-35px);
+  }
+  .chartline{
+    width: 400px;
+    height: 3px;
+    transform: translate(0px,-18px);
+  } 
+  #chartline1{
+    background-color: #276f82;
+
+  }
+  #chartline2{
+    background-color: #575757;
+
+  }
+  #chartline3{  
+    background-color: #3c8d44;
+  }
+
+
 .table {
   /*background-color: #ccc;*/
   border: dashed 4px transparent;
@@ -66,9 +135,9 @@
   /*background: lightblue;*/
   transition: background-color 0.3s;
 }#outer-dropzone {
+  position:relative;
   width: 1920px;
   height:1080px;
-
 }
 
 .plate {
@@ -77,12 +146,12 @@
   border-radius: 4px;
   margin: 10px auto 30px;
   padding: 10px;
-  background: lightpink;
+  /*background: lightpink;*/
  /* width: 70%;*/
   /*transition: background-color 0.3s;*/
 }#inner-dropzone {
-  height: 400px;
-  width:  400px;
+  height: 550px;
+  width:  550px;
   transform: translate(10px,-800px);
 } 
 
@@ -164,6 +233,7 @@ interact('.table').dropzone({
     chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
     costTable_redraw();                       //redraw table
     calc_cost();  
+    reassign_coords(event.relatedTarget);  
   },
   ondropdeactivate: function (event) {
     // remove active dropzone feedback
@@ -246,82 +316,91 @@ interact('.plate').dropzone({
             event.target.setAttribute('data-x', event.interaction.x);
             event.target.setAttribute('data-y', event.interaction.y);
         });
+
+  function reassign_coords(target){
+    console.log("reassigncoods");
+    target.setAttribute('top','200');
+    target.setAttribute('left','200');
+  console.log(target.top);
+  console.log(target.left);
+    // target.setAttribute('transform',translate(-1200px,-1100px));
+  }
 </script>
 </head>
   <body> 
 
-    <div id="outer-dropzone" class="table js-drop">table</div>
-    <div id="inner-dropzone" class="plate js-drop">plate</div>
+  <div id="outer-dropzone" class="table js-drop"></div>
+    <img src= "img/Plate.png" id="inner-dropzone" name="plate" class="plate js-drop" style="transform: translate(700px,-900px);">
+    <!-- <div id="inner-dropzone" class="plate js-drop">plate</div> -->
 
-   <img src="img/food/Burger.png" id="drag1" class="draggable js-drag food"  
-   name="Burger"          cost="4.276"  water="15400" CO2="27"    Cal="191"  quant="1">
-   <img src="img/food/Steak.png" id="drag1" class="draggable js-drag food" 
-   name="Steak"           cost="8.997"  water="15415" CO2="49"    Cal="413"  quant="1">
-   <img src="img/food/Cheese.png" id="drag1" class="draggable js-drag food"
-   name="Cheese"          cost="6.089"  water="5060"  CO2="13.5"  Cal="114"  quant="1">
-   <img src="img/food/Bacon.png" id="drag1" class="draggable js-drag food"
-   name="Bacon"           cost="5.04"   water="6000"  CO2="12.1"  Cal="65"   quant="1">
-   <img src="img/food/Chicken.png" id="drag1" class="draggable js-drag food"
-   name="Chicken"         cost="3.141"  water="4330"  CO2="6.9"   Cal="367"  quant="1">
-   <img src="img/food/Egg.png" id="drag1" class="draggable js-drag food"
-   name="Egg"                cost="2.396"  water="3265"  CO2="4.8"   Cal="77"   quant="1">
-   <img src="img/food/Potoato.png" id="drag1" class="draggable js-drag food"
-   name="Potato"           cost="0.55"   water="287"   CO2="2.9"   Cal="117"  quant="1">
-   <img src="img/food/Fries.png" id="drag1" class="draggable js-drag food"
-   name="Fries"            cost="0.284"  water="1045"  CO2="26.2"  Cal="542"  quant="1">
-   <img src="img/food/Chips.png" id="drag1" class="draggable js-drag food"
-   name="Chips"            cost="4.247"  water="1040"  CO2="26.2"  Cal="291"  quant="1">
-   <img src="img/food/Rice.png" id="drag1" class="draggable js-drag food"
-   name="Rice"             cost="0.732"  water="2497"  CO2="2.7"   Cal="204"  quant="1">
-   <img src="img/food/PeanutButter.png" id="drag1" class="draggable js-drag food"
-   name="Peanut Butter"   cost="2.475"  water="3970"  CO2="2.3"   Cal="173"  quant="1">
-   <img src="img/food/Tofu.png" id="drag1" class="draggable js-drag food"
-   name="Tofu"            cost="1.514"  water="924"   CO2="2"     Cal="113"  quant="1"> 
-   <img src="img/food/Beans.png" id="drag1" class="draggable js-drag food"
-   name="Beans"           cost="1.514"  water="162"   CO2="0.9"   Cal="157"  quant="1">
-   <img src="img/food/Lettuc.png" id="drag1" class="draggable js-drag food"
-   name="Lettuce"         cost="1.936"  water="240"   CO2="2"     Cal="8"    quant="1">
-   <img src="img/food/Brocoli.png" id="drag1" class="draggable js-drag food"
-   name="Broccoli"        cost="1.732"  water="128"   CO2="2"     Cal="34"   quant="1">
-   <img src="img/food/Corn.png" id="drag1" class="draggable js-drag food"
-   name="Corn"            cost="0.98"   water="1220"  CO2="2"     Cal="156"  quant="1">
-   <img src="img/food/Strawberry.png" id="drag1" class="draggable js-drag food"
-   name="Strawberry"      cost="3.44"   water="124"   CO2="1.1"   Cal="53"   quant="1">
-   <img src="img/food/Tomato.png" id="drag1" class="draggable js-drag food"
-   name="Tomato"          cost="1.948"  water="214"   CO2="1.1"   Cal="22"   quant="1">
-   <img src="img/food/Orange.png" id="drag1" class="draggable js-drag food"
-   name="Orange"           cost="2.352"  water="560"   CO2="1.1"   Cal="86"   quant="1">
-   <img src="img/food/Banana.png" id="drag1" class="draggable js-drag food"
-   name="Bananas"         cost="0.592"  water="790"   CO2="1.1"   Cal="121"  quant="1">
-   <img src="img/food/Bread.png" id="drag1" class="draggable js-drag food"
-   name="Bread"           cost="3.028"  water="1608"  CO2="2.4"   Cal="69"   quant="1">
+   <img src="img/food/hamburger_HR_icon.png" id="drag1" class="draggable js-drag food"  
+   name="Burger"          cost="1.33"  water="462" CO2="15"    Cal="191">
+   <img src="img/food/steak_HR_icon.png" id="drag1" class="draggable js-drag food" 
+   name="Steak"           cost="4.45"  water="923" CO2="55"    Cal="552">
+   <img src="img/food/cheese_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Cheese"          cost="0.62"  water="76"  CO2="4"  Cal="228">
+   <img src="img/food/bacon_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Bacon"           cost="0.62"   water="90"  CO2="3"  Cal="130" >
+   <img src="img/food/chicken_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Chicken"         cost="0.99"  water="259"  CO2="8"   Cal="367">
+   <img src="img/food/egg_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Egg"                cost="0.37"  water="106"  CO2="3"   Cal="154" >
+   <img src="img/food/potato_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Potato"           cost="0.39"   water="15"   CO2="13"   Cal="117">
+   <img src="img/food/fries_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Fries"            cost="0.46"  water="31"  CO2="15"  Cal="1084">
+   <img src="img/food/chips_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Chips"            cost="0.99"  water="30"  CO2="15"  Cal="291">
+   <img src="img/food/rice_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Rice"             cost="0.12"  water="37"  CO2="1"   Cal="204">
+   <img src="img/food/peanutbutter_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Peanut Butter"   cost="0.24"  water="30"  CO2="1"   Cal="173">
+   <img src="img/food/tofu_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Tofu"            cost="1.04"  water="28"   CO2="1"     Cal="176"> 
+   <img src="img/food/beans_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Beans"           cost="0.31"  water="2"   CO2="0"   Cal="157">
+   <img src="img/food/lettuce_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Lettuce"         cost="0.16"  water="2"   CO2="0"     Cal="8"  >
+   <img src="img/food/broccoli_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Broccoli"        cost="0.38"  water="4"   CO2="1"     Cal="34" >
+   <img src="img/food/corn_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Corn"            cost="0.27"   water="73"  CO2="2"     Cal="156">
+   <img src="img/food/strawberries_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Strawberry"      cost="0.73"   water="10"   CO2="1"   Cal="53" >
+   <img src="img/food/tomato_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Tomato"          cost="0.99"  water="24"   CO2="1"   Cal="22" >
+   <img src="img/food/orange_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Orange"           cost="0.79"  water="21"   CO2="2"   Cal="86" >
+   <img src="img/food/banana_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Bananas"         cost="0.11"  water="47"   CO2="0"   Cal="121">
+   <img src="img/food/bread_HR_icon.png" id="drag1" class="draggable js-drag food"
+   name="Bread"           cost="0.38"  water="12"  CO2="1"   Cal="69" >
 
-  <div id="H20" class="container draggable js-drag gesture-area" style="transform: translate(-800px,-1700px);">
+  <div id="H20" class="container draggable js-drag gesture-area">
     <div id ="chart_div1" class="chart scale-element"></div>
-      <p style="text-align:center; width: 300px; background-color: #575757; transform: translate(0px,-16px);padding-top:5px;"></p>
-      <p id="chartTotal1" style="text-align:center; width: 300px; background-color: #b0afaf; transform: translate(0px,-32px);padding-top:5px;">Total: 0</p>
+      <p id="chartline1" class="chartline"></p>
+      <p id="chartTotal1" class="chartbase graphpadding">Total: 0</p>
   </div>
-  <div id="C02" class=" container draggable js-drag gesture-area" style="transform: translate(-9px,-1700px);">
+  <div id="C02" class=" container draggable js-drag gesture-area">
       <div id ="chart_div2" class="chart scale-element"></div>
-      <p style="text-align:center; width: 300px; background-color: #276f82; transform: translate(0px,-16px);padding-top:5px;"></p>
-      <p id="chartTotal2" style="text-align:center; width: 300px; background-color: #96ccda; transform: translate(0px,-32px);padding-top:5px;">Total: 0</p>
+      <p id="chartline2" class="chartline"></p>
+      <p id="chartTotal2" class="chartbase graphpadding">Total: 0</p>
   </div>
-  <div id="Calories" class="container draggable js-drag gesture-area" style="transform: translate(-875px,-1700px);">
+  <div id="Calories" class=" container draggable js-drag gesture-area">
       <div id ="chart_div3" class="chart scale-element"></div>
-        <p style="text-align:center; width: 300px; background-color: #3c8d44; transform: translate(0px,-16px);padding-top:5px;"></p>
-        <p id="chartTotal3" style="text-align:center; width: 300px; background-color: #abd79f; transform: translate(0px,-32px);padding-top:5px;">Total: 0</p>
+      <p id="chartline3"class="chartline"></p>
+      <p id="chartTotal3" class="chartbase graphpadding">Total: 0</p>
   </div>
-  <div id="cost" style="font-family: UniverseLight; font-size: 13px;" class="draggable js-drag table" >
-    <table style="border-collapse: collapse; transform: translate(-616px,-2100px);" id="table" >
-			<tr><td width=80 height=50>Item</td><td width=50>Quantity</td><td width=50>Price</td></tr><br>
+  <div id="cost" class="container draggable js-drag">
+    <table id="table">
+			<tr><td width=80 height=50>Item</td><td width=50>Quantity</td><td width=50>Price</td></tr>
     </table>
-    <p style="text-align:center; height: 1px; width: 186px;background-color: #bd6528; transform: translate(-616px,-797px); padding-top:5px;"></p>
-    <p style="text-align:center; width: 90px; background-color: #f4b87e; transform: translate(-616px,-810px); padding-top:5px;">Total </p>
-    <p id="totalprice" style="text-align:center; width: 100px; background-color: #f4b87e; transform: translate(-530px,-844px); padding-top:5px;">$ 0.00</p>	
+    <p class="tableline"></p>
+    <p id="totalprice" class="graphpadding">Total $0.00</p>	
   </div>
 <br>
 
-   <!-- <img src= "img/Plate.png" id="drop2" name="plate" class="dropzone js-drop plate" style="transform: translate(450px,-775px);"> -->
+ 
   </body>
 
 </html>
