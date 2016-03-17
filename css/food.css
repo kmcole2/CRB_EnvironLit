@@ -1,70 +1,74 @@
-.food{
-}
-img[name=Burger] {
-  /*position:absolute; */
 
+img[name=Burger] {
   /*top: 20px;*/
-  /*transform: translate(-26px,-1500px);*/
+  transform: translate(500px,-600px);
 }
-img[name="Steak "] {
+img[name="Steak"] {
+
   /*position:absolute;*/
   /*top:300px;*/
-  /*transform: translate(-1px,-1500px);*/
+  transform: translate(-1px,-500px);
 }
 img[name="Cheese"] {
-  /*transform: translate(-106px,-1500px);*/
+
+  transform: translate(-106px,-500px);
 }
-img[name="Bacon "] {
-  /*transform: translate(-80px,-1500px);*/
+img[name="Bacon"] {
+
+  transform: translate(-80px,-500px);
 }
 img[name="Chicken"] {
-  /*transform: translate(-263px,-1500px);*/
+
+  transform: translate(-263px,-500px);
 }
-img[name="Egg   "] {
-  /*transform: translate(-432px,-1500px);*/
+img[name="Egg"] {
+
+  transform: translate(-432px,-500px);
 }
 img[name="Potato"] {
-  /*transform: translate(-495px,-1500px);*/
+
+  transform: translate(-495px,-500px);
 }
-img[name="Fries "] {
-  /*transform: translate(-637px,-1500px);*/
+img[name="Fries"] {
+
+  transform: translate(-637px,-500px);
 }
-img[name="Chips "] {
-  /*transform: translate(-718px,-1500px);*/
+img[name="Chips"] {
+  transform: translate(-718px,-500px);
 }
-img[name="Rice  "] {
-  /*transform: translate(-662px,-1500px);*/
+img[name="Rice"] {
+  transform: translate(-662px,-500px);
 }
-img[name="Peanut "] {
-  /*transform: translate(435px,-1500px);*/
+img[name="Peanut Butter"] {
+  transform: translate(435px,-500px);
 }
-img[name="Tofu  "] {
-  /*transform: translate(317px,-1500px);*/
+img[name="Tofu"] {
+  transform: translate(317px,-500px);
 }
-img[name="Beans "] {
-  /*transform: translate(351px,-1500px);*/
+img[name="Beans"] {
+  transform: translate(351px,-500px);
 }
 img[name="Lettuce"] {
-  /*transform: translate(255px,-1500px);*/
+  transform: translate(255px,-500px);
 }
-img[name="Broccol"] {
-  /*transform: translate(140px,-1500px);*/
+img[name="Broccoli"] {
+  transform: translate(140px,-500px);
 }
-img[name="Corn  "] {
-  /*transform: translate(175px,-1500px);*/
+img[name="Corn"] {
+  transform: translate(175px,-500px);
 }
 img[name="Strawberry"] {
-  /*transform: translate(-84px,-1500px);*/
+  transform: translate(-84px,-500px);
 }
 img[name="Tomato"] {
-  /*transform: translate(-173px,-1500px);*/
+  transform: translate(-173px,-500px);
 }
 img[name="Orange"] {
-  /*transform: translate(-179px,-1500px);*/
+  transform: translate(-179px,-500px);
 }
 img[name="Bananas"] {
-  /*transform: translate(-230px,-1500px);*/
+  transform: translate(-230px,-500px);
 }
-img[name="Bread "] {
-  /*transform: translate(-365px,-1500px);*/
+img[name="Bread"] {
+  transform: translate(-365px,-500px);
 }

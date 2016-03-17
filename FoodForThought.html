@@ -37,6 +37,9 @@
     text-align:center;
     padding-top:5px;
    }
+   #foodblock{
+    position:absolute;
+   }
   .container{
     width: 200px;
     height: 2px;
@@ -71,8 +74,7 @@
   .food{  
     height:50px;
     width: 50px;
-/*    display: inline-block;*/
-position:absolute;
+    /*display: inline-block;*/
   }
 
   #chartTotal1{
@@ -104,7 +106,7 @@ position:absolute;
       padding: 20px 0px 15px 0px ; 
   }
   .chartbase{
-/*    width: 300px;*/
+    width: 300px;
     width: 400px;
     transform: translate(0px,-35px);
   }
@@ -141,18 +143,14 @@ position:absolute;
 }
 
 .plate {
-  /*background-color: #ccc;*/
+  position:fixed;
   border: dashed 4px transparent;
   border-radius: 4px;
   margin: 10px auto 30px;
   padding: 10px;
-  /*background: lightpink;*/
- /* width: 70%;*/
-  /*transition: background-color 0.3s;*/
 }#inner-dropzone {
   height: 550px;
   width:  550px;
-  transform: translate(10px,-800px);
 } 
 
 .drop-active {
@@ -183,11 +181,10 @@ position:absolute;
 }
 
 .draggable {
-    position: relative;
+  position:relative;
     z-index: 10;
     margin: .25em;
     padding: 1em 2em;
-    /*color: #fff;*/
     text-align: center;
 
     -ms-touch-action: none;
@@ -330,9 +327,8 @@ interact('.plate').dropzone({
   <body> 
 
   <div id="outer-dropzone" class="table js-drop"></div>
-    <img src= "img/Plate.png" id="inner-dropzone" name="plate" class="plate js-drop" style="transform: translate(700px,-900px);">
     <!-- <div id="inner-dropzone" class="plate js-drop">plate</div> -->
-
+  <div id="foodblock">
    <img src="img/food/hamburger_HR_icon.png" id="drag1" class="draggable js-drag food"  
    name="Burger"          cost="1.33"  water="462" CO2="15"    Cal="191">
    <img src="img/food/steak_HR_icon.png" id="drag1" class="draggable js-drag food" 
@@ -375,6 +371,8 @@ interact('.plate').dropzone({
    name="Bananas"         cost="0.11"  water="47"   CO2="0"   Cal="121">
    <img src="img/food/bread_HR_icon.png" id="drag1" class="draggable js-drag food"
    name="Bread"           cost="0.38"  water="12"  CO2="1"   Cal="69" >
+  </div>
+    <imsg src= "img/Plate.png" id="inner-dropzone" name="plate" class="plate js-drop" style="transform: translate(700px,-900px);">
 
   <div id="H20" class="container draggable js-drag gesture-area">
     <div id ="chart_div1" class="chart scale-element"></div>
