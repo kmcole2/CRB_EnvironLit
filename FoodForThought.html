@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
     <script src="http://code.interactjs.io/v1.2.6/interact.min.js"></script>
     <!-- <link rel="stylesheet" type="text/css" href="css/dropzones.css"> -->
-    // <script  type="text/javascript" src="js/dropzones_edit.js"></script>
+    <script  type="text/javascript" src="js/dropzones_edit.js"></script>
     <link rel="stylesheet" type="text/css" href="css/food.css">
     <link rel="stylesheet" type="text/css" href="css/foodforthought.css">
 
@@ -49,6 +49,7 @@ interact('Calories').gesturable({
 });
 </script>
 <script>
+//TABLE DROP
 interact('.table').dropzone({
   // only accept elements matching this CSS selector
   accept: '#drag1',
@@ -56,7 +57,6 @@ interact('.table').dropzone({
   overlap: 0.75,
 
   // listen for drop related events:
-
   ondropactivate: function (event) {
     // add active dropzone feedback
     event.target.classList.add('drop-active');
@@ -78,14 +78,14 @@ interact('.table').dropzone({
   },
   ondrop: function (event) {
     event.relatedTarget.textContent = 'Dropped';
-    console.log("dropzone 0");
+    console.log("table drop");
 
     halfsize(event.relatedTarget);            //half image size
     chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
     costTable_redraw();                       //redraw table
     calc_cost();  
-    snapback(event.relatedTarget);
-    // reassign_coords(event.relatedTarget);  
+    // snapback(event.relatedTarget);     //crazy behavior
+    reassign_coords(event.relatedTarget);  
   },
   ondropdeactivate: function (event) {
     // remove active dropzone feedback
@@ -94,7 +94,7 @@ interact('.table').dropzone({
   }
 });
 
-
+//PLATE DROP
 interact('.plate').dropzone({
   // only accept elements matching this CSS selector
   accept: '#drag1',
@@ -102,7 +102,6 @@ interact('.plate').dropzone({
   overlap: 0.75,
 
   // listen for drop related events:
-
   ondropactivate: function (event) {
     // add active dropzone feedback
     event.target.classList.add('drop-active');
@@ -124,7 +123,7 @@ interact('.plate').dropzone({
   },
   ondrop: function (event) {
     event.relatedTarget.textContent = 'Dropped';
-    console.log("dropzone 1");
+    console.log("plate drop");
     
     //double image size
     doublesize(event.relatedTarget);
@@ -138,9 +137,6 @@ interact('.plate').dropzone({
     event.target.classList.remove('drop-target');
   }
 });
-//     (function (interact) {
-
-//     'use strict';
 
     var transformProp;
 
@@ -204,7 +200,6 @@ function snapback(e){
   <div id="outer-dropzone" class="table js-drop"></div>
     <img src= "img/Plate.png" id="inner-dropzone" name="plate" class="plate js-drop" style="transform: translate(700px,-900px);">
     <!-- <div id="inner-dropzone" class="plate js-drop">plate</div> -->
-  <div id="foodblock">
    <img src="img/food/hamburger_HR_icon.png" id="drag1" class="draggable js-drag food"  
    name="Burger"          cost="1.33"  water="462" CO2="15.12"    Cal="191">
    <img src="img/food/steak_HR_icon.png" id="drag1" class="draggable js-drag food" 
@@ -247,7 +242,6 @@ function snapback(e){
    name="Bananas"         cost="0.11"  water="47"   CO2="0.46"   Cal="121">
    <img src="img/food/bread_HR_icon.png" id="drag1" class="draggable js-drag food"
    name="Bread"           cost="0.38"  water="12"  CO2="0.67"   Cal="69" >
-  </div>
   <div id="H20" class="container draggable js-drag gesture-area">
     <div id ="chart_div1" class="chart scale-element"></div>
       <p id="chartline1" class="chartline"></p>

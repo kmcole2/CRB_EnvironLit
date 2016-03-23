@@ -111,10 +111,10 @@ var exist = 0;                    //exist flag
             console.log(event.relatedTarget.getAttribute('name'));
 
             //double image size
-            doublesize(event.relatedTarget);
-            chart_cost_add(event);
-            costTable_redraw();
-            calc_cost();
+// doublesize(event.relatedTarget);
+// chart_cost_add(event);
+// costTable_redraw();
+// calc_cost();
             // snapback(event);
   });
   }
@@ -206,19 +206,36 @@ var exist = 0;                    //exist flag
     
 //image size
 function doublesize(target){
-  // console.log("doublesize");
+  console.log("entered doublesize");
   // var currStyle = target.style.getPropertyValue("width");//currentStyle.transform;
   // console.log(currStyle);
 
-  //transform scale
+ //  transform scale
  // target.style.transform = "scale(2,2)";
-    // target.style.height = '100px';
-    // target.style.width = '100px';
-    // transform: scale(2,3);
+ //    target.style.height = '100px';
+ //    target.style.width = '100px';
+ //    transform: scale(2,3);
+
+  var transformVals =  window.getComputedStyle(target,null).getPropertyValue('transform');
+  var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+  var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+  var value = "translate(" + transX + "px," + transY + "px) scale(1.5,1.5)";
+  target.style.transform = value;
+  console.log("exit doublesize");
 };
+
 function halfsize(target){
-    // target.style.height = '50px';
-    // target.style.width = '50px';  
+var transformVals =  window.getComputedStyle(target,null).getPropertyValue('transform');
+var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+
+var value = "translate(" + transX + "px," + transY + "px) scale(1,1)";
+
+// console.log(value);
+target.style.transform = value;
+// target.style.top = "1px";
+// target.style.left = "1px";
+console.log("halfsize");
 }
 
     /*drawBasic, 
@@ -386,7 +403,7 @@ function halfsize(target){
         //check for prexisting element 
         for(var a = 0; a < f.length; a++){
           if (f[a].name == event.relatedTarget.getAttribute('name')){
-              console.log('item already exists');
+              console.log('*DO NOTHING* item already exists');
               exist = 1;
           }  
         }
@@ -405,6 +422,7 @@ function halfsize(target){
             });   
             CO2_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('CO2'))]);
             Cal_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('Cal'))]);
+// doublesize(event.relatedTarget);
         }
         //reset flag
         exist = 0;

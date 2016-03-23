@@ -6,9 +6,9 @@
     text-align:center;
     padding-top:5px;
    }
-   #foodblock{
+/*   #foodblock{
     position:absolute;
-   }
+   }*/
   .container{
     width: 200px;
     height: 2px;
@@ -19,12 +19,12 @@
 
     #table{
     border-collapse: collapse; 
+    width: 300px;
     transform: translate(0px,0px);
     background-color: #ea8524;
   }
   .food{  
-    height:50px;
-    width: 50px;
+  height:75px;
   }
 
   #chartTotal1{
@@ -45,13 +45,13 @@
       transform: translate(0px,-32px);
     }*/
     .tableline{
-      width: 185px;
+      width: 299px;
       height: 3px;
       background-color: #bd6528; 
       transform: translate(0px,-18px);
     }
     #totalprice{
-      width: 185px; 
+      width: 299px; 
       background-color: #f4b87e; 
       transform: translate(0px,-32px);  
 
@@ -141,7 +141,7 @@
   position:relative;
     z-index: 10;
     margin: .25em;
-    padding: 1em 2em;
+    padding: 0em 0em;
     text-align: center;
 
     -ms-touch-action: none;

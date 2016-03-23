@@ -23,10 +23,10 @@ body{
   }
   #Calories{
     transform: translate(1360px,-1470px);
-    top:100px;
   }
 img[name=Burger] {
   transform: translate(594px,-899px);
+
    /*scale(2,2); */
 }
 img[name="Steak"] {
@@ -49,7 +49,7 @@ img[name="Egg"] {
   transform: translate(-110px,-512px);
 }
 img[name="Potato"] {
-
+  height:80px;
   transform: translate(-228px,-752px);
 }
 img[name="Fries"] {
