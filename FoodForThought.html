@@ -10,8 +10,9 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
     <script src="http://code.interactjs.io/v1.2.6/interact.min.js"></script>
     <!-- <link rel="stylesheet" type="text/css" href="css/dropzones.css"> -->
-    <script  type="text/javascript" src="js/dropzones_edit.js"></script>
+    // <script  type="text/javascript" src="js/dropzones_edit.js"></script>
     <link rel="stylesheet" type="text/css" href="css/food.css">
+    <link rel="stylesheet" type="text/css" href="css/foodforthought.css">
 
   <style>
     @font-face {
@@ -24,176 +25,29 @@
         font-weight: bold;
       }
       html {
-        background: url(img/WoodenTable.png) no-repeat center center fixed; 
+        background: url(img/woodbackground_HR_1920x1080.jpg) no-repeat center center fixed; 
+        background-size: cover;
         font-family: UniverseLight;
       }
   </style>  
+<script>
+var angle = 0;
 
-<style>
-  body {
-     overflow:hidden;
-   }
-   p{
-    text-align:center;
-    padding-top:5px;
-   }
-   #foodblock{
-    position:absolute;
-   }
-  .container{
-    width: 200px;
-    height: 2px;
-    margin: 0 auto;
-    position: relative;
-    display:inline-block;
-   } 
-  #H20{
-    transform: translate(200px,-1500px);
+interact('Calories').gesturable({
+  onmove: function (event) {
+    var arrow = document.getElementById('');
+
+    angle += event.da;
+
+    arrow.style.webkitTransform =
+    arrow.style.transform =
+      'rotate(' + angle + 'deg)';
+
+    document.getElementById('angle-info').textContent =
+      angle.toFixed(2) + '°';
   }
-  #C02{
-    width:300px; 
-    transform: translate(-1200px,-1100px);
-  }
-  #Calories{
-    transform: translate(-100px,-1050px);
-  }
-  #cost{
-    transform: translate(-1800px,-1800px);
-    height:100px;
-    width:185px;
-    float:right;
-    font-family: UniverseLight;
-    padding: 5px;
-    font-size: 13px;
-  }
-    #table{
-    border-collapse: collapse; 
-    transform: translate(0px,0px);
-    background-color: #ea8524;
-  }
-  .food{  
-    height:50px;
-    width: 50px;
-    /*display: inline-block;*/
-  }
-
-  #chartTotal1{
-    background-color: #96ccda;
-  }
-  #chartTotal2{
-    background-color: #b0afaf;
-  }
-  #chartTotal3{
-    background-color: #abd79f;
-  }
-/*    .tabletotal{
-      width: 186px;
-      background-color: #f4b87e; 
-      transform: translate(0px,-32px);
-    }*/
-    .tableline{
-      width: 185px;
-      height: 3px;
-      background-color: #bd6528; 
-      transform: translate(0px,-18px);
-    }
-    #totalprice{
-      width: 185px; 
-      background-color: #f4b87e; 
-      transform: translate(0px,-32px);  
-    }
-  .graphpadding{
-      padding: 20px 0px 15px 0px ; 
-  }
-  .chartbase{
-    width: 300px;
-    width: 400px;
-    transform: translate(0px,-35px);
-  }
-  .chartline{
-    width: 400px;
-    height: 3px;
-    transform: translate(0px,-18px);
-  } 
-  #chartline1{
-    background-color: #276f82;
-
-  }
-  #chartline2{
-    background-color: #575757;
-
-  }
-  #chartline3{  
-    background-color: #3c8d44;
-  }
-
-
-.table {
-  /*background-color: #ccc;*/
-  border: dashed 4px transparent;
-  border-radius: 4px;
-  margin: 10px auto 30px;
-  padding: 10px;
-  /*background: lightblue;*/
-  transition: background-color 0.3s;
-}#outer-dropzone {
-  position:relative;
-  width: 1920px;
-  height:1080px;
-}
-
-.plate {
-  position:fixed;
-  border: dashed 4px transparent;
-  border-radius: 4px;
-  margin: 10px auto 30px;
-  padding: 10px;
-}#inner-dropzone {
-  height: 550px;
-  width:  550px;
-} 
-
-.drop-active {
-  border-color: #aaa;
-}
-.drop-target {
-  /*background-color: #29e;*/
-  border-color: #fff;
-  border-style: solid;
-}
-.drag-drop {
-  display: inline-block;
-  min-width: 40px;
-  padding: 2em 0.5em;
-
-  color: #fff;
-  /*background-color: #29e;*/
-  border: solid 2px #fff;
-
-  -webkit-transform: translate(0px, 0px);
-          transform: translate(0px, 0px);
-
-  transition: background-color 0.3s;
-}
-.drag-drop.can-drop {
-  color: #000;
-  background-color: #4e4;
-}
-
-.draggable {
-  position:relative;
-    z-index: 10;
-    margin: .25em;
-    padding: 1em 2em;
-    text-align: center;
-
-    -ms-touch-action: none;
-        touch-action: none;
-}
-
-.draggable.-drop-possible { background-color: #42bd41; }
-
-</style>
+});
+</script>
 <script>
 interact('.table').dropzone({
   // only accept elements matching this CSS selector
@@ -230,7 +84,8 @@ interact('.table').dropzone({
     chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
     costTable_redraw();                       //redraw table
     calc_cost();  
-    reassign_coords(event.relatedTarget);  
+    snapback(event.relatedTarget);
+    // reassign_coords(event.relatedTarget);  
   },
   ondropdeactivate: function (event) {
     // remove active dropzone feedback
@@ -238,6 +93,8 @@ interact('.table').dropzone({
     event.target.classList.remove('drop-target');
   }
 });
+
+
 interact('.plate').dropzone({
   // only accept elements matching this CSS selector
   accept: '#drag1',
@@ -291,14 +148,17 @@ interact('.plate').dropzone({
 
     // setup draggable elements.
     interact('.draggable')
-        .draggable({ max: Infinity })
-        .on('dragstart', function (event) {
+        .on('gesturestart', function (event) {
             event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
             event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+            console.log("hi",event.da);
+
         })
-        .on('dragmove', function (event) {
+        .on('gesturemove', function (event) {
             event.interaction.x += event.dx;
             event.interaction.y += event.dy;
+            console.log("hi",event.da);
+
 
             if (transformProp) {
                 event.target.style[transformProp] =
@@ -309,80 +169,94 @@ interact('.plate').dropzone({
                 event.target.style.top  = event.interaction.y + 'px';
             }
         })
-        .on('dragend', function (event) {
+        .on('gestureend', function (event) {
             event.target.setAttribute('data-x', event.interaction.x);
             event.target.setAttribute('data-y', event.interaction.y);
         });
 
   function reassign_coords(target){
     console.log("reassigncoods");
-    target.setAttribute('top','200');
-    target.setAttribute('left','200');
-  console.log(target.top);
-  console.log(target.left);
+    target.style.top = "0";
+    target.style.left = "0";
     // target.setAttribute('transform',translate(-1200px,-1100px));
   }
+function snapback(e){
+      var transformVals =  window.getComputedStyle(e,null).getPropertyValue('transform');
+      var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+      var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+
+      //convert from 20px to 20, remove 'px' w/ regular expressions
+      var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
+      var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
+      var newtransX = transX-left;
+      var newtransY = transY-top;
+
+      var value = "translate(" + newtransX + "px," + newtransY + "px);";
+      console.log(value);
+      // console.log(value);
+      // e.style.transform = value;
+      e.setAttribute ("style",value);
+    }
 </script>
 </head>
   <body> 
 
   <div id="outer-dropzone" class="table js-drop"></div>
+    <img src= "img/Plate.png" id="inner-dropzone" name="plate" class="plate js-drop" style="transform: translate(700px,-900px);">
     <!-- <div id="inner-dropzone" class="plate js-drop">plate</div> -->
   <div id="foodblock">
    <img src="img/food/hamburger_HR_icon.png" id="drag1" class="draggable js-drag food"  
-   name="Burger"          cost="1.33"  water="462" CO2="15"    Cal="191">
+   name="Burger"          cost="1.33"  water="462" CO2="15.12"    Cal="191">
    <img src="img/food/steak_HR_icon.png" id="drag1" class="draggable js-drag food" 
-   name="Steak"           cost="4.45"  water="923" CO2="55"    Cal="552">
+   name="Steak"           cost="4.45"  water="923" CO2="54.88"    Cal="552">
    <img src="img/food/cheese_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Cheese"          cost="0.62"  water="76"  CO2="4"  Cal="228">
+   name="Cheese"          cost="0.62"  water="76"  CO2="3.78"  Cal="228">
    <img src="img/food/bacon_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Bacon"           cost="0.62"   water="90"  CO2="3"  Cal="130" >
+   name="Bacon"           cost="0.62"   water="90"  CO2="3.39"  Cal="130" >
    <img src="img/food/chicken_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Chicken"         cost="0.99"  water="259"  CO2="8"   Cal="367">
+   name="Chicken"         cost="0.99"  water="259"  CO2="7.73"   Cal="367">
    <img src="img/food/egg_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Egg"                cost="0.37"  water="106"  CO2="3"   Cal="154" >
+   name="Egg"                cost="0.37"  water="106"  CO2="2.69"   Cal="154" >
    <img src="img/food/potato_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Potato"           cost="0.39"   water="15"   CO2="13"   Cal="117">
+   name="Potato"           cost="0.39"   water="15"   CO2="13.00"   Cal="117">
    <img src="img/food/fries_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Fries"            cost="0.46"  water="31"  CO2="15"  Cal="1084">
+   name="Fries"            cost="0.46"  water="31"  CO2="14.67"  Cal="1084">
    <img src="img/food/chips_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Chips"            cost="0.99"  water="30"  CO2="15"  Cal="291">
+   name="Chips"            cost="0.99"  water="30"  CO2="14.67"  Cal="291">
    <img src="img/food/rice_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Rice"             cost="0.12"  water="37"  CO2="1"   Cal="204">
+   name="Rice"             cost="0.12"  water="37"  CO2="0.75"   Cal="204">
    <img src="img/food/peanutbutter_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Peanut Butter"   cost="0.24"  water="30"  CO2="1"   Cal="173">
+   name="Peanut Butter"   cost="0.24"  water="30"  CO2="0.64"   Cal="173">
    <img src="img/food/tofu_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Tofu"            cost="1.04"  water="28"   CO2="1"     Cal="176"> 
+   name="Tofu"            cost="1.04"  water="28"   CO2="1.12"     Cal="176"> 
    <img src="img/food/beans_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Beans"           cost="0.31"  water="2"   CO2="0"   Cal="157">
+   name="Beans"           cost="0.31"  water="2"   CO2="0.0.25"   Cal="157">
    <img src="img/food/lettuce_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Lettuce"         cost="0.16"  water="2"   CO2="0"     Cal="8"  >
+   name="Lettuce"         cost="0.16"  water="2"   CO2="0.28"     Cal="8"  >
    <img src="img/food/broccoli_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Broccoli"        cost="0.38"  water="4"   CO2="1"     Cal="34" >
+   name="Broccoli"        cost="0.38"  water="4"   CO2="1.12"     Cal="34" >
    <img src="img/food/corn_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Corn"            cost="0.27"   water="73"  CO2="2"     Cal="156">
+   name="Corn"            cost="0.27"   water="73"  CO2="1.68"     Cal="156">
    <img src="img/food/strawberries_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Strawberry"      cost="0.73"   water="10"   CO2="1"   Cal="53" >
+   name="Strawberry"      cost="0.73"   water="10"   CO2="1.23"   Cal="53" >
    <img src="img/food/tomato_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Tomato"          cost="0.99"  water="24"   CO2="1"   Cal="22" >
+   name="Tomato"          cost="0.99"  water="24"   CO2="1.23"   Cal="22" >
    <img src="img/food/orange_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Orange"           cost="0.79"  water="21"   CO2="2"   Cal="86" >
+   name="Orange"           cost="0.79"  water="21"   CO2="1.85"   Cal="86" >
    <img src="img/food/banana_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Bananas"         cost="0.11"  water="47"   CO2="0"   Cal="121">
+   name="Bananas"         cost="0.11"  water="47"   CO2="0.46"   Cal="121">
    <img src="img/food/bread_HR_icon.png" id="drag1" class="draggable js-drag food"
-   name="Bread"           cost="0.38"  water="12"  CO2="1"   Cal="69" >
+   name="Bread"           cost="0.38"  water="12"  CO2="0.67"   Cal="69" >
   </div>
-    <imsg src= "img/Plate.png" id="inner-dropzone" name="plate" class="plate js-drop" style="transform: translate(700px,-900px);">
-
   <div id="H20" class="container draggable js-drag gesture-area">
     <div id ="chart_div1" class="chart scale-element"></div>
       <p id="chartline1" class="chartline"></p>
       <p id="chartTotal1" class="chartbase graphpadding">Total: 0</p>
   </div>
-  <div id="C02" class=" container draggable js-drag gesture-area">
+ <div id="C02" class="draggable js-drag gesture-area">
       <div id ="chart_div2" class="chart scale-element"></div>
       <p id="chartline2" class="chartline"></p>
-      <p id="chartTotal2" class="chartbase graphpadding">Total: 0</p>
+      <p id="chartTotal2" class="chartbase graphpadding" style="color:#fdf2e4;">Total: 0</p>
   </div>
   <div id="Calories" class=" container draggable js-drag gesture-area">
       <div id ="chart_div3" class="chart scale-element"></div>
@@ -391,7 +265,7 @@ interact('.plate').dropzone({
   </div>
   <div id="cost" class="container draggable js-drag">
     <table id="table">
-			<tr><td width=80 height=50>Item</td><td width=50>Quantity</td><td width=50>Price</td></tr>
+			<tr><td width=80 height=50 style="color:#fdf2e4;">Item</td><td width=50>Quantity</td><td width=50>Price</td></tr>
     </table>
     <p class="tableline"></p>
     <p id="totalprice" class="graphpadding">Total $0.00</p>	

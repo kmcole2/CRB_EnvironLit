@@ -115,9 +115,10 @@ var exist = 0;                    //exist flag
             chart_cost_add(event);
             costTable_redraw();
             calc_cost();
+            // snapback(event);
   });
   }
-
+  //DRAG OFF PLATE
   function setupDropzone1(el, accept) {
     interact(el)
         .dropzone({
@@ -169,7 +170,8 @@ var exist = 0;                    //exist flag
             halfsize(event.relatedTarget);            //half image size
             chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
             costTable_redraw();                       //redraw table
-            calc_cost();                              
+            calc_cost();  
+            // snapback(event);                            
   });}
 
   function addClass (element, className) {
@@ -204,12 +206,19 @@ var exist = 0;                    //exist flag
     
 //image size
 function doublesize(target){
-    target.style.height = '100px';
-    target.style.width = '100px';
+  // console.log("doublesize");
+  // var currStyle = target.style.getPropertyValue("width");//currentStyle.transform;
+  // console.log(currStyle);
+
+  //transform scale
+ // target.style.transform = "scale(2,2)";
+    // target.style.height = '100px';
+    // target.style.width = '100px';
+    // transform: scale(2,3);
 };
 function halfsize(target){
-    target.style.height = '50px';
-    target.style.width = '50px';  
+    // target.style.height = '50px';
+    // target.style.width = '50px';  
 }
 
     /*drawBasic, 
@@ -237,7 +246,7 @@ function halfsize(target){
         title: 'H2O', 
         titleTextStyle: {
           color: '#e8e3da', 
-          // fontName: 'UniverseLight', 
+          fontName: 'UniverseLight', 
           fontSize: '16', 
           fontWidth: 'normal'},
         hAxis: {
@@ -252,14 +261,14 @@ function halfsize(target){
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:1000,
+              max:500,
               min:0
           }
        },
         legend: {position: 'none'},
+        backgroundColor: '#5099ab',
         width: 400,
         height: 300,
-        backgroundColor: '#5099ab',
         bar:{ groupWidth:20},
         colors: ['#e8e3da']
       };
@@ -268,7 +277,7 @@ function halfsize(target){
         title: 'CO2',
         titleTextStyle: {
           color: '#e8e3da', 
-          // fontName: 'UniverseLight', 
+          fontName: 'UniverseLight', 
           fontSize: '16', 
           fontWidth: 'normal'
         },
@@ -299,7 +308,7 @@ function halfsize(target){
         title: 'Calories',
         titleTextStyle: {
           color: '#e8e3da', 
-          // fontName: 'UniverseLight', 
+          fontName: 'UniverseLight', 
           fontSize: '16', 
           fontWidth: 'normal'
         },
@@ -314,7 +323,7 @@ function halfsize(target){
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:600,
+              max:1100,
               min:0
           }
         },
@@ -342,7 +351,6 @@ function halfsize(target){
     calculates a and returns chart total */
     function graphtotal(dataset){
       var total=0;
-       
       for (var i=0; i<(dataset.getNumberOfRows()); i++){
         total += dataset.getValue(i, 1);
       }      
@@ -352,36 +360,44 @@ function halfsize(target){
     /* chart_cost_add
     append item to cost list & chart (with 8 item limit)*/ 
     function chart_cost_add(event){
-      var item_quant = 0
-      for(var a = 0; a < f.length; a++){
-        item_quant += parseFloat(f[a].quant);
-      }
-        // console.log(item_quant + " " +" " + f.length);
+      if (f.length == 8){
+        console.log("more than 8");
+        exist = 1;
+        //SNAPBACK
+       // snapback(event.relatedTarget);
+      var e = event.relatedTarget;
+      var transformVals =  window.getComputedStyle(e,null).getPropertyValue('transform');
+      var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+      var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
 
-      if (f.length < 8 && item_quant < 8){
-        //check for prexisting - edit array
+      //convert from 20px to 20, remove 'px' w/ regular expressions
+      var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
+      var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
+      var newtransX = transX-left;
+      var newtransY = transY-top;
+
+      var value = "translate(" + newtransX + "px," + newtransY + "px);";
+      // console.log(value);
+      e.setAttribute ("style","transform: translate(200,200);");
+
+      } 
+      else {
         var item = event.relatedTarget;
+        //check for prexisting element 
         for(var a = 0; a < f.length; a++){
           if (f[a].name == event.relatedTarget.getAttribute('name')){
-              f[a].quant = parseFloat(f[a].quant) + 1 ;
-              f[a].price = parseFloat(f[a].price) + parseFloat(event.relatedTarget.getAttribute('cost')); 
+              console.log('item already exists');
               exist = 1;
-
-              //accumulator for preexisting chart elements
-              H2O_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('water')));
-              CO2_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('CO2')));
-              Cal_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('Cal')));
           }  
         }
+      }
         //add element if it doesn't exist 
         if(exist == 0){
-          
-          var cost = item.getAttribute('cost')
-            
+          var cost = item.getAttribute('cost');
             f.push({  
               name:  item.getAttribute('name'),
               price: parseFloat(cost).toFixed(2),
-              quant: 1,//item.getAttribute('quant'),
+              quant: 1,
               water: item.getAttribute('water'),
               CO2:   item.getAttribute('CO2'),
               Cal:   item.getAttribute('Cal'),
@@ -392,10 +408,7 @@ function halfsize(target){
         }
         //reset flag
         exist = 0;
-        }
-        else{
-          console.log("more than 8");
-        }
+
           document.getElementById('chartTotal1').innerHTML = "Total    " + graphtotal(H2O_data);
           document.getElementById('chartTotal2').innerHTML = "Total    " + graphtotal(CO2_data);
           document.getElementById('chartTotal3').innerHTML = "Total    " + graphtotal(Cal_data);
@@ -404,7 +417,41 @@ function halfsize(target){
           CO2_chart.draw(CO2_data, CO2_options);
           Cal_chart.draw(Cal_data, Cal_options);      
     }
+ 
+    function snapback(e){
+      // var transformVals =  window.getComputedStyle(e,null).getPropertyValue('transform');
+      // var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+      // var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
 
+      // //convert from 20px to 20, remove 'px' w/ regular expressions
+      // var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
+      // var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
+      // var newtransX = transX-left;
+      // var newtransY = transY-top;
+
+      // var value = "translate(" + newtransX + "px," + newtransY + "px);";
+      // // console.log(value);
+      // e.style.transform = value;
+
+      // target.style.transform = "scale(2,2)";
+
+
+       //  event.relatedTarget.style.transform = "("+ transX + "," + transY + ")" + " scale(2,2)";
+
+        // console.log(transformVals);
+
+
+        // e.relatedTarget.style.top = "0";
+        // e.relatedTarget.style.left = "0";
+
+       // var hi = document.getElementById("Calories");
+  
+                // var transx  = e.relatedTarget.style.transform;
+        // console.log(transx); 
+        // var transy  = e.relatedTarget.style.transform;
+        // console.log(transy);
+
+    }
     /* costTable_redraw,
     reassign table w/ updated entries and update pricing  */
     function costTable_redraw(){
@@ -428,7 +475,7 @@ function halfsize(target){
               total += isNaN(fooditems[i].innerHTML) ? 0: parseFloat(fooditems[i].innerHTML);
             }
         }
-        document.getElementById('totalprice').innerHTML = "Total $" + parseFloat(total).toFixed(2);
+        document.getElementById('totalprice').innerHTML = "Total: $ " + parseFloat(total).toFixed(2);
 
 
     }
