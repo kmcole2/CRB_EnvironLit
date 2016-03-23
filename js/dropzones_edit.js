@@ -111,13 +111,12 @@ var exist = 0;                    //exist flag
             console.log(event.relatedTarget.getAttribute('name'));
 
             //double image size
-// doublesize(event.relatedTarget);
-// chart_cost_add(event);
-// costTable_redraw();
-// calc_cost();
+            // doublesize(event.relatedTarget);
+            // chart_cost_add(event);
+            // costTable_redraw();
+            // calc_cost();
             // snapback(event);
-  });
-  }
+  });}
   //DRAG OFF PLATE
   function setupDropzone1(el, accept) {
     interact(el)
@@ -167,10 +166,10 @@ var exist = 0;                    //exist flag
             event.relatedTarget.textContent = 'Dropped';
 
             
-            halfsize(event.relatedTarget);            //half image size
-            chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
-            costTable_redraw();                       //redraw table
-            calc_cost();  
+            // halfsize(event.relatedTarget);            //half image size
+            // chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
+            // costTable_redraw();                       //redraw table
+            // calc_cost();  
             // snapback(event);                            
   });}
 
@@ -206,36 +205,19 @@ var exist = 0;                    //exist flag
     
 //image size
 function doublesize(target){
-  console.log("entered doublesize");
-  // var currStyle = target.style.getPropertyValue("width");//currentStyle.transform;
-  // console.log(currStyle);
-
- //  transform scale
- // target.style.transform = "scale(2,2)";
- //    target.style.height = '100px';
- //    target.style.width = '100px';
- //    transform: scale(2,3);
-
   var transformVals =  window.getComputedStyle(target,null).getPropertyValue('transform');
   var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
   var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
   var value = "translate(" + transX + "px," + transY + "px) scale(1.5,1.5)";
   target.style.transform = value;
-  console.log("exit doublesize");
 };
 
 function halfsize(target){
-var transformVals =  window.getComputedStyle(target,null).getPropertyValue('transform');
-var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-
-var value = "translate(" + transX + "px," + transY + "px) scale(1,1)";
-
-// console.log(value);
-target.style.transform = value;
-// target.style.top = "1px";
-// target.style.left = "1px";
-console.log("halfsize");
+  var transformVals =  window.getComputedStyle(target,null).getPropertyValue('transform');
+  var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+  var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+  var value = "translate(" + transX + "px," + transY + "px) scale(1,1)";
+  target.style.transform = value;
 }
 
     /*drawBasic, 
@@ -394,8 +376,10 @@ console.log("halfsize");
       var newtransY = transY-top;
 
       var value = "translate(" + newtransX + "px," + newtransY + "px);";
+      // var value = "translate(" + transX + "px," + transY + "px);";
+
       // console.log(value);
-      e.setAttribute ("style","transform: translate(200,200);");
+      e.setAttribute ("style","transform: translate(200,200);" + value + "top: 0px; left: 0px;");
 
       } 
       else {
@@ -436,7 +420,7 @@ console.log("halfsize");
           Cal_chart.draw(Cal_data, Cal_options);      
     }
  
-    function snapback(e){
+    // function snapback(e){
       // var transformVals =  window.getComputedStyle(e,null).getPropertyValue('transform');
       // var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
       // var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
@@ -469,7 +453,7 @@ console.log("halfsize");
         // var transy  = e.relatedTarget.style.transform;
         // console.log(transy);
 
-    }
+    // }
     /* costTable_redraw,
     reassign table w/ updated entries and update pricing  */
     function costTable_redraw(){

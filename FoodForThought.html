@@ -85,7 +85,7 @@ interact('.table').dropzone({
     costTable_redraw();                       //redraw table
     calc_cost();  
     // snapback(event.relatedTarget);     //crazy behavior
-    reassign_coords(event.relatedTarget);  
+    // reassign_coords(event.relatedTarget);  
   },
   ondropdeactivate: function (event) {
     // remove active dropzone feedback
@@ -139,9 +139,6 @@ interact('.plate').dropzone({
 });
 
     var transformProp;
-
-    interact.maxInteractions(Infinity);
-
     // setup draggable elements.
     interact('.draggable')
         .on('gesturestart', function (event) {
@@ -172,8 +169,8 @@ interact('.plate').dropzone({
 
   function reassign_coords(target){
     console.log("reassigncoods");
-    target.style.top = "0";
-    target.style.left = "0";
+    // target.style.top = "0";
+    // target.style.left = "0";
     // target.setAttribute('transform',translate(-1200px,-1100px));
   }
 function snapback(e){
@@ -182,16 +179,18 @@ function snapback(e){
       var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
 
       //convert from 20px to 20, remove 'px' w/ regular expressions
-      var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
-      var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
-      var newtransX = transX-left;
-      var newtransY = transY-top;
+      // var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
+      // var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
+      // var newtransX = transX-left;
+      // var newtransY = transY-top;
 
-      var value = "translate(" + newtransX + "px," + newtransY + "px);";
+      var value = "translate(" + transX + "px," + transY + "px);";
       console.log(value);
       // console.log(value);
       // e.style.transform = value;
-      e.setAttribute ("style",value);
+      e.setAttribute ("style",value); 
+      // e.style.top = "0";
+      // e.style.left = "0";
     }
 </script>
 </head>
@@ -247,7 +246,7 @@ function snapback(e){
       <p id="chartline1" class="chartline"></p>
       <p id="chartTotal1" class="chartbase graphpadding">Total: 0</p>
   </div>
- <div id="C02" class="draggable js-drag gesture-area">
+ <div id="C02" class="container draggable js-drag gesture-area">
       <div id ="chart_div2" class="chart scale-element"></div>
       <p id="chartline2" class="chartline"></p>
       <p id="chartTotal2" class="chartbase graphpadding" style="color:#fdf2e4;">Total: 0</p>

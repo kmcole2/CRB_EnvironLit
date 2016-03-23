@@ -24,20 +24,23 @@
     background-color: #ea8524;
   }
   .food{  
-  height:75px;
+   height:75px;
   }
 
   #chartTotal1{
     background-color: #96ccda;
     color:#fdf2e4;
+    margin:0px;
 
   }
   #chartTotal2{
     background-color: #b0afaf;
     color:#fdf2e4;
+    margin:0px;
   }
   #chartTotal3{
     background-color: #abd79f;
+    margin:0px;
   }
 /*    .tabletotal{
       width: 186px;
