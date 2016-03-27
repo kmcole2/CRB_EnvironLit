@@ -90,16 +90,18 @@
       })
       .gesturable({
       onmove: function (event) {
-        var arrow = document.getElementById('arrow');
+        var arrow = event.target;//document.getElementsByClass('Calories');
 
         angle += event.da;
         console.log(angle);
-        arrow.style.webkitTransform =
-        arrow.style.transform =
-          'rotate(' + angle + 'deg)';
+        var transformVals = window.getComputedStyle(arrow,null).getPropertyValue('transform');
+        var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+        var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg)";
+        console.log(newtransform);
+        // arrow.style.webkitTransform =
+        arrow.style.transform = newtransform;
 
-        document.getElementById('angle-info').textContent =
-          angle.toFixed(2) + '°';
       }
       });
 
