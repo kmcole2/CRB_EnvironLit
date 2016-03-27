@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+  <head>
+    <!--Load the AJAX API-->
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="http://www.google.com/uds/modules/gviz/gviz-api.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
+    <script src="http://code.interactjs.io/v1.2.6/interact.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="css/dropzones.css"> -->
+    <!-- // <script  type="text/javascript" src="js/dropzones_edit.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="css/food.css">
+    <link rel="stylesheet" type="text/css" href="css/foodforthought.css">
+
+  <style>
+    @font-face {
+        font-family: UniverseLight;
+        src: url(fonts/UniversLTStd-Light.otf) format("opentype");
+      }
+      @font-face {
+        font-family: UniverseLight;
+        src: url(fonts/UniversLTStd-Bold.otf) format("opentype");
+        font-weight: bold;
+      }
+      html {
+        background: url(img/woodbackground_HR_1920x1080.jpg) no-repeat center center fixed; 
+        background-size: cover;
+        font-family: UniverseLight;
+      }
+  </style>  
+<script>
+// var angle = 0;
+
+// interact('Calories').gesturable({
+//   onmove: function (event) {
+//     var arrow = document.getElementById('');
+
+//     angle += event.da;
+
+//     arrow.style.webkitTransform =
+//     arrow.style.transform =
+//       'rotate(' + angle + 'deg)';
+
+//     document.getElementById('angle-info').textContent =
+//       angle.toFixed(2) + '°';
+//   }
+// });
+</script>
+<script>
+///INTERACT CODE
+(function (interact) {
+
+  'use strict';
+
+  var transformProp;
+  var element = document.getElementById('inner-dropzone'), x = 0, y = 0;
+
+  // setup draggable elements.
+  interact('.js-drag')
+      .draggable({})
+      .on('dragstart', function (event) {
+          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+          console.log("hi");
+      })
+      .on('dragmove', function (event) {
+          event.interaction.x += event.dx;
+          event.interaction.y += event.dy;
+
+          if (transformProp) {
+              event.target.style[transformProp] =
+                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+          }
+          else {
+              event.target.style.left = event.interaction.x + 'px';
+              event.target.style.top  = event.interaction.y + 'px';
+          }
+      })
+      .on('dragend', function (event) {
+          event.target.setAttribute('data-x', event.interaction.x);
+          event.target.setAttribute('data-y', event.interaction.y);
+
+      }) 
+
+      .on('drop', function (event) {
+          // document.getElementById('')
+          //chart.draw(data, options);
+      })
+      .gesturable({
+      onmove: function (event) {
+        var arrow = document.getElementById('arrow');
+
+        angle += event.da;
+        console.log(angle);
+        arrow.style.webkitTransform =
+        arrow.style.transform =
+          'rotate(' + angle + 'deg)';
+
+        document.getElementById('angle-info').textContent =
+          angle.toFixed(2) + '°';
+      }
+      });
+
+  interact(document).on('ready', function () {
+      transformProp = 'transform' in document.body.style
+          ? 'transform': 'webkitTransform' in document.body.style
+          ? 'webkitTransform': 'mozTransform' in document.body.style
+          ? 'mozTransform': 'oTransform' in document.body.style
+          ? 'oTransform': 'msTransform' in document.body.style
+          ? 'msTransform': null;
+  });
+
+}(window.interact));
+
+
+//GESTURE ATTEMPT
+    var transformProp;
+    var angle = 0;
+    var test = document.getElementsByName("Calories");
+    // setup draggable elements.
+    interact(test).gesturable ({
+      onstart: function (event) {
+        clearTimeout(resetTimeout);
+        scaleElement.classList.remove('reset');
+        console.log("hi",event.da);
+      },
+      // onmove: function (event) {
+      //   scale = scale * (1 + event.ds);
+
+      //   scaleElement.style.webkitTransform =
+      //   scaleElement.style.transform =
+      //     'scale(' + scale + ')';
+
+      //   dragMoveListener(event);
+      // },
+      // onend: function (event) {
+      //   resetTimeout = setTimeout(reset, 1000);
+      //   scaleElement.classList.add('reset');
+      // }
+    });
+
+  function reassign_coords(target){
+    console.log("reassigncoods");
+    // target.style.top = "0";
+    // target.style.left = "0";
+    // target.setAttribute('transform',translate(-1200px,-1100px));
+  }
+function snapback(e){
+      var transformVals =  window.getComputedStyle(e,null).getPropertyValue('transform');
+      var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+      var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+
+      //convert from 20px to 20, remove 'px' w/ regular expressions
+      // var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
+      // var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
+      // var newtransX = transX-left;
+      // var newtransY = transY-top;
+
+      var value = "translate(" + transX + "px," + transY + "px);";
+      console.log(value);
+      // console.log(value);
+      // e.style.transform = value;
+      e.setAttribute ("style",value); 
+      // e.style.top = "0";
+      // e.style.left = "0";
+    }
+</script>
+</head>
+  <body> 
+
+  <div id="outer-dropzone" class="table js-drop"></div>
+   <!--  <img src= "img/Plate.png" id="inner-dropzone" name="plate" class="plate js-drop" style="transform: translate(700px,-900px);">
+   <img src="img/food/hamburger_HR_icon.png"    id="drag1" class="draggable js-drag food" name="Burger"          cost="2.05"  water="461.80" CO2="946.69"  Cal="287.0">
+   <img src="img/food/steak_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Steak"           cost="4.45"  water="923.36" CO2="4108.95" Cal="414.0">
+   <img src="img/food/cheese_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Cheese"          cost="1.86"  water="227.31" CO2="422.80"  Cal="684.0">
+   <img src="img/food/bacon_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Bacon"           cost="1.87"  water="539.00" CO2="1007.93" Cal="390.0" >
+   <img src="img/food/chicken_HR_icon.png"      id="drag1" class="draggable js-drag food" name="Chicken"         cost="2.48"  water="259.37" CO2="643.24"  Cal="282.0">
+   <img src="img/food/egg_HR_icon.png"          id="drag1" class="draggable js-drag food" name="Egg"             cost="0.56"  water="159.00" CO2="88.25"   Cal="231.0">
+   <img src="img/food/potato_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Potato"          cost="0.29"  water="11.39"  CO2="3.33"    Cal="90.8">
+   <img src="img/food/fries_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Fries"           cost="0.86"  water="31.30"  CO2="26.92"   Cal="558.0">
+   <img src="img/food/chips_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Chips"           cost="1.49"  water="45.00"  CO2="66.83"   Cal="900.0">
+   <img src="img/food/rice_HR_icon.png"         id="drag1" class="draggable js-drag food" name="Rice"            cost="0.72"  water="56.09"  CO2="40.38"   Cal="306.0">
+   <img src="img/food/peanutbutter_HR_icon.png" id="drag1" class="draggable js-drag food" name="Peanut Butter"   cost="1.44"  water="178.38" CO2="256.87"  Cal="1038.0">
+   <img src="img/food/tofu_HR_icon.png"         id="drag1" class="draggable js-drag food" name="Tofu"            cost="1.56"  water="213.90" CO2="333.68"  Cal="264.0"> 
+   <img src="img/food/beans_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Beans"           cost="0.31"  water="2.43"   CO2="0.75"    Cal="157.0">
+   <img src="img/food/lettuce_HR_icon.png"      id="drag1" class="draggable js-drag food" name="Lettuce"         cost="0.96"  water="11.28"  CO2="10.83"   Cal="48.0">
+   <img src="img/food/broccoli_HR_icon.png"     id="drag1" class="draggable js-drag food" name="Broccoli"        cost="0.57"  water="5.75"   CO2="3.27"    Cal="12.0">
+   <img src="img/food/corn_HR_icon.png"         id="drag1" class="draggable js-drag food" name="Corn"            cost="0.27"  water="73.08"  CO2="19.73"   Cal="156.0">
+   <img src="img/food/strawberries_HR_icon.png" id="drag1" class="draggable js-drag food" name="Strawberry"      cost="0.73"  water="9.91"   CO2="7.23"    Cal="53.0">
+   <img src="img/food/tomato_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Tomato"          cost="0.74"  water="18.00"  CO2="13.37"   Cal="16.5">
+   <img src="img/food/orange_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Orange"          cost="1.19"  water="25.16"  CO2="29.81"   Cal="129.0">
+   <img src="img/food/banana_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Bananas"         cost="0.30"  water="94.64"  CO2="28.39"   Cal="242.0">
+   <img src="img/food/bread_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Bread"           cost="1.14"  water="72.12"  CO2="82.22"   Cal="207.0"> -->
+  <div id="H20" class="container draggable js-drag gesture-area">
+    <div id ="chart_div1" class="chart scale-element"></div>
+      <p id="chartline1" class="chartline"></p>
+      <p id="chartTotal1" class="chartbase graphpadding">Total: 0</p>
+  </div>
+ <div id="C02" class="container draggable js-drag gesture-area">
+      <div id ="chart_div2" class="chart scale-element"></div>
+      <p id="chartline2" class="chartline"></p>
+      <p id="chartTotal2" class="chartbase graphpadding" style="color:#fdf2e4;">Total: 0</p>
+  </div>
+  <div id="Calories" class=" container draggable js-drag gesture-area">
+      <div id ="chart_div3" class="chart scale-element"></div>
+      <p id="chartline3"class="chartline"></p>
+      <p id="chartTotal3" class="chartbase graphpadding">Total: 0</p>
+  </div>
+  <div id="cost" class="container draggable js-drag">
+    <table id="table">
+			<tr><td width=80 height=50 style="color:#fdf2e4;">Item</td><td width=50>Quantity</td><td width=50>Price</td></tr>
+    </table>
+    <p class="tableline"></p>
+    <p id="totalprice" class="graphpadding">Total $0.00</p>	
+  </div>
+<br>
+
+ 
+  </body>
+<script>
+//global chart attributes 
+var H2O_data;
+var H2O_chart;
+var H2O_options;
+var CO2_data;
+var CO2_chart;
+var CO2_options;
+var Cal_data;
+var Cal_chart;
+var Cal_options;
+
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBasic);
+
+var f = new Array();              // name, price
+var exist = 0;                    //exist flag
+  
+
+    
+//image size
+function doublesize(target){
+  var transformVals =  window.getComputedStyle(target,null).getPropertyValue('transform');
+  var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+  var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+  var value = "translate(" + transX + "px," + transY + "px) scale(1.5,1.5)";
+  target.style.transform = value;
+};
+
+function halfsize(target){
+  var transformVals =  window.getComputedStyle(target,null).getPropertyValue('transform');
+  var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+  var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+  var value = "translate(" + transX + "px," + transY + "px) scale(1,1)";
+  target.style.transform = value;
+}
+
+    /*drawBasic, 
+    draws initial chart*/
+    function drawBasic() {
+      H2O_data = new google.visualization.DataTable();
+      H2O_data.addColumn('string', 'Water');
+      H2O_data.addColumn('number', 'Liters');
+      H2O_data.addRows([
+      ]);
+             
+      CO2_data = new google.visualization.DataTable();
+      CO2_data.addColumn('string', 'Carbon Dioxide');
+      CO2_data.addColumn('number', 'kilograms');
+      CO2_data.addRows([
+      ]);
+
+      Cal_data = new google.visualization.DataTable();
+      Cal_data.addColumn('string', 'Food');
+      Cal_data.addColumn('number', 'Calories');
+      Cal_data.addRows([
+      ]);
+
+      H2O_options = {
+        title: 'H2O', 
+        titleTextStyle: {
+          color: '#e8e3da', 
+          fontName: 'UniverseLight', 
+          fontSize: '16', 
+          fontWidth: 'normal'},
+        hAxis: {
+          titleTextStyle: {color: '#e8e3da'}, textStyle:{color: '#e8e3da'},
+          gridlines: { color: "#fff"},
+          baselineColor: '#fff'
+        },
+        vAxis: {
+          title:'L', 
+          titleTextStyle: {color: '#e8e3da'},
+          textStyle:{color: '#e8e3da'},
+          baselineColor: '#ccc',
+          viewWindowMode:'explicit',
+          viewWindow: {
+              max:500,
+              min:0
+          }
+       },
+        legend: {position: 'none'},
+        backgroundColor: '#5099ab',
+        width: 400,
+        height: 300,
+        bar:{ groupWidth:20},
+        colors: ['#e8e3da']
+      };
+
+      CO2_options = {
+        title: 'CO2',
+        titleTextStyle: {
+          color: '#e8e3da', 
+          fontName: 'UniverseLight', 
+          fontSize: '16', 
+          fontWidth: 'normal'
+        },
+        hAxis: {
+          titleTextStyle: {color: '#e8e3da'}, 
+          textStyle:{color: '#e8e3da'}
+        },
+        vAxis: {  
+          title: 'kg', 
+          titleTextStyle: {color: '#e8e3da'}, 
+          textStyle:{color: '#e8e3da'},
+          baselineColor: '#ccc',
+          viewWindowMode:'explicit',
+          viewWindow: {
+              max:60,
+              min:0
+          }
+        },
+        legend: {position: 'none'},
+        width: 400,
+        height: 300,
+        backgroundColor: '#827f7f',
+        bar:{ groupWidth:20},
+        colors: ['#e8e3da']
+      };
+
+      Cal_options = {
+        title: 'Calories',
+        titleTextStyle: {
+          color: '#e8e3da', 
+          fontName: 'UniverseLight', 
+          fontSize: '16', 
+          fontWidth: 'normal'
+        },
+        hAxis: {
+          titleTextStyle: {color: '#e8e3da'}, 
+          textStyle:{color: '#e8e3da'}
+        },
+        vAxis: {
+          title:'kcal', 
+          titleTextStyle: {color: '#e8e3da'},
+          textStyle:{color: '#e8e3da'},
+          baselineColor: '#ccc',
+          viewWindowMode:'explicit',
+          viewWindow: {
+              max:1100,
+              min:0
+          }
+        },
+        legend: {position: 'none'},
+        backgroundColor: '#57b947',
+        width: 400,
+        height: 300,
+        bar:{ groupWidth:20},
+        colors: ['#e8e3da']
+      };
+
+      H2O_chart = new google.visualization.ColumnChart(
+      document.getElementById('chart_div1'));
+      CO2_chart = new google.visualization.ColumnChart(
+      document.getElementById('chart_div2'));
+      Cal_chart = new google.visualization.ColumnChart(
+      document.getElementById('chart_div3'));
+
+      H2O_chart.draw(H2O_data, H2O_options);
+      CO2_chart.draw(CO2_data, CO2_options);
+      Cal_chart.draw(Cal_data, Cal_options);
+    }
+
+    /* graphtotal
+    calculates a and returns chart total */
+    function graphtotal(dataset){
+      var total=0;
+      for (var i=0; i<(dataset.getNumberOfRows()); i++){
+        total += dataset.getValue(i, 1);
+      }      
+     return total;
+    }
+
+    /* chart_cost_add
+    append item to cost list & chart (with 8 item limit)*/ 
+    function chart_cost_add(event){
+      if (f.length == 8){
+        console.log("more than 8");
+        exist = 1;
+        //SNAPBACK
+       // snapback(event.relatedTarget);
+      var e = event.relatedTarget;
+      var transformVals =  window.getComputedStyle(e,null).getPropertyValue('transform');
+      var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+      var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+
+      //convert from 20px to 20, remove 'px' w/ regular expressions
+      var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
+      var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
+      var newtransX = transX-left;
+      var newtransY = transY-top;
+
+      var value = "translate(" + newtransX + "px," + newtransY + "px);";
+      // var value = "translate(" + transX + "px," + transY + "px);";
+
+      // console.log(value);
+      e.setAttribute ("style","transform: translate(200,200);" + value + "top: 0px; left: 0px;");
+
+      } 
+      else {
+        var item = event.relatedTarget;
+        //check for prexisting element 
+        for(var a = 0; a < f.length; a++){
+          if (f[a].name == event.relatedTarget.getAttribute('name')){
+              console.log('*DO NOTHING* item already exists');
+              exist = 1;
+          }  
+        }
+      }
+        //add element if it doesn't exist 
+        if(exist == 0){
+          var cost = item.getAttribute('cost');
+            f.push({  
+              name:  item.getAttribute('name'),
+              price: parseFloat(cost).toFixed(2),
+              quant: 1,
+              water: item.getAttribute('water'),
+              CO2:   item.getAttribute('CO2'),
+              Cal:   item.getAttribute('Cal'),
+              idx:   H2O_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('water'))])
+            });   
+            CO2_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('CO2'))]);
+            Cal_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('Cal'))]);
+// doublesize(event.relatedTarget);
+        }
+        //reset flag
+        exist = 0;
+
+          document.getElementById('chartTotal1').innerHTML = "Total    " + graphtotal(H2O_data);
+          document.getElementById('chartTotal2').innerHTML = "Total    " + graphtotal(CO2_data);
+          document.getElementById('chartTotal3').innerHTML = "Total    " + graphtotal(Cal_data);
+          
+          H2O_chart.draw(H2O_data, H2O_options);
+          CO2_chart.draw(CO2_data, CO2_options);
+          Cal_chart.draw(Cal_data, Cal_options);      
+    }
+ 
+    // function snapback(e){
+      // var transformVals =  window.getComputedStyle(e,null).getPropertyValue('transform');
+      // var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+      // var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+
+      // //convert from 20px to 20, remove 'px' w/ regular expressions
+      // var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
+      // var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
+      // var newtransX = transX-left;
+      // var newtransY = transY-top;
+
+      // var value = "translate(" + newtransX + "px," + newtransY + "px);";
+      // // console.log(value);
+      // e.style.transform = value;
+
+      // target.style.transform = "scale(2,2)";
+
+
+       //  event.relatedTarget.style.transform = "("+ transX + "," + transY + ")" + " scale(2,2)";
+
+        // console.log(transformVals);
+
+
+        // e.relatedTarget.style.top = "0";
+        // e.relatedTarget.style.left = "0";
+
+       // var hi = document.getElementById("Calories");
+  
+                // var transx  = e.relatedTarget.style.transform;
+        // console.log(transx); 
+        // var transy  = e.relatedTarget.style.transform;
+        // console.log(transy);
+
+    // }
+    /* costTable_redraw,
+    reassign table w/ updated entries and update pricing  */
+    function costTable_redraw(){
+      var food_table = '<tr><td width=80 height=50 >Item</td><td width=50>Quantity</td><td width=50>Price</td></tr><br>';
+
+      //populate food table array html to print array as table 
+      for(var i = 0; i < f.length; i ++){
+        food_table +=
+        '<tr ' + 'id=\"' + f[i].name + '"\'> <td>' + f[i].name + ' </td> <td> x ' + f[i].quant + '</td> <td class=\"price\">' + parseFloat(f[i].price).toFixed(2) + '</td> </tr>';
+      }
+      // update cost table
+      food_table +=  '</table>';
+      document.getElementById('table').innerHTML = food_table; 
+    }
+
+    function calc_cost(){
+        var fooditems = document.getElementById('cost').getElementsByTagName('td');
+        var total = 0;
+        for(var i = 0; i < fooditems.length; i++){
+            if(fooditems[i].className == 'price'){
+              total += isNaN(fooditems[i].innerHTML) ? 0: parseFloat(fooditems[i].innerHTML);
+            }
+        }
+        document.getElementById('totalprice').innerHTML = "Total: $ " + parseFloat(total).toFixed(2);
+
+
+    }
+      /*  chart_cost_remove
+      if more than one item of that type exists, 
+      decrement quant update chart values and totals   */
+      function chart_cost_remove(target){
+
+        for(var a = 0; a < f.length; a++){
+          //if more than one instance exists decrement
+          if (f[a].name == target.getAttribute('name')){
+            if(f[a].quant > 1){
+              f[a].quant = parseFloat(f[a].quant) - 1;
+              f[a].price = parseFloat(f[a].price) - parseFloat(target.getAttribute('cost'));
+
+              //decrement chart values
+              H2O_data.setValue(a, 1, f[a].quant*parseInt(target.getAttribute('water')));
+              CO2_data.setValue(a, 1, f[a].quant*parseInt(target.getAttribute('CO2')));
+              Cal_data.setValue(a, 1, f[a].quant*parseInt(target.getAttribute('Cal')));
+            }
+            else{
+              f.splice(a,1);
+              H2O_data.removeRow(a);
+              CO2_data.removeRow(a);
+              Cal_data.removeRow(a);
+            }  
+          }  
+      }
+
+    document.getElementById('chartTotal1').innerHTML = "Total    " + graphtotal(H2O_data);
+    document.getElementById('chartTotal2').innerHTML = "Total    " + graphtotal(CO2_data);
+    document.getElementById('chartTotal3').innerHTML = "Total    " + graphtotal(Cal_data);
+
+    H2O_chart.draw(H2O_data, H2O_options);
+    CO2_chart.draw(CO2_data, CO2_options);
+    Cal_chart.draw(Cal_data, Cal_options);
+
+    }
+</script>
+</html>
