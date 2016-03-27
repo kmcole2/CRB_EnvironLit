@@ -103,18 +103,21 @@ function halfsize(target){
       H2O_data = new google.visualization.DataTable();
       H2O_data.addColumn('string', 'Water');
       H2O_data.addColumn('number', 'Liters');
+      H2O_data.addColumn({type: 'string', role: 'annotation'});
       H2O_data.addRows([
       ]);
              
       CO2_data = new google.visualization.DataTable();
       CO2_data.addColumn('string', 'Carbon Dioxide');
       CO2_data.addColumn('number', 'kilograms');
+      CO2_data.addColumn({type: 'string', role: 'annotation'});
       CO2_data.addRows([
       ]);
 
       Cal_data = new google.visualization.DataTable();
       Cal_data.addColumn('string', 'Food');
       Cal_data.addColumn('number', 'Calories');
+      Cal_data.addColumn({type: 'string', role: 'annotation'});
       Cal_data.addRows([
       ]);
 
@@ -199,7 +202,7 @@ function halfsize(target){
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:600,
+              max:700,
               min:0
           }
         },
@@ -279,10 +282,11 @@ function halfsize(target){
               water: item.getAttribute('water'),
               CO2:   item.getAttribute('CO2'),
               Cal:   item.getAttribute('Cal'),
-              idx:   H2O_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('water'))])
+              idx:   H2O_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('water')),item.getAttribute('water')])
             });   
-            CO2_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('CO2'))]);
-            Cal_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('Cal'))]);
+
+            CO2_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('CO2')), item.getAttribute('CO2')]);
+            Cal_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('Cal')), item.getAttribute('Cal')]);
 // doublesize(event.relatedTarget);
         }
         //reset flag

@@ -101,10 +101,10 @@
   /*background: lightpink;*/
  /* width: 70%;*/
   /*transition: background-color 0.3s;*/
+  transform: translate(-600px,0px);
 }#inner-dropzone {
   height: 550px;
   width:  550px;
-  /*transform: translate(10px,-800px);*/
 } 
 
 .drop-active {
