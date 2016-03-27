@@ -22,7 +22,8 @@ body{
     font-size: 13px;
   }
   #H20{
-    transform: translate(1657px,-1076px) rotate(180deg);
+    transform: translate(1657px,-1076px);
+     /*rotate(180deg);*/
     width:300px;
     height:300px;
 
