@@ -50,6 +50,9 @@
 </script>
 <script>
 ///INTERACT CODE
+
+var scale = 1;
+var angle = 0;
 (function (interact) {
 
   'use strict';
@@ -94,15 +97,41 @@
 
         angle += event.da;
         console.log(angle);
+        scale = scale * (1 + event.ds);
+
         var transformVals = window.getComputedStyle(arrow,null).getPropertyValue('transform');
         var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
         var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg)";
+        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
+        scale + ")";
         console.log(newtransform);
         // arrow.style.webkitTransform =
-        arrow.style.transform = newtransform;
-
+        arrow.style.webkitTransform = arrow.style.transform = newtransform;
       }
+      })
+     .resizable({
+      resizemove: function(event){
+        console.log("resize");
+      }
+    //     var target = event.target,
+    //     x = (parseFloat(target.getAttribute('data-x')) || 0),
+    //     y = (parseFloat(target.getAttribute('data-y')) || 0);
+
+    // // update the element's style
+    // target.style.width  = event.rect.width + 'px';
+    // target.style.height = event.rect.height + 'px';
+
+    // // translate when resizing from top or left edges
+    // x += event.deltaRect.left;
+    // y += event.deltaRect.top;
+
+    // target.style.webkitTransform = target.style.transform =
+    //     'translate(' + x + 'px,' + y + 'px)';
+
+    // target.setAttribute('data-x', x);
+    // target.setAttribute('data-y', y);
+    // target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
+    //   }
       });
 
   interact(document).on('ready', function () {
@@ -212,10 +241,10 @@ function snapback(e){
   </div>
   <div id="cost" class="container draggable js-drag">
     <table id="table">
-			<tr><td width=80 height=50 style="color:#fdf2e4;">Item</td><td width=50>Quantity</td><td width=50>Price</td></tr>
+      <tr><td width=80 height=50 style="color:#fdf2e4;">Item</td><td width=50>Quantity</td><td width=50>Price</td></tr>
     </table>
     <p class="tableline"></p>
-    <p id="totalprice" class="graphpadding">Total $0.00</p>	
+    <p id="totalprice" class="graphpadding">Total $0.00</p> 
   </div>
 <br>
 
