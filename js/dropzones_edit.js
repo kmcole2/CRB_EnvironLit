@@ -137,7 +137,7 @@ function halfsize(target){
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:500,
+              max:800,
               min:0
           }
        },
@@ -168,7 +168,7 @@ function halfsize(target){
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:60,
+              max:6,
               min:0
           }
         },
@@ -199,7 +199,7 @@ function halfsize(target){
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:1100,
+              max:600,
               min:0
           }
         },
