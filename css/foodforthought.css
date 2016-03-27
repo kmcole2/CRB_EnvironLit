@@ -9,13 +9,7 @@
 /*   #foodblock{
     position:absolute;
    }*/
-  .container{
-    width: 200px;
-    height: 2px;
-    margin: 0 auto;
-    position: relative;
-    display:inline-block;
-   } 
+
 
     #table{
     border-collapse: collapse; 

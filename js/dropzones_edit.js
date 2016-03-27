@@ -30,7 +30,6 @@ var exist = 0;                    //exist flag
       .on('dragstart', function (event) {
           event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
           event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
-                   console.log("hi",event.da);
       })
       .on('dragmove', function (event) {
           event.interaction.x += event.dx;
@@ -50,11 +49,6 @@ var exist = 0;                    //exist flag
           event.target.setAttribute('data-y', event.interaction.y);
 
       }) 
-
-      .on('drop', function (event) {
-          // document.getElementById('')
-          //chart.draw(data, options);
-      })
       .gesturable({
       onmove: function (event) {
         var arrow = event.target;//document.getElementsByClass('Calories');
@@ -73,142 +67,6 @@ var exist = 0;                    //exist flag
         arrow.style.webkitTransform = arrow.style.transform = newtransform;
       }
       });
-
-  // setup drop areas.
-  // dropzone #1 accepts draggable #1
-  setupDropzone1('#drop1', '#drag1');
-  setupDropzone('#drop2', '#drag1');
-
-  function setupDropzone(el, accept) {
-    interact(el)
-        .dropzone({
-            accept: accept,
-            ondropactivate: function (event) {
-                addClass(event.relatedTarget, '-drop-possible');
-            },
-            ondropdeactivate: function (event) {
-                removeClass(event.relatedTarget, '-drop-possible');
-            }
-        })
-        .on('dropactivate', function (event) {
-            var active = event.target.getAttribute('active')|0;
-
-            // change style if it was previously not active
-            if (active === 0) {
-                addClass(event.target, '-drop-possible');
-                event.target.textContent = 'Drop me here!';
-            }
-
-            event.target.setAttribute('active', active + 1);
-        })
-        .on('dropdeactivate', function (event) {
-            var active = event.target.getAttribute('active')|0;
-
-            // change style if it was previously active
-            // but will no longer be active
-            if (active === 1) {
-                removeClass(event.target, '-drop-possible');
-                event.target.textContent = 'Dropzone';
-            }
-
-            event.target.setAttribute('active', active - 1);
-        })
-        .on('dragenter', function (event) {
-            addClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'I\'m in';
-        })
-        .on('dragleave', function (event) {
-            removeClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'Drag me…';
-        })
-        .on('drop', function (event) {
-
-            removeClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'Dropped';
-
-            console.log("event.target = " + event.target);
-            console.log(event.relatedTarget.getAttribute('name'));
-
-            //double image size
-            // doublesize(event.relatedTarget);
-            // chart_cost_add(event);
-            // costTable_redraw();
-            // calc_cost();
-            // snapback(event);
-  });}
-  //DRAG OFF PLATE
-  function setupDropzone1(el, accept) {
-    interact(el)
-        .dropzone({
-            accept: accept,
-            ondropactivate: function (event) {
-                addClass(event.relatedTarget, '-drop-possible');
-            },
-            ondropdeactivate: function (event) {
-                removeClass(event.relatedTarget, '-drop-possible');
-            }
-        })
-        .on('dropactivate', function (event) {
-            var active = event.target.getAttribute('active')|0;
-
-            // change style if it was previously not active
-            if (active === 0) {
-                addClass(event.target, '-drop-possible');
-                event.target.textContent = 'Drop me here!';
-            }
-
-            event.target.setAttribute('active', active + 1);
-        })
-        .on('dropdeactivate', function (event) {
-            var active = event.target.getAttribute('active')|0;
-
-            // change style if it was previously active
-            // but will no longer be active
-            if (active === 1) {
-                removeClass(event.target, '-drop-possible');
-                event.target.textContent = 'Dropzone';
-            }
-
-            event.target.setAttribute('active', active - 1);
-        })
-        .on('dragenter', function (event) {
-            addClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'I\'m in';
-        })
-        .on('dragleave', function (event) {
-            removeClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'Drag me…';
-        })
-        .on('drop', function (event) {
-
-            removeClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'Dropped';
-
-            
-            // halfsize(event.relatedTarget);            //half image size
-            // chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
-            // costTable_redraw();                       //redraw table
-            // calc_cost();  
-            // snapback(event);                            
-  });}
-
-  function addClass (element, className) {
-      if (element.classList) {
-          return element.classList.add(className);
-      }
-      else {
-          element.className += ' ' + className;
-      }
-  }
-
-  function removeClass (element, className) {
-      if (element.classList) {
-          return element.classList.remove(className);
-      }
-      else {
-          element.className = element.className.replace(new RegExp(className + ' *', 'g'), '');
-      }
-  }
 
   interact(document).on('ready', function () {
       transformProp = 'transform' in document.body.style

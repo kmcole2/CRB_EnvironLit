@@ -30,24 +30,7 @@
         font-family: UniverseLight;
       }
   </style>  
-<script>
-var angle = 0;
 
-interact('Calories').gesturable({
-  onmove: function (event) {
-    var arrow = document.getElementById('');
-
-    angle += event.da;
-
-    arrow.style.webkitTransform =
-    arrow.style.transform =
-      'rotate(' + angle + 'deg)';
-
-    document.getElementById('angle-info').textContent =
-      angle.toFixed(2) + '°';
-  }
-});
-</script>
 <script>
 //TABLE DROP
 interact('.table').dropzone({
@@ -59,16 +42,11 @@ interact('.table').dropzone({
   // listen for drop related events:
   ondropactivate: function (event) {
     // add active dropzone feedback
-    event.target.classList.add('drop-active');
+    // event.target.classList.add('drop-active');
   },
   ondragenter: function (event) {
     var draggableElement = event.relatedTarget,
         dropzoneElement = event.target;
-
-    // feedback the possibility of a drop
-    dropzoneElement.classList.add('drop-target');
-    draggableElement.classList.add('can-drop');
-    draggableElement.textContent = 'Dragged in';
   },
   ondragleave: function (event) {
     // remove the drop feedback style
@@ -77,15 +55,12 @@ interact('.table').dropzone({
     event.relatedTarget.textContent = 'Dragged out';
   },
   ondrop: function (event) {
-    event.relatedTarget.textContent = 'Dropped';
     console.log("table drop");
 
     halfsize(event.relatedTarget);            //half image size
     chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
     costTable_redraw();                       //redraw table
     calc_cost();  
-    // snapback(event.relatedTarget);     //crazy behavior
-    // reassign_coords(event.relatedTarget);  
   },
   ondropdeactivate: function (event) {
     // remove active dropzone feedback
