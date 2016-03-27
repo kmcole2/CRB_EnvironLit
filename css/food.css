@@ -5,10 +5,17 @@ body{
      font-weight: bold;
 
   }  
+  .container{
+    width: 200px;
+    height: 2px;
+    margin: 0 auto;
+    position: relative;
+    display:inline-block;
+   } 
   #cost{
     transform: translate(-563px,-931px);
     height:100px;
-    width:185px;
+    width:300px;
     float:right;
     font-family: UniverseLight;
     padding: 5px;
@@ -16,13 +23,19 @@ body{
   }
   #H20{
     transform: translate(22px,-548px);
+    width:300px;
+    height:300px;
 
   }
   #C02{
     transform: translate(1060px,-700px);
+    width:300px;
+    height:300px;
   }
   #Calories{
     transform: translate(900px,-1200px);
+    width:300px;
+    height:300px;
   }
 img[name=Burger] {
   transform: translate(680px,-313px);

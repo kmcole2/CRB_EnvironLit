@@ -21,7 +21,8 @@ var exist = 0;                    //exist flag
   'use strict';
 
   var transformProp;
-  var element = document.getElementById('inner-dropzone'), x = 0, y = 0;
+  var scale = 1;
+  var angle = 0;
 
   // setup draggable elements.
   interact('.js-drag')
@@ -53,6 +54,24 @@ var exist = 0;                    //exist flag
       .on('drop', function (event) {
           // document.getElementById('')
           //chart.draw(data, options);
+      })
+      .gesturable({
+      onmove: function (event) {
+        var arrow = event.target;//document.getElementsByClass('Calories');
+
+        angle += event.da;
+        console.log(angle);
+        scale = scale * (1 + event.ds);
+
+        var transformVals = window.getComputedStyle(arrow,null).getPropertyValue('transform');
+        var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+        var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
+        scale + ")";
+        console.log(newtransform);
+        // arrow.style.webkitTransform =
+        arrow.style.webkitTransform = arrow.style.transform = newtransform;
+      }
       });
 
   // setup drop areas.

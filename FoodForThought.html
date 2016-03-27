@@ -139,30 +139,6 @@ interact('.plate').dropzone({
 });
 
 //GESTURE ATTEMPT
-    var transformProp;
-    var angle = 0;
-    var test = document.getElementsByName("Burger");
-    // setup draggable elements.
-    interact(test).gesturable ({
-      onstart: function (event) {
-        clearTimeout(resetTimeout);
-        scaleElement.classList.remove('reset');
-      },
-      onmove: function (event) {
-        scale = scale * (1 + event.ds);
-
-        scaleElement.style.webkitTransform =
-        scaleElement.style.transform =
-          'scale(' + scale + ')';
-
-        dragMoveListener(event);
-      },
-      onend: function (event) {
-        resetTimeout = setTimeout(reset, 1000);
-        scaleElement.classList.add('reset');
-      }
-    });
-
   function reassign_coords(target){
     console.log("reassigncoods");
     // target.style.top = "0";
