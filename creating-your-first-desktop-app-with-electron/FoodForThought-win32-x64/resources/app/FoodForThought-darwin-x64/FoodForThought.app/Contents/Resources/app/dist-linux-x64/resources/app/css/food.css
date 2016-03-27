@@ -1,0 +1,62 @@
+/*fdf2e4*/
+body{
+     color: rgb(253,242,228); 
+     font-family: UniverseLight;
+     font-weight: bold;
+
+  }  
+  .container{
+    width: 200px;
+    height: 2px;
+    margin: 0 auto;
+    position: relative;
+    display:inline-block;
+   } 
+  #cost{
+    transform: translate(-1763px,-1031px);
+    height:100px;
+    width:300px;
+    float:right;
+    font-family: UniverseLight;
+    padding: 5px;
+    font-size: 13px;
+  }
+  #H20{
+    transform: translate(1657px,-1076px);
+     /*rotate(180deg);*/
+    width:300px;
+    height:300px;
+
+  }
+  #C02{
+    transform: translate(-255px,-600px);
+    width:300px;
+    height:300px;
+  }
+  #Calories{
+    transform: translate(986px,-615px);
+    width:300px;
+    height:300px;
+  }
+img[name=Burger]          { transform: translate(890px, -313px);}
+img[name="Steak"]         { transform: translate(386px, -602px);}
+img[name="Cheese"]        { transform: translate(420px, -210px);}
+img[name="Bacon"]         { transform: translate(171px, -739px);}
+img[name="Chicken"]       { transform: translate(41px, -444px);}
+img[name="Egg"]           { transform: translate(-41px, -868px);}
+img[name="Potato"]        { transform: translate(53px, -599px);}
+img[name="Fries"]         { transform: translate(-124px, -854px);}
+img[name="Chips"]         { transform: translate(-254px, -732px);}
+img[name="Rice"]          { transform: translate(-220px, -262px);}
+img[name="Peanut Butter"] { transform: translate(-491px, -996px);}
+img[name="Tofu"]          { transform: translate(-468px, -365px);}
+img[name="Beans"]         { transform: translate(-680px, -332px);}
+img[name="Lettuce"]       { transform: translate(-548px, -839px);}
+img[name="Broccoli"]      { transform: translate(-705px, -723px);}
+img[name="Corn"]          { transform: translate(-709px, -949px);}
+img[name="Strawberry"]    { transform: translate(-993px, -480px);}
+img[name="Tomato"]        { transform: translate(-1110px, -606px);}
+img[name="Orange"]        { transform: translate(-1070px, -493px);}
+img[name="Bananas"]       { transform: translate(-1114px, -400px);}
+img[name="Bread"]         { transform: translate(-1305px, -975px);}
+
