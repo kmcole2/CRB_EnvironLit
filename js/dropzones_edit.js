@@ -21,15 +21,15 @@ var exist = 0;                    //exist flag
   'use strict';
 
   var transformProp;
-
-  interact.maxInteractions(Infinity);
+  var element = document.getElementById('inner-dropzone'), x = 0, y = 0;
 
   // setup draggable elements.
   interact('.js-drag')
-      .draggable({ max: Infinity })
+      .draggable({})
       .on('dragstart', function (event) {
           event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
           event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+                   console.log("hi",event.da);
       })
       .on('dragmove', function (event) {
           event.interaction.x += event.dx;
