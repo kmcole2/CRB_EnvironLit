@@ -169,8 +169,8 @@ function halfsize(target){
        },
         legend: {position: 'none'},
         backgroundColor: '#5099ab',
-        width: 400,
-        height: 300,
+        width: 250,
+        height: 175,
         bar:{ groupWidth:20},
         colors: ['#e8e3da']
       };
@@ -199,8 +199,8 @@ function halfsize(target){
           }
         },
         legend: {position: 'none'},
-        width: 400,
-        height: 300,
+        width: 250,
+        height: 175,
         backgroundColor: '#827f7f',
         bar:{ groupWidth:20},
         colors: ['#e8e3da']
@@ -231,8 +231,8 @@ function halfsize(target){
         },
         legend: {position: 'none'},
         backgroundColor: '#57b947',
-        width: 400,
-        height: 300,
+        width: 250,
+        height: 175,
         bar:{ groupWidth:20},
         colors: ['#e8e3da']
       };
