@@ -61,6 +61,8 @@ interact('.table').dropzone({
     chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
     costTable_redraw();                       //redraw table
     calc_cost();  
+    snapback(event.relatedTarget);
+    
   },
   ondropdeactivate: function (event) {
     // remove active dropzone feedback
@@ -98,7 +100,6 @@ interact('.plate').dropzone({
   },
   ondrop: function (event) {
     event.relatedTarget.textContent = 'Dropped';
-    console.log("plate drop");
     
     //double image size
     doublesize(event.relatedTarget);
@@ -167,22 +168,22 @@ function snapback(e){
    <img src="img/food/orange_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Orange"          cost="0.79"  water="16.77"  CO2="0.13" Cal="86">
    <img src="img/food/banana_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Bananas"         cost="0.15"  water="47.32"  CO2="0.09" Cal="121">
    <img src="img/food/bread_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Bread"           cost="0.38"  water="24.04"  CO2="0.14" Cal="69">
-  <div id="H20" class="container draggable js-drag gesture-area">
+  <div id="H20" class="container draggable chart gesture-area">
     <div id ="chart_div1" class="chart scale-element"></div>
       <p id="chartline1" class="chartline"></p>
       <p id="chartTotal1" class="chartbase graphpadding">Total: 0</p>
   </div>
- <div id="C02" class="container draggable js-drag gesture-area">
+ <div id="C02" class="container draggable chart gesture-area">
       <div id ="chart_div2" class="chart scale-element"></div>
       <p id="chartline2" class="chartline"></p>
       <p id="chartTotal2" class="chartbase graphpadding" style="color:#fdf2e4;">Total: 0</p>
   </div>
-  <div id="Calories" class=" container draggable js-drag gesture-area">
+  <div id="Calories" class=" container draggable chart gesture-area">
       <div id ="chart_div3" class="chart scale-element"></div>
       <p id="chartline3"class="chartline"></p>
       <p id="chartTotal3" class="chartbase graphpadding">Total: 0</p>
   </div>
-  <div id="cost" class="container draggable js-drag">
+  <div id="cost" class="container draggable chart">
     <table id="table">
 			<tr><td width=80 height=50 style="color:#fdf2e4;">Item</td><td width=50>Quantity</td><td width=50>Price</td></tr>
     </table>

@@ -49,8 +49,32 @@ var exist = 0;                    //exist flag
           event.target.setAttribute('data-y', event.interaction.y);
 
       }) 
+
+  interact('.chart')
+      .draggable({})
+      .on('dragstart', function (event) {
+          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+      })
+      .on('dragmove', function (event) {
+          event.interaction.x += event.dx;
+          event.interaction.y += event.dy;
+
+          if (transformProp) {
+              event.target.style[transformProp] =
+                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+          }
+          else {
+              event.target.style.left = event.interaction.x + 'px';
+              event.target.style.top  = event.interaction.y + 'px';
+          }
+      })
+      .on('dragend', function (event) {
+          event.target.setAttribute('data-x', event.interaction.x);
+          event.target.setAttribute('data-y', event.interaction.y);
+
+      }) 
       .gesturable({
-         max : Infinity,
       onmove: function (event) {
         var arrow = event.target;//document.getElementsByClass('Calories');
 
@@ -63,12 +87,11 @@ var exist = 0;                    //exist flag
         var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
         var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
         scale + ")";
-        console.log(newtransform);
+        // console.log(newtransform);
         // arrow.style.webkitTransform =
         arrow.style.webkitTransform = arrow.style.transform = newtransform;
       }
       });
-
   interact(document).on('ready', function () {
       transformProp = 'transform' in document.body.style
           ? 'transform': 'webkitTransform' in document.body.style
@@ -77,7 +100,6 @@ var exist = 0;                    //exist flag
           ? 'oTransform': 'msTransform' in document.body.style
           ? 'msTransform': null;
   });
-
 }(window.interact));
 
     
@@ -233,7 +255,6 @@ function halfsize(target){
       var total=0;
       for (var i=0; i<(dataset.getNumberOfRows()); i++){
         total += dataset.getValue(i, 1);
-        console.log("price" + dataset.getValue(i,1));
       }      
       total = total.toFixed(2);
      return total;
