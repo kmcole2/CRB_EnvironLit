@@ -50,6 +50,7 @@ var exist = 0;                    //exist flag
 
       }) 
       .gesturable({
+         max : Infinity,
       onmove: function (event) {
         var arrow = event.target;//document.getElementsByClass('Calories');
 
@@ -102,14 +103,14 @@ function halfsize(target){
     function drawBasic() {
       H2O_data = new google.visualization.DataTable();
       H2O_data.addColumn('string', 'Water');
-      H2O_data.addColumn('number', 'Liters');
+      H2O_data.addColumn('number', 'Gal/lb');
       H2O_data.addColumn({type: 'string', role: 'annotation'});
       H2O_data.addRows([
       ]);
              
       CO2_data = new google.visualization.DataTable();
       CO2_data.addColumn('string', 'Carbon Dioxide');
-      CO2_data.addColumn('number', 'kilograms');
+      CO2_data.addColumn('number', 'CO2e/lb');
       CO2_data.addColumn({type: 'string', role: 'annotation'});
       CO2_data.addRows([
       ]);
@@ -134,7 +135,7 @@ function halfsize(target){
           baselineColor: '#fff'
         },
         vAxis: {
-          title:'L', 
+          title:'Gallons per lb', 
           titleTextStyle: {color: '#e8e3da'},
           textStyle:{color: '#e8e3da'},
           baselineColor: '#ccc',
@@ -165,7 +166,7 @@ function halfsize(target){
           textStyle:{color: '#e8e3da'}
         },
         vAxis: {  
-          title: 'kg', 
+          title: 'CO2 equivalents per lb', 
           titleTextStyle: {color: '#e8e3da'}, 
           textStyle:{color: '#e8e3da'},
           baselineColor: '#ccc',
@@ -196,7 +197,7 @@ function halfsize(target){
           textStyle:{color: '#e8e3da'}
         },
         vAxis: {
-          title:'kcal', 
+          title:'Calories', 
           titleTextStyle: {color: '#e8e3da'},
           textStyle:{color: '#e8e3da'},
           baselineColor: '#ccc',
@@ -232,7 +233,9 @@ function halfsize(target){
       var total=0;
       for (var i=0; i<(dataset.getNumberOfRows()); i++){
         total += dataset.getValue(i, 1);
+        console.log("price" + dataset.getValue(i,1));
       }      
+      total = total.toFixed(2);
      return total;
     }
 
@@ -282,11 +285,11 @@ function halfsize(target){
               water: item.getAttribute('water'),
               CO2:   item.getAttribute('CO2'),
               Cal:   item.getAttribute('Cal'),
-              idx:   H2O_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('water')),item.getAttribute('water')])
+              idx:   H2O_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('water')), item.getAttribute('water')])
             });   
 
-            CO2_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('CO2')), item.getAttribute('CO2')]);
-            Cal_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('Cal')), item.getAttribute('Cal')]);
+            CO2_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('CO2')), item.getAttribute('CO2')]);
+            Cal_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('Cal')), item.getAttribute('Cal')]);
 // doublesize(event.relatedTarget);
         }
         //reset flag
