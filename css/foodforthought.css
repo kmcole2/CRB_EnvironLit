@@ -13,7 +13,7 @@
 
     #table{
     border-collapse: collapse; 
-    width: 250px;
+    width: 300px;
     transform: translate(0px,0px);
     background-color: #ea8524;
   }
@@ -45,13 +45,13 @@
       transform: translate(0px,-32px);
     }*/
     .tableline{
-      width: 250px;
+      width: 300px;
       height: 3px;
       background-color: #bd6528; 
       transform: translate(0px,-18px);
     }
     #totalprice{
-      width: 250px; 
+      width: 300px; 
       background-color: #f4b87e; 
       transform: translate(0px,-32px);  
 
@@ -60,11 +60,11 @@
       padding: 20px 0px 15px 0px ; 
   }
   .chartbase{
-    width: 250px;
+    width: 300px;
     transform: translate(0px,-35px);
   }
   .chartline{
-    width: 250px;
+    width: 300px;
     height: 3px;
     transform: translate(0px,-18px);
   } 
