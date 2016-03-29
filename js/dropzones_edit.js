@@ -21,8 +21,14 @@ var exist = 0;                    //exist flag
   'use strict';
 
   var transformProp;
-  var scale = 1;
-  var angle = 0;
+  
+  var scale1 = 1;
+  var scale2 = 1;
+  var scale3 = 1;
+
+  var angle1 = 0;
+  var angle2 = 0;
+  var angle3 = 0;
 
   // setup draggable elements.
   interact('.js-drag')
@@ -50,7 +56,7 @@ var exist = 0;                    //exist flag
 
       }) 
 
-  interact('.chart')
+  interact('.chart1')
       .draggable({})
       .on('dragstart', function (event) {
           event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
@@ -76,7 +82,7 @@ var exist = 0;                    //exist flag
       }) 
       .gesturable({
       onmove: function (event) {
-        var arrow = event.target;//document.getElementsByClass('Calories');
+        var arrow1 = event.target;//document.getElementsByClass('Calories');
 
         angle += event.da;
         console.log(angle);
@@ -86,7 +92,92 @@ var exist = 0;                    //exist flag
         var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
         var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
         var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
-        scale + ")";
+        scale1 + ")";
+        // console.log(newtransform);
+        // arrow.style.webkitTransform =
+        arrow.style.webkitTransform = arrow.style.transform = newtransform;
+      }
+      });
+
+  interact('.chart2')
+      .draggable({})
+      .on('dragstart', function (event) {
+          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+      })
+      .on('dragmove', function (event) {
+          event.interaction.x += event.dx;
+          event.interaction.y += event.dy;
+
+          if (transformProp) {
+              event.target.style[transformProp] =
+                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+          }
+          else {
+              event.target.style.left = event.interaction.x + 'px';
+              event.target.style.top  = event.interaction.y + 'px';
+          }
+      })
+      .on('dragend', function (event) {
+          event.target.setAttribute('data-x', event.interaction.x);
+          event.target.setAttribute('data-y', event.interaction.y);
+
+      }) 
+      .gesturable({
+      onmove: function (event) {
+        var arrow2 = event.target;//document.getElementsByClass('Calories');
+
+        angle += event.da;
+        console.log(angle);
+        scale = scale * (1 + event.ds);
+
+        var transformVals = window.getComputedStyle(arrow,null).getPropertyValue('transform');
+        var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+        var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
+        scale2 + ")";
+        // console.log(newtransform);
+        // arrow.style.webkitTransform =
+        arrow.style.webkitTransform = arrow.style.transform = newtransform;
+      }
+      });
+  interact('.chart3')
+      .draggable({})
+      .on('dragstart', function (event) {
+          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+      })
+      .on('dragmove', function (event) {
+          event.interaction.x += event.dx;
+          event.interaction.y += event.dy;
+
+          if (transformProp) {
+              event.target.style[transformProp] =
+                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+          }
+          else {
+              event.target.style.left = event.interaction.x + 'px';
+              event.target.style.top  = event.interaction.y + 'px';
+          }
+      })
+      .on('dragend', function (event) {
+          event.target.setAttribute('data-x', event.interaction.x);
+          event.target.setAttribute('data-y', event.interaction.y);
+
+      }) 
+      .gesturable({
+      onmove: function (event) {
+        var arrow3 = event.target;//document.getElementsByClass('Calories');
+
+        angle += event.da;
+        console.log(angle);
+        scale = scale * (1 + event.ds);
+
+        var transformVals = window.getComputedStyle(arrow,null).getPropertyValue('transform');
+        var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+        var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
+        scale3 + ")";
         // console.log(newtransform);
         // arrow.style.webkitTransform =
         arrow.style.webkitTransform = arrow.style.transform = newtransform;
@@ -266,25 +357,7 @@ function halfsize(target){
       if (f.length == 8){
         console.log("more than 8");
         exist = 1;
-        //SNAPBACK
-       // snapback(event.relatedTarget);
-      var e = event.relatedTarget;
-      var transformVals =  window.getComputedStyle(e,null).getPropertyValue('transform');
-      var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-      var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-
-      //convert from 20px to 20, remove 'px' w/ regular expressions
-      var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
-      var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
-      var newtransX = transX-left;
-      var newtransY = transY-top;
-
-      var value = "translate(" + newtransX + "px," + newtransY + "px);";
-      // var value = "translate(" + transX + "px," + transY + "px);";
-
-      // console.log(value);
-      e.setAttribute ("style","transform: translate(200,200);" + value + "top: 0px; left: 0px;");
-
+        snapback(event);
       } 
       else {
         var item = event.relatedTarget;
@@ -312,17 +385,18 @@ function halfsize(target){
             CO2_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('CO2')), item.getAttribute('CO2')]);
             Cal_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('Cal')), item.getAttribute('Cal')]);
 // doublesize(event.relatedTarget);
-        }
-        //reset flag
-        exist = 0;
-
           document.getElementById('chartTotal1').innerHTML = "Total    " + graphtotal(H2O_data);
           document.getElementById('chartTotal2').innerHTML = "Total    " + graphtotal(CO2_data);
           document.getElementById('chartTotal3').innerHTML = "Total    " + graphtotal(Cal_data);
           
           H2O_chart.draw(H2O_data, H2O_options);
           CO2_chart.draw(CO2_data, CO2_options);
-          Cal_chart.draw(Cal_data, Cal_options);      
+          Cal_chart.draw(Cal_data, Cal_options);  
+        }
+        //reset flag
+        exist = 0;
+
+    
     }
  
     // function snapback(e){

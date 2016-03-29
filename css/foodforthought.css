@@ -106,7 +106,7 @@
   /*transition: background-color 0.3s;*/
   transform: translate(-600px,0px);
 }#inner-dropzone {
-  transform: translate(560px,-1000px);
+  transform: translate(600px,-980px);
   height: 400px;
   width:  400px;
 } 
