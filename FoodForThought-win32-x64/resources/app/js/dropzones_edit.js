@@ -22,17 +22,8 @@ var exist = 0;                    //exist flag
 
   var transformProp;
   
-  var scale1 = 1;
-  var scale2 = 1;
-  var scale3 = 1;
-  var scale4 = 1;
-
-  var angle1 = 0;
-  var angle2 = 0;
-  var angle3 = 0;
-  var angle4 = 0;
-
-  var arrow1, arrow2, arrow3, arrow4;
+  var scale = 1;
+  var angle = 0;
 
   // setup draggable elements.
   interact('.js-drag')
@@ -57,199 +48,119 @@ var exist = 0;                    //exist flag
       .on('dragend', function (event) {
           event.target.setAttribute('data-x', event.interaction.x);
           event.target.setAttribute('data-y', event.interaction.y);
-      }) 
-      // .gesturable({
-      // onmove: function (event) {
-      //   var arrow = event.target;//document.getElementsByClass('Calories');
-
-      //   angle += event.da;
-      //   console.log(angle);
-      //   scale = scale * (1 + event.ds);
-
-      //   var transformVals = window.getComputedStyle(arrow,null).getPropertyValue('transform');
-      //   var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-      //   var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-      //   var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
-      //   scale + ")";
-      //   // console.log(newtransform);
-      //   // arrow.style.webkitTransform =
-      //   arrow.style.webkitTransform = arrow.style.transform = newtransform;
-      // }
-      // });
-  interact('.chart1')
-      .draggable({})
-      .on('dragstart', function (event) {
-          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
-          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
-      })
-      .on('dragmove', function (event) {
-          event.interaction.x += event.dx;
-          event.interaction.y += event.dy;
-
-          if (transformProp) {
-              event.target.style[transformProp] =
-                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
-          }
-          else {
-              event.target.style.left = event.interaction.x + 'px';
-              event.target.style.top  = event.interaction.y + 'px';
-          }
-      })
-      .on('dragend', function (event) {
-          event.target.setAttribute('data-x', event.interaction.x);
-          event.target.setAttribute('data-y', event.interaction.y);
 
       }) 
       .gesturable({
       onmove: function (event) {
-        var arrow1 = event.target;//document.getElementsByClass('Calories');
+        var arrow = event.target;//document.getElementsByClass('Calories');
 
-        angle1 += event.da;
-        console.log(angle1);
-        scale1 = scale1 * (1 + event.ds);
+        angle += event.da;
+        console.log(angle);
+        scale = scale * (1 + event.ds);
 
-        var transformVals = window.getComputedStyle(arrow1,null).getPropertyValue('transform');
+        var transformVals = window.getComputedStyle(arrow,null).getPropertyValue('transform');
         var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
         var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle1 + "deg) scale(" +
-        scale1 + ")";
+        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
+        scale + ")";
         // console.log(newtransform);
         // arrow.style.webkitTransform =
-        arrow1.style.webkitTransform = arrow1.style.transform = newtransform;
+        arrow.style.webkitTransform = arrow.style.transform = newtransform;
       }
       });
-  interact('.chart2')
-      .draggable({})
-      .on('dragstart', function (event) {
-          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
-          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
-      })
-      .on('dragmove', function (event) {
-          event.interaction.x += event.dx;
-          event.interaction.y += event.dy;
 
-          if (transformProp) {
-              event.target.style[transformProp] =
-                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
-          }
-          else {
-              event.target.style.left = event.interaction.x + 'px';
-              event.target.style.top  = event.interaction.y + 'px';
-          }
-      })
-      .on('dragend', function (event) {
-          event.target.setAttribute('data-x', event.interaction.x);
-          event.target.setAttribute('data-y', event.interaction.y);
+  // interact('.chart2')
+  //     .draggable({})
+  //     .on('dragstart', function (event) {
+  //         event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+  //         event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+  //     })
+  //     .on('dragmove', function (event) {
+  //         event.interaction.x += event.dx;
+  //         event.interaction.y += event.dy;
 
-      }) 
-      .gesturable({
-      onmove: function (event) {
-        var arrow2 = event.target;//document.getElementsByClass('Calories');
+  //         if (transformProp) {
+  //             event.target.style[transformProp] =
+  //                 'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+  //         }
+  //         else {
+  //             event.target.style.left = event.interaction.x + 'px';
+  //             event.target.style.top  = event.interaction.y + 'px';
+  //         }
+  //     })
+  //     .on('dragend', function (event) {
+  //         event.target.setAttribute('data-x', event.interaction.x);
+  //         event.target.setAttribute('data-y', event.interaction.y);
 
-        angle2 += event.da;
-        console.log(angle2);
-        scale2 = scale2 * (1 + event.ds);
+  //     }) 
+  //     .gesturable({
+  //     onmove: function (event) {
+  //       var arrow2 = event.target;//document.getElementsByClass('Calories');
 
-        var transformVals = window.getComputedStyle(arrow2,null).getPropertyValue('transform');
-        var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-        var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle2 + "deg) scale(" +
-        scale2 + ")";
-        // console.log(newtransform);
-        // arrow.style.webkitTransform =
-        arrow2.style.webkitTransform = arrow2.style.transform = newtransform;
-      }
-      });
-  interact('.chart3')
-      .draggable({})
-      .on('dragstart', function (event) {
-          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
-          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
-      })
-      .on('dragmove', function (event) {
-          event.interaction.x += event.dx;
-          event.interaction.y += event.dy;
+  //       angle += event.da;
+  //       console.log(angle);
+  //       scale = scale * (1 + event.ds);
 
-          if (transformProp) {
-              event.target.style[transformProp] =
-                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
-          }
-          else {
-              event.target.style.left = event.interaction.x + 'px';
-              event.target.style.top  = event.interaction.y + 'px';
-          }
-      })
-      .on('dragend', function (event) {
-          event.target.setAttribute('data-x', event.interaction.x);
-          event.target.setAttribute('data-y', event.interaction.y);
-      }) 
-      .gesturable({
-      onmove: function (event) {
-        var arrow3 = event.target;//document.getElementsByClass('Calories');
+  //       var transformVals = window.getComputedStyle(arrow,null).getPropertyValue('transform');
+  //       var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+  //       var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+  //       var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
+  //       scale2 + ")";
+  //       // console.log(newtransform);
+  //       // arrow.style.webkitTransform =
+  //       arrow.style.webkitTransform = arrow.style.transform = newtransform;
+  //     }
+  //     });
+  // interact('.chart3')
+  //     .draggable({})
+  //     .on('dragstart', function (event) {
+  //         event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+  //         event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+  //     })
+  //     .on('dragmove', function (event) {
+  //         event.interaction.x += event.dx;
+  //         event.interaction.y += event.dy;
 
-        angle3 += event.da;
-        console.log(angle3);
-        scale3 = scale3 * (1 + event.ds);
+  //         if (transformProp) {
+  //             event.target.style[transformProp] =
+  //                 'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+  //         }
+  //         else {
+  //             event.target.style.left = event.interaction.x + 'px';
+  //             event.target.style.top  = event.interaction.y + 'px';
+  //         }
+  //     })
+  //     .on('dragend', function (event) {
+  //         event.target.setAttribute('data-x', event.interaction.x);
+  //         event.target.setAttribute('data-y', event.interaction.y);
 
-        var transformVals = window.getComputedStyle(arrow3,null).getPropertyValue('transform');
-        var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-        var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle3 + "deg) scale(" +
-        scale3 + ")";
-        // console.log(newtransform);
-        // arrow.style.webkitTransform =
-        arrow3.style.webkitTransform = arrow3.style.transform = newtransform;
-      }
-      });
-  interact('.chart4')
-      .draggable({})
-      .on('dragstart', function (event) {
-          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
-          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
-      })
-      .on('dragmove', function (event) {
-          event.interaction.x += event.dx;
-          event.interaction.y += event.dy;
+  //     }) 
+  //     .gesturable({
+  //     onmove: function (event) {
+  //       var arrow3 = event.target;//document.getElementsByClass('Calories');
 
-          if (transformProp) {
-              event.target.style[transformProp] =
-                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
-          }
-          else {
-              event.target.style.left = event.interaction.x + 'px';
-              event.target.style.top  = event.interaction.y + 'px';
-          }
-      })
-      .on('dragend', function (event) {
-          event.target.setAttribute('data-x', event.interaction.x);
-          event.target.setAttribute('data-y', event.interaction.y);
+  //       angle += event.da;
+  //       console.log(angle);
+  //       scale = scale * (1 + event.ds);
 
-      }) 
-      .gesturable({
-      onmove: function (event) {
-        var arrow4 = event.target;
-
-        angle4 += event.da;
-        console.log(angle4);
-        scale4 = scale4 * (1 + event.ds);
-
-        var transformVals = window.getComputedStyle(arrow4,null).getPropertyValue('transform');
-        var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-        var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-        var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle4 + "deg) scale(" +
-        scale4 + ")";
-
-        arrow4.style.webkitTransform = arrow4.style.transform = newtransform;
-      }
-      });
-  interact(document).on('ready', function () {
-      transformProp = 'transform' in document.body.style
-          ? 'transform': 'webkitTransform' in document.body.style
-          ? 'webkitTransform': 'mozTransform' in document.body.style
-          ? 'mozTransform': 'oTransform' in document.body.style
-          ? 'oTransform': 'msTransform' in document.body.style
-          ? 'msTransform': null;
-  });
+  //       var transformVals = window.getComputedStyle(arrow,null).getPropertyValue('transform');
+  //       var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+  //       var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+  //       var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
+  //       scale3 + ")";
+  //       // console.log(newtransform);
+  //       // arrow.style.webkitTransform =
+  //       arrow.style.webkitTransform = arrow.style.transform = newtransform;
+  //     }
+  //     });
+  // interact(document).on('ready', function () {
+  //     transformProp = 'transform' in document.body.style
+  //         ? 'transform': 'webkitTransform' in document.body.style
+  //         ? 'webkitTransform': 'mozTransform' in document.body.style
+  //         ? 'mozTransform': 'oTransform' in document.body.style
+  //         ? 'oTransform': 'msTransform' in document.body.style
+  //         ? 'msTransform': null;
+  // });
 }(window.interact));
 
     
