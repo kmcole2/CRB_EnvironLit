@@ -104,9 +104,9 @@
   /*background: lightpink;*/
  /* width: 70%;*/
   /*transition: background-color 0.3s;*/
-  transform: translate(-600px,0px);
+  /*transform: translate(-600px,0px);*/
 }#inner-dropzone {
-  transform: translate(600px,-980px);
+  transform: translate(700px,-980px);
   height: 400px;
   width:  400px;
 } 

@@ -61,7 +61,7 @@ interact('.table').dropzone({
     chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
     costTable_redraw();                       //redraw table
     calc_cost();  
-    // snapback(event);
+    snapback(event);
 
   },
   ondropdeactivate: function (event) {
