@@ -13,7 +13,7 @@ body{
     display:inline-block;
    } 
   #cost{
-    transform: translate(-1550px,-1101px);
+    transform: translate(-1550px,-1401px);
     height:100px;
     width:300px;
     float:right;
@@ -22,45 +22,47 @@ body{
     font-size: 13px;
   }
   #H20{
-    transform: translate(-220px,-610px);
+    transform: translate(-720px,-610px);
      /*rotate(180deg);*/
     width:300px;
     height:300px;
 
   }
   #C02{
-    transform: translate(805px,-645px);
+    transform: translate(305px,-645px);
     width:300px;
     height:300px;
   }
   #Calories{
-    transform: translate(500px,-1100px);
+    transform: translate(150px,-1100px);
     width:300px;
     height:300px;
   }
-
-  img[name=Burger]          { transform: translate(  501px, -1024px);}
-  img[name="Steak"]         { transform: translate(  343px, -501px);}
-  img[name="Cheese"]        { transform: translate(  391px, -958px);}
-  img[name="Bacon"]         { transform: translate(  109px, -587px);}
-  img[name="Chicken"]       { transform: translate(   43px, -918px);}
-  img[name="Egg"]           { transform: translate(   -6px, -751px);}
-  img[name="Potato"]        { transform: translate(    2px, -690px);}
-  img[name="Fries"]         { transform: translate( -199px, -640px);}
-  img[name="Chips"]         { transform: translate( -264px, -550px);}
-  img[name="Rice"]          { transform: translate( -254px, -607px);}
-  img[name="Peanut Butter"] { transform: translate( -417px, -854px);}
-  img[name="Tofu"]          { transform: translate( -424px, -349px);}
-  img[name="Beans"]         { transform: translate( -610px, -315px);}
-  img[name="Lettuce"]       { transform: translate( -542px, -890px);}
-  img[name="Broccoli"]      { transform: translate( -662px, -784px);}
-  img[name="Corn"]          { transform: translate( -659px, -984px);}
-  img[name="Strawberry"]    { transform: translate( -717px, -345px);}
-  img[name="Tomato"]        { transform: translate( -983px, -445px);}
-  img[name="Orange"]        { transform: translate( -982px, -509px);}
-  img[name="Bananas"]       { transform: translate(-1031px, -416px);}
-  img[name="Bread"]         { transform: translate(-1394px, -817px);}
-  img[name="Asparagus"]     { transform: translate(  300px, -656px);                              height:75px;}
-  img[name="Spaghetti"]     { transform: translate(  633px, -1297px);                              height:70px;}
-  img[name="Bun"]           { transform: translate(  317px, -961px);}
+  .food{  
+   height:80px;
+  }
+  img[name=Burger]          { transform: translate(477px,-1023px);}
+  img[name="Steak"]         { transform: translate(379px,-482px);}
+  img[name="Cheese"]        { transform: translate(168px,-921px);}
+  img[name="Bacon"]         { transform: translate(125px,-743px);}
+  img[name="Chicken"]       { transform: translate(19px,-868px);}
+  img[name="Egg"]           { transform: translate(-30px,-990px);}
+  img[name="Potato"]        { transform: translate(-165px,-649px);}
+  img[name="Fries"]         { transform: translate(-281px,-264px);}
+  img[name="Chips"]         { transform: translate(-277px,-194px);}
+  img[name="Rice"]          { transform: translate(-479px,-554px);}
+  img[name="Peanut Butter"] { transform: translate(-865px,-665px);}
+  img[name="Tofu"]          { transform: translate(-867px,-302px);}
+  img[name="Beans"]         { transform: translate(-843px,-356px);}
+  img[name="Lettuce"]       { transform: translate(-804px,-864px);}
+  img[name="Broccoli"]      { transform: translate(-965px,-766px);}
+  img[name="Corn"]          { transform: translate(-940px,-950px);}
+  img[name="Strawberry"]    { transform: translate(-997px,-292px);}
+  img[name="Tomato"]        { transform: translate(509px,-456px);}
+  img[name="Orange"]        { transform: translate(527px,-709px);}
+  img[name="Bananas"]       { transform: translate(491px,-618px);}
+  img[name="Bread"]         { transform: translate(40px,-1040px);}
+  img[name="Asparagus"]     { transform: translate(-252px,-661px); height:65px;}                              
+  img[name="Spaghetti"]     { transform: translate(70px,-862px);                             }
+  img[name="Bun"]           { transform: translate(-160px,-785px);}
 

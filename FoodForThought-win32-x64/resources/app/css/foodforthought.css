@@ -6,11 +6,6 @@
     text-align:center;
     padding-top:5px;
    }
-/*   #foodblock{
-    position:absolute;
-   }*/
-
-
     #table{
     border-collapse: collapse; 
     width: 300px;
@@ -23,19 +18,20 @@
 
   #chartTotal1{
     background-color: #96ccda;
-    color:#fdf2e4;
+    color:#276f82;
     margin:0px;
     font-size: 13px;
 
   }
   #chartTotal2{
     background-color: #b0afaf;
-    color:#fdf2e4;
+    color: #575757;
     margin:0px;
     font-size: 13px;
   }
   #chartTotal3{
     background-color: #abd79f;
+    color:#3c8d44;
     margin:0px;
     font-size: 13px;
   }
@@ -53,7 +49,8 @@
     #totalprice{
       width: 300px; 
       background-color: #f4b87e; 
-      transform: translate(0px,-32px);  
+      transform: translate(0px,-32px); 
+      color:#bd6528; 
 
     }
   .graphpadding{
