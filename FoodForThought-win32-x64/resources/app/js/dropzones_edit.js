@@ -275,8 +275,8 @@ function halfsize(target){
     function drawBasic() {
       H2O_data = new google.visualization.DataTable();
       H2O_data.addColumn('string', 'Water');
-      H2O_data.addColumn('number', 'Gal/lb');
-      H2O_data.addColumn({type: 'string', role: 'annotation'});
+      H2O_data.addColumn('number', 'Gal/serving');
+      H2O_data.addColumn({type: 'number', role: 'annotation'});
       H2O_data.addRows([
       ]);
              
@@ -290,7 +290,7 @@ function halfsize(target){
       Cal_data = new google.visualization.DataTable();
       Cal_data.addColumn('string', 'Food');
       Cal_data.addColumn('number', 'Calories');
-      Cal_data.addColumn({type: 'string', role: 'annotation'});
+      Cal_data.addColumn({type: 'number', role: 'annotation'});
       Cal_data.addRows([
       ]);
 
@@ -302,18 +302,18 @@ function halfsize(target){
           fontSize: '16', 
           fontWidth: 'normal'},
         hAxis: {
-          titleTextStyle: {color: '#e8e3da'}, textStyle:{color: '#e8e3da'},
+          titleTextStyle: {color: '#e8e3da'}, textStyle:{color: '#e8e3da', fontSize:7},
           gridlines: { color: "#fff"},
           baselineColor: '#fff'
         },
         vAxis: {
-          title:'Gallons per lb', 
+          title:'Gallons per serving', 
           titleTextStyle: {color: '#e8e3da'},
           textStyle:{color: '#e8e3da'},
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:800,
+              max:900,
               min:0
           }
        },
@@ -335,7 +335,8 @@ function halfsize(target){
         },
         hAxis: {
           titleTextStyle: {color: '#e8e3da'}, 
-          textStyle:{color: '#e8e3da'}
+          textStyle:{color: '#e8e3da', fontSize:7}
+
         },
         vAxis: {  
           title: 'CO2 equivalents per lb', 
@@ -344,7 +345,7 @@ function halfsize(target){
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:6,
+              max:8,
               min:0
           }
         },
@@ -366,7 +367,7 @@ function halfsize(target){
         },
         hAxis: {
           titleTextStyle: {color: '#e8e3da'}, 
-          textStyle:{color: '#e8e3da'}
+          textStyle:{color: '#e8e3da', fontSize:7}
         },
         vAxis: {
           title:'Calories', 
@@ -375,7 +376,7 @@ function halfsize(target){
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:700,
+              max:800,
               min:0
           }
         },
@@ -438,11 +439,11 @@ function halfsize(target){
               water: item.getAttribute('water'),
               CO2:   item.getAttribute('CO2'),
               Cal:   item.getAttribute('Cal'),
-              idx:   H2O_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('water')), item.getAttribute('water')])
+              idx:   H2O_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('water')), parseInt(item.getAttribute('water'))])
             });   
 
             CO2_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('CO2')), item.getAttribute('CO2')]);
-            Cal_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('Cal')), item.getAttribute('Cal')]);
+            Cal_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('Cal')), parseInt(item.getAttribute('Cal'))]);
 // doublesize(event.relatedTarget);
           document.getElementById('chartTotal1').innerHTML = "Total    " + graphtotal(H2O_data);
           document.getElementById('chartTotal2').innerHTML = "Total    " + graphtotal(CO2_data);
@@ -495,12 +496,14 @@ function halfsize(target){
     /* costTable_redraw,
     reassign table w/ updated entries and update pricing  */
     function costTable_redraw(){
-      var food_table = '<tr><td width=80 height=50 >Item</td><td width=50>Quantity</td><td width=50>Price</td></tr><br>';
+      var food_table = '<tr><td width=60 height=50 >Item</td><td width=50>Price</td></tr><br>';
+      // var food_table = '<tr><td width=80 height=50 >Item</td><td width=50>Quantity</td><td width=50>Price</td></tr><br>';
 
       //populate food table array html to print array as table 
       for(var i = 0; i < f.length; i ++){
         food_table +=
-        '<tr ' + 'id=\"' + f[i].name + '"\'> <td>' + f[i].name + ' </td> <td> x ' + f[i].quant + '</td> <td class=\"price\">' + parseFloat(f[i].price).toFixed(2) + '</td> </tr>';
+        '<tr ' + 'id=\"' + f[i].name + '"\'> <td>' + f[i].name + ' </td>  <td class=\"price\">' + parseFloat(f[i].price).toFixed(2) + '</td> </tr>';
+        // '<tr ' + 'id=\"' + f[i].name + '"\'> <td>' + f[i].name + ' </td> <td> x ' + f[i].quant + '</td> <td class=\"price\">' + parseFloat(f[i].price).toFixed(2) + '</td> </tr>';
       }
       // update cost table
       food_table +=  '</table>';

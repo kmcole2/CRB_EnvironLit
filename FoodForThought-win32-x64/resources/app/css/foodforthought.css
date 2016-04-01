@@ -12,9 +12,6 @@
     transform: translate(0px,0px);
     background-color: #ea8524;
   }
-  .food{  
-   height:65px;
-  }
 
   #chartTotal1{
     background-color: #96ccda;
@@ -103,7 +100,7 @@
   /*transition: background-color 0.3s;*/
   /*transform: translate(-600px,0px);*/
 }#inner-dropzone {
-  transform: translate(780px,-880px);
+  transform: translate(900px,-915px);
   height: 500px;
   width:  500px;
 } 
