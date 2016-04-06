@@ -445,7 +445,9 @@ function halfsize(target){
       if (f.length == 8){
         console.log("more than 8");
         exist = 1;
-        snapback(event);
+        if(event.relatedTarget.getAttribute("in")==0){
+          snapback(event);
+          }
       } 
       else {
         var item = event.relatedTarget;
@@ -459,6 +461,8 @@ function halfsize(target){
       }
         //add element if it doesn't exist 
         if(exist == 0){
+          event.relatedTarget.setAttribute("in",1);
+          console.log("in? = " + event.relatedTarget.getAttribute("in"));
           var cost = item.getAttribute('cost');
             f.push({  
               name:  item.getAttribute('name'),

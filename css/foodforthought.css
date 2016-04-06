@@ -106,30 +106,30 @@
 } 
 
 .drop-active {
-  border-color: #aaa;
+  /*border-color: #aaa;*/
 }
 .drop-target {
   /*background-color: #29e;*/
-  border-color: #fff;
-  border-style: solid;
+/*  border-color: #fff;
+  border-style: solid;*/
 }
 .drag-drop {
-  display: inline-block;
+/*  display: inline-block;
   min-width: 40px;
-  padding: 2em 0.5em;
+  padding: 2em 0.5em;*/
 
-  color: #fff;
+  /*color: #fff;*/
   /*background-color: #29e;*/
-  border: solid 2px #fff;
+/*  border: solid 2px #fff;
 
   -webkit-transform: translate(0px, 0px);
-          transform: translate(0px, 0px);
+          transform: translate(0px, 0px);*/
 
-  transition: background-color 0.3s;
+  /*transition: background-color 0.3s;*/
 }
 .drag-drop.can-drop {
-  color: #000;
-  background-color: #4e4;
+/*  color: #000;
+  background-color: #4e4;*/
 }
 
 .draggable {
@@ -143,4 +143,4 @@
         touch-action: none;
 }
 
-.draggable.-drop-possible { background-color: #42bd41; }
+/*.draggable.-drop-possible { background-color: #42bd41; }*/
