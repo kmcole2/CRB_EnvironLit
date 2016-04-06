@@ -122,28 +122,7 @@ interact('.plate').dropzone({
     // target.style.left = "0";
     // target.setAttribute('transform',translate(-1200px,-1100px));
   }
-function snapback(e){
-      var transformVals =  window.getComputedStyle(e.relatedTarget,null).getPropertyValue('transform');
-      var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-      var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-      e.interaction.y = 0;
-      e.interaction.x = 0;
 
-      //convert from 20px to 20, remove 'px' w/ regular expressions
-      // var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
-      // var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
-      // var newtransX = transX-left;
-      // var newtransY = transY-top;
-
-      var value = "transform: translate(" + transX + "px," + transY + "px); top:0px; left:0px;";
-      console.log(value);
-      // console.log(value);
-      // e.style.transform = value;
-      e.relatedTarget.setAttribute ("style",value); 
-
-      // e.style.top = "0";
-      // e.style.left = "0";
-    }
 </script>
 </head>
   <body> 
@@ -189,7 +168,7 @@ function snapback(e){
       <p id="chartline3"class="chartline"></p>
       <p id="chartTotal3" class="chartbase graphpadding">Total: 0</p>
   </div>
-  <div id="cost" class="container draggable chart4 ">
+  <div id="cost" class="container draggable chart4">
     <table id="table">
 			<tr><td width="60" height="40" style="color:#fdf2e4;">Item</td><!-- <td width=40>Quantity</td> --><td width=50>Price</td></tr>
     </table>

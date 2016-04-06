@@ -34,12 +34,27 @@ var exist = 0;                    //exist flag
 
   var arrow1, arrow2, arrow3, arrow4;
 
+ function increase_zidx(e){
+  // e.relatedTarget.setAttribute('style',"z-index: -1");  
+ };
+ // function decrease_zidx(e){
+
+ // };
+
   // setup draggable elements.
   interact('.js-drag')
       .draggable({})
       .on('dragstart', function (event) {
           event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
           event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+          // event.target.style.z-index = 11;
+
+          // console.log("z-idx:" + zidx);
+          // var style = window.getComputedStyle(event.target,null);
+          // event.target.setAttribute('style',"z-index: 11"); 
+          // // event.target.setAttribute('style',style + "z-index: 11"); 
+          // var zidx = window.getComputedStyle(event.target,null).getPropertyValue('z-index');
+          // console.log("z-idx:" + zidx);
       })
       .on('dragmove', function (event) {
           event.interaction.x += event.dx;
@@ -57,6 +72,19 @@ var exist = 0;                    //exist flag
       .on('dragend', function (event) {
           event.target.setAttribute('data-x', event.interaction.x);
           event.target.setAttribute('data-y', event.interaction.y);
+          // event.target.setAttribute('style',"z-index: 10"); 
+
+      //     var zidx = window.getComputedStyle(event.target,null).getPropertyValue('z-index');
+      //     console.log("z-idx:" + zidx);
+
+      //           var transformVals =  window.getComputedStyle(event,null).getPropertyValue('transform');
+      // var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+      // var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+      //     event.interaction.y = 0;
+      //     event.interaction.x = 0;
+
+
+
       }) 
       // .gesturable({
       // onmove: function (event) {
@@ -458,41 +486,29 @@ function halfsize(target){
 
     
     }
- 
-    // function snapback(e){
-      // var transformVals =  window.getComputedStyle(e,null).getPropertyValue('transform');
-      // var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-      // var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+ function snapback(e){
+      var transformVals =  window.getComputedStyle(e.relatedTarget,null).getPropertyValue('transform');
+      var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+      var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+      e.interaction.y = 0;
+      e.interaction.x = 0;
 
-      // //convert from 20px to 20, remove 'px' w/ regular expressions
+      //convert from 20px to 20, remove 'px' w/ regular expressions
       // var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
       // var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
       // var newtransX = transX-left;
       // var newtransY = transY-top;
 
-      // var value = "translate(" + newtransX + "px," + newtransY + "px);";
-      // // console.log(value);
+      var value = "transform: translate(" + transX + "px," + transY + "px); top:0px; left:0px;";
+      console.log(value);
+      // console.log(value);
       // e.style.transform = value;
+      e.relatedTarget.setAttribute("style",value); 
 
-      // target.style.transform = "scale(2,2)";
-
-
-       //  event.relatedTarget.style.transform = "("+ transX + "," + transY + ")" + " scale(2,2)";
-
-        // console.log(transformVals);
-
-
-        // e.relatedTarget.style.top = "0";
-        // e.relatedTarget.style.left = "0";
-
-       // var hi = document.getElementById("Calories");
-  
-                // var transx  = e.relatedTarget.style.transform;
-        // console.log(transx); 
-        // var transy  = e.relatedTarget.style.transform;
-        // console.log(transy);
-
-    // }
+      // e.style.top = "0";
+      // e.style.left = "0";
+    }
+    
     /* costTable_redraw,
     reassign table w/ updated entries and update pricing  */
     function costTable_redraw(){

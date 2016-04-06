@@ -20,23 +20,30 @@ body{
     font-family: UniverseLight;
     padding: 5px;
     font-size: 13px;
+    z-index: -1;
   }
   #H20{
     transform: translate(-690px,-610px);
      /*rotate(180deg);*/
     width:300px;
     height:300px;
+    z-index: -1;
+    
 
   }
   #C02{
     transform: translate(405px,-645px);
     width:300px;
     height:300px;
+    z-index: -1;
+    
   }
   #Calories{
     transform: translate(150px,-1100px);
     width:300px;
     height:300px;
+    z-index: -1;
+    
   }
   .food{  
    height:80px;
