@@ -105,21 +105,21 @@
   width:  500px;
 } 
 
-.drop-active {
+/*.drop-active {
   border-color: #aaa;
 }
 .drop-target {
-  /*background-color: #29e;*/
+  background-color: #29e;
   border-color: #fff;
   border-style: solid;
-}
+}*/
 .drag-drop {
   display: inline-block;
   min-width: 40px;
   padding: 2em 0.5em;
 
   color: #fff;
-  /*background-color: #29e;*/
+  background-color: #29e;
   border: solid 2px #fff;
 
   -webkit-transform: translate(0px, 0px);
@@ -142,5 +142,3 @@
     -ms-touch-action: none;
         touch-action: none;
 }
-
-.draggable.-drop-possible { background-color: #42bd41; }
