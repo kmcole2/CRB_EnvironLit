@@ -23,12 +23,12 @@
     padding: 1em;
     color: #666;
     text-align: center;
-    line-height: 4em;
-    border: 4px dashed transparent;
-    transition: background .15s linear, border-color .15s linear;
+    /*line-height: 4em;*/
+    /*border: 4px dashed transparent;*/
+    /*transition: background .15s linear, border-color .15s linear;*/
 }
 
-.dropzone.-drop-possible { border-color: #666; }
+.dropzone.-drop-possible { /*border-color: #666;*/ }
 
 .dropzone.-drop-over {
     background: #666;
@@ -42,7 +42,7 @@
     margin: 0 em;
     padding: 0em 0em;
  
-    color: #fff;
+    /*color: #fff;*/
     text-align: center;
 
     -ms-touch-action: none;
@@ -58,7 +58,7 @@
         background-size: 100% 100%;
       }
       tr.bottom_line td{
-        border-top: 1pt solid black;
+        /*border-top: 1pt solid black;*/
       } 
       #cost{
         transform: translate(-550px,340px);
@@ -114,7 +114,7 @@
       #table{
         background-color: #ea8524;
       }
-
+/*
       .droptarget {
         float: left; 
         width: 100px; 
@@ -122,4 +122,4 @@
         margin-top: 200px;
         padding: 10px;
         border: 1px solid #aaaaaa;
-      }
+      }*/
