@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" style "zoom:reset">
+<html id="html" lang="en" style "zoom:reset">
 <meta charset="UTF-8">
   <head>
     <!--Load the AJAX API-->
-    <!-- <meta name="viewport" content="user-scalable=no" /> -->
-    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- tried and failed <meta name="viewport" content="user-scalable=no" /> -->
+<meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta name="viewport” content="width=device-width”>
+<!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
+    <!-- <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="http://www.google.com/uds/modules/gviz/gviz-api.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
     <script src="http://code.interactjs.io/v1.2.6/interact.min.js"></script>
-    <!-- <link rel="stylesheet" type="text/css" href="css/dropzones.css"> -->
     <script  type="text/javascript" src="js/dropzones_edit.js"></script>
     <link rel="stylesheet" type="text/css" href="css/foodforthought.css">
     <link rel="stylesheet" type="text/css" href="css/food.css">
@@ -35,6 +38,30 @@
   </style>  
 
 <script>
+
+// document.getElementById("html")
+window.addEventListener("scroll", function(event){
+    console.log('scrolling?');
+    event.preventDefault(); 
+    event.stopPropagation();
+    return false;
+});
+
+document.addEventListener("scroll", function(event){
+    console.log('scrolling windows?');
+    event.preventDefault(); 
+    event.stopPropagation();
+    return false;
+});
+
+// document.addEventListener
+window.addEventListener("resize", function(event){
+    // document.getElementById("demo").innerHTML = 'sometext';
+    event.preventDefault(); 
+    event.stopPropagation();
+    return false;
+});
+
 //TABLE DROP
 interact('.table').dropzone({
   // only accept elements matching this CSS selector
@@ -50,6 +77,8 @@ interact('.table').dropzone({
   ondragenter: function (event) {
     var draggableElement = event.relatedTarget,
         dropzoneElement = event.target;
+
+    event.relatedTarget.setAttribute.zIndex = 10;    
   },
   ondragleave: function (event) {
     // remove the drop feedback style
@@ -60,11 +89,13 @@ interact('.table').dropzone({
   ondrop: function (event) {
     console.log("table drop");
 
-    halfsize(event.relatedTarget);            //half image size
-    chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
-    costTable_redraw();                       //redraw table
-    calc_cost();  
-    // snapback(event);
+    //only reload tables if coming from plate and needs to be removed
+    if(event.relatedTarget.getAttribute("in") == 1){
+      halfsize(event.relatedTarget);            //half image size
+      chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
+      costTable_redraw();                       //redraw table
+      calc_cost();  
+    }
 
   },
   ondropdeactivate: function (event) {
@@ -104,11 +135,12 @@ interact('.plate').dropzone({
   ondrop: function (event) {
     event.relatedTarget.textContent = 'Dropped';
     
-    //double image size
-    doublesize(event.relatedTarget);
-    chart_cost_add(event);
-    costTable_redraw();
-    calc_cost();
+    if(event.relatedTarget.getAttribute("in") == 0){
+      doublesize(event.relatedTarget);
+      chart_cost_add(event);
+      costTable_redraw();
+      calc_cost();
+    }
   },
   ondropdeactivate: function (event) {
     // remove active dropzone feedback
@@ -149,7 +181,7 @@ function snapback(e){
 </script>
 </head>
   <body> 
-
+<!-- <div id="demo"> </div> -->
   <div id="outer-dropzone" class="table js-drop"></div>
     <img src= "img/plate_HR_11x11.png" id="inner-dropzone" name="plate" class="plate js-drop">
    <img src="img/food/hamburger_HR_icon.png"    id="drag1" class="draggable js-drag food" name="Burger"        in="0"  cost="2.05"  water="701.60" CO2="5.11" Cal="287">
