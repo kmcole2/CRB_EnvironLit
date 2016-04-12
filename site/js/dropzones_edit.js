@@ -58,24 +58,7 @@ var exist = 0;                    //exist flag
           event.target.setAttribute('data-x', event.interaction.x);
           event.target.setAttribute('data-y', event.interaction.y);
       }) 
-      // .gesturable({
-      // onmove: function (event) {
-      //   var arrow = event.target;//document.getElementsByClass('Calories');
 
-      //   angle += event.da;
-      //   console.log(angle);
-      //   scale = scale * (1 + event.ds);
-
-      //   var transformVals = window.getComputedStyle(arrow,null).getPropertyValue('transform');
-      //   var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-      //   var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-      //   var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle + "deg) scale(" +
-      //   scale + ")";
-      //   // console.log(newtransform);
-      //   // arrow.style.webkitTransform =
-      //   arrow.style.webkitTransform = arrow.style.transform = newtransform;
-      // }
-      // });
   interact('.chart1')
       .draggable({})
       .on('dragstart', function (event) {
@@ -105,16 +88,17 @@ var exist = 0;                    //exist flag
         var arrow1 = event.target;//document.getElementsByClass('Calories');
 
         angle1 += event.da;
-        console.log(angle1);
-        scale1 = scale1 * (1 + event.ds);
 
+        //1.8 max scale
+        if(parseFloat(scale1) <= 1.8){
+           scale1 = scale1 * (1 + event.ds);
+        }
         var transformVals = window.getComputedStyle(arrow1,null).getPropertyValue('transform');
         var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
         var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
         var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle1 + "deg) scale(" +
         scale1 + ")";
-        // console.log(newtransform);
-        // arrow.style.webkitTransform =
+
         arrow1.style.webkitTransform = arrow1.style.transform = newtransform;
       }
       });
@@ -144,12 +128,14 @@ var exist = 0;                    //exist flag
       }) 
       .gesturable({
       onmove: function (event) {
-        var arrow2 = event.target;//document.getElementsByClass('Calories');
+        var arrow2 = event.target;
 
         angle2 += event.da;
-        console.log(angle2);
-        scale2 = scale2 * (1 + event.ds);
 
+        //1.8 max scale
+        if(parseFloat(scale2) <= 1.8){
+          scale2 = scale2 * (1 + event.ds);
+        }
         var transformVals = window.getComputedStyle(arrow2,null).getPropertyValue('transform');
         var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
         var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
@@ -188,8 +174,10 @@ var exist = 0;                    //exist flag
         var arrow3 = event.target;//document.getElementsByClass('Calories');
 
         angle3 += event.da;
-        console.log(angle3);
-        scale3 = scale3 * (1 + event.ds);
+
+        if(parseFloat(scale3) <= 1.8){ 
+          scale3 = scale3 * (1 + event.ds);
+        }
 
         var transformVals = window.getComputedStyle(arrow3,null).getPropertyValue('transform');
         var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
@@ -230,9 +218,10 @@ var exist = 0;                    //exist flag
         var arrow4 = event.target;
 
         angle4 += event.da;
-        console.log(angle4);
-        scale4 = scale4 * (1 + event.ds);
-
+        
+        if(parseFloat(scale4 <= 1.8){    
+          scale4 = scale4 * (1 + event.ds);
+        }
         var transformVals = window.getComputedStyle(arrow4,null).getPropertyValue('transform');
         var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
         var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
