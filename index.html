@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" style "zoom:reset">
+<html id="html" lang="en" style "zoom:reset">
 <meta charset="UTF-8">
   <head>
     <!--Load the AJAX API-->
-    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- tried and failed <meta name="viewport" content="user-scalable=no" /> -->
+<meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta name="viewport” content="width=device-width”>
+<!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
+    <!-- <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="http://www.google.com/uds/modules/gviz/gviz-api.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
     <script src="http://code.interactjs.io/v1.2.6/interact.min.js"></script>
-    <!-- <link rel="stylesheet" type="text/css" href="css/dropzones.css"> -->
     <script  type="text/javascript" src="js/dropzones_edit.js"></script>
     <link rel="stylesheet" type="text/css" href="css/foodforthought.css">
     <link rel="stylesheet" type="text/css" href="css/food.css">
@@ -29,10 +33,55 @@
         background: url(img/woodbackground_HR_1920x1080.jpg) no-repeat center center fixed; 
         background-size: cover;
         font-family: UniverseLight;
+        -webkit-text-size-adjust: none;
       }
   </style>  
 
 <script>
+// document.addEventListener("click", displayDate);
+
+// function displayDate() {
+//     document.getElementById("demo").innerHTML = Date();
+// }
+
+// document.getElementsByTagName("html").addEventListener("scroll", disableScroll(event){
+//     console.log('scrolling?');
+//     event.preventDefault(); 
+//     return false;
+// });
+
+// document.getElementById("html")
+// window.addEventListener("scroll", function(event){
+//     console.log('scrolling?');
+//     event.preventDefault(); 
+//     event.stopPropagation();
+//     return false;
+// });
+
+// screen.addEventListener("scroll", function(event){
+//     console.log('scrolling?');
+//     event.preventDefault(); 
+//     event.stopPropagation();
+//     return false;
+// });
+
+
+// document.addEventListener("scroll", function(event){
+//     console.log('scrolling windows?');
+//     event.preventDefault(); 
+//     event.stopPropagation();
+//     return false;
+// });
+
+
+// // document.addEventListener
+// window.addEventListener("resize", function(event){
+//     document.getElementById("demo").innerHTML = 'sometext';
+//     event.preventDefault(); 
+//     event.stopPropagation();
+//     return false;
+// });
+
 //TABLE DROP
 interact('.table').dropzone({
   // only accept elements matching this CSS selector
@@ -122,11 +171,32 @@ interact('.plate').dropzone({
     // target.style.left = "0";
     // target.setAttribute('transform',translate(-1200px,-1100px));
   }
+function snapback(e){
+      var transformVals =  window.getComputedStyle(e.relatedTarget,null).getPropertyValue('transform');
+      var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+      var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+      e.interaction.y = 0;
+      e.interaction.x = 0;
 
+      //convert from 20px to 20, remove 'px' w/ regular expressions
+      // var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
+      // var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
+      // var newtransX = transX-left;
+      // var newtransY = transY-top;
+
+      var value = "transform: translate(" + transX + "px," + transY + "px); top:0px; left:0px;";
+      console.log(value);
+      // console.log(value);
+      // e.style.transform = value;
+      e.relatedTarget.setAttribute ("style",value); 
+
+      // e.style.top = "0";
+      // e.style.left = "0";
+    }
 </script>
 </head>
   <body> 
-
+<div id="demo"> </div>
   <div id="outer-dropzone" class="table js-drop"></div>
     <img src= "img/plate_HR_11x11.png" id="inner-dropzone" name="plate" class="plate js-drop">
    <img src="img/food/hamburger_HR_icon.png"    id="drag1" class="draggable js-drag food" name="Burger"        in="0"  cost="2.05"  water="701.60" CO2="5.11" Cal="287">
@@ -168,12 +238,12 @@ interact('.plate').dropzone({
       <p id="chartline3"class="chartline"></p>
       <p id="chartTotal3" class="chartbase graphpadding">Total: 0</p>
   </div>
-  <div id="cost" class="container draggable chart4">
+  <div id="cost" class="container draggable chart4 ">
     <table id="table">
-			<tr><td width="60" height="40" style="color:#fdf2e4;">Item</td><td width=50>Price</td></tr>
+      <tr><td width="60" height="40" style="color:#fdf2e4;">Item</td><td width=50>Price</td></tr>
     </table>
     <p class="tableline"></p>
-    <p id="totalprice" class="graphpadding">Total $0.00</p>	
+    <p id="totalprice" class="graphpadding">Total $0.00</p> 
   </div>
 <br>
 
