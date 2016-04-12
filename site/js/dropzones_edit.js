@@ -219,7 +219,7 @@ var exist = 0;                    //exist flag
 
         angle4 += event.da;
         
-        if(parseFloat(scale4 <= 1.8){    
+        if(parseFloat(scale4) <= 1.8){    
           scale4 = scale4 * (1 + event.ds);
         }
         var transformVals = window.getComputedStyle(arrow4,null).getPropertyValue('transform');
@@ -436,7 +436,7 @@ function halfsize(target){
 
             CO2_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('CO2')), item.getAttribute('CO2')]);
             Cal_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('Cal')), parseInt(item.getAttribute('Cal'))]);
-// doublesize(event.relatedTarget);
+
           document.getElementById('chartTotal1').innerHTML = "Total    " + graphtotal(H2O_data);
           document.getElementById('chartTotal2').innerHTML = "Total    " + graphtotal(CO2_data);
           document.getElementById('chartTotal3').innerHTML = "Total    " + graphtotal(Cal_data);
@@ -451,40 +451,6 @@ function halfsize(target){
     
     }
  
-    // function snapback(e){
-      // var transformVals =  window.getComputedStyle(e,null).getPropertyValue('transform');
-      // var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-      // var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-
-      // //convert from 20px to 20, remove 'px' w/ regular expressions
-      // var top = window.getComputedStyle(e,null).getPropertyValue('top').replace(/[^-\d\.]/g, '');;
-      // var left = window.getComputedStyle(e,null).getPropertyValue('left').replace(/[^-\d\.]/g, '');;
-      // var newtransX = transX-left;
-      // var newtransY = transY-top;
-
-      // var value = "translate(" + newtransX + "px," + newtransY + "px);";
-      // // console.log(value);
-      // e.style.transform = value;
-
-      // target.style.transform = "scale(2,2)";
-
-
-       //  event.relatedTarget.style.transform = "("+ transX + "," + transY + ")" + " scale(2,2)";
-
-        // console.log(transformVals);
-
-
-        // e.relatedTarget.style.top = "0";
-        // e.relatedTarget.style.left = "0";
-
-       // var hi = document.getElementById("Calories");
-  
-                // var transx  = e.relatedTarget.style.transform;
-        // console.log(transx); 
-        // var transy  = e.relatedTarget.style.transform;
-        // console.log(transy);
-
-    // }
     /* costTable_redraw,
     reassign table w/ updated entries and update pricing  */
     function costTable_redraw(){
@@ -532,6 +498,7 @@ function halfsize(target){
               Cal_data.setValue(a, 1, f[a].quant*parseInt(target.getAttribute('Cal')));
             }
             else{
+              target.setAttribute("in",0);
               f.splice(a,1);
               H2O_data.removeRow(a);
               CO2_data.removeRow(a);

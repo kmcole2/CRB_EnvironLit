@@ -38,17 +38,6 @@
   </style>  
 
 <script>
-// document.addEventListener("click", displayDate);
-
-// function displayDate() {
-//     document.getElementById("demo").innerHTML = Date();
-// }
-
-// document.getElementsByTagName("html").addEventListener("scroll", disableScroll(event){
-//     console.log('scrolling?');
-//     event.preventDefault(); 
-//     return false;
-// });
 
 // document.getElementById("html")
 window.addEventListener("scroll", function(event){
@@ -64,7 +53,6 @@ document.addEventListener("scroll", function(event){
     event.stopPropagation();
     return false;
 });
-
 
 // document.addEventListener
 window.addEventListener("resize", function(event){
@@ -89,6 +77,8 @@ interact('.table').dropzone({
   ondragenter: function (event) {
     var draggableElement = event.relatedTarget,
         dropzoneElement = event.target;
+
+    event.relatedTarget.setAttribute.zIndex = 10;    
   },
   ondragleave: function (event) {
     // remove the drop feedback style
@@ -99,11 +89,13 @@ interact('.table').dropzone({
   ondrop: function (event) {
     console.log("table drop");
 
-    halfsize(event.relatedTarget);            //half image size
-    chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
-    costTable_redraw();                       //redraw table
-    calc_cost();  
-    // snapback(event);
+    //only reload tables if coming from plate and needs to be removed
+    if(event.relatedTarget.getAttribute("in") == 1){
+      halfsize(event.relatedTarget);            //half image size
+      chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
+      costTable_redraw();                       //redraw table
+      calc_cost();  
+    }
 
   },
   ondropdeactivate: function (event) {
@@ -143,11 +135,12 @@ interact('.plate').dropzone({
   ondrop: function (event) {
     event.relatedTarget.textContent = 'Dropped';
     
-    //double image size
-    doublesize(event.relatedTarget);
-    chart_cost_add(event);
-    costTable_redraw();
-    calc_cost();
+    if(event.relatedTarget.getAttribute("in") == 0){
+      doublesize(event.relatedTarget);
+      chart_cost_add(event);
+      costTable_redraw();
+      calc_cost();
+    }
   },
   ondropdeactivate: function (event) {
     // remove active dropzone feedback
