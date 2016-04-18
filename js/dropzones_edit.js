@@ -1,6 +1,5 @@
 
-var f = new Array();              // name, price
-var exist = 0;                    //exist flag
+var f = new Array();              //to store chart/plate elements
   
 var onplate = new Array();
 var ontable = new Array();
@@ -125,93 +124,49 @@ function chart_cost_add(event){
   if(f.length == 8){
     console.log("more than 8");
     snapback(event);
- }
+   }
  
-        //add element if it doesn't exist 
-        else{
-          item.setAttribute("in",1);
-          item.setAttribute("table",0);
-            f.push({  
-              name:  item.getAttribute('name'),
-              price: parseFloat(item.getAttribute('cost')).toFixed(2),
-              water: item.getAttribute('water'),
-              CO2:   item.getAttribute('CO2'),
-              Cal:   item.getAttribute('Cal'),
-              idx:   H2O_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('water')), parseInt(item.getAttribute('water'))])
-            });   
+  //add element if it doesn't exist 
+  else{
+    item.setAttribute("in",1);
+    item.setAttribute("table",0);
+      f.push({  
+        name:  item.getAttribute('name'),
+        price: parseFloat(item.getAttribute('cost')).toFixed(2),
+        water: item.getAttribute('water'),
+        CO2:   item.getAttribute('CO2'),
+        Cal:   item.getAttribute('Cal'),
+        idx:   H2O_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('water')), parseInt(item.getAttribute('water'))])
+      });   
 
-            CO2_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('CO2')), item.getAttribute('CO2')]);
-            Cal_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('Cal')), parseInt(item.getAttribute('Cal'))]);
+      CO2_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('CO2')), item.getAttribute('CO2')]);
+      Cal_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('Cal')), parseInt(item.getAttribute('Cal'))]);
 
-          document.getElementById('chartTotal1').innerHTML = "Total    " + graphtotal(H2O_data);
-          document.getElementById('chartTotal2').innerHTML = "Total    " + graphtotal(CO2_data);
-          document.getElementById('chartTotal3').innerHTML = "Total    " + graphtotal(Cal_data);
-          
-          H2O_chart.draw(H2O_data, H2O_options);
-          CO2_chart.draw(CO2_data, CO2_options);
-          Cal_chart.draw(Cal_data, Cal_options);  
-
-          // if new, add to onplate and set zIndx 
-          // onplate.push(item);
-          // for(var i = 0; i < onplate.length; i ++){
-          //     onplate[i].style.zIndex = plate_zidx_arr[i]; 
-          // }
-          // var zidx = window.getComputedStyle(item,null).getPropertyValue('z-index');
-          // console.log("\n dropzones onplate - zIndex: " + zidx); //event.target.getAttribute.style.zIndex);
-
-          }
+    document.getElementById('chartTotal1').innerHTML = "Total    " + graphtotal(H2O_data);
+    document.getElementById('chartTotal2').innerHTML = "Total    " + graphtotal(CO2_data);
+    document.getElementById('chartTotal3').innerHTML = "Total    " + graphtotal(Cal_data);
+    
+    H2O_chart.draw(H2O_data, H2O_options);
+    CO2_chart.draw(CO2_data, CO2_options);
+    Cal_chart.draw(Cal_data, Cal_options);  
     }
+}
 
-      /*  chart_cost_remove
-      if more than one item of that type exists, 
-      decrement quant update chart values and totals   */
+/*  chart_cost_remove
+if more than one item of that type exists, 
+decrement quant update chart values and totals   */
 function chart_cost_remove(target){
+      console.log("chart_cost_remove");
+
 for(var a = 0; a < f.length; a++){
   //if more than one instance exists decrement
   if (f[a].name == target.getAttribute('name')){
-  //   // if(f[a].quant > 1){
-  //     f[a].quant = parseFloat(f[a].quant) - 1;
-  //     // f[a].price = parseFloat(f[a].price) - parseFloat(target.getAttribute('cost'));
-  //     // console.log("never enters ere");
-  //     //decrement chart values
-  //     H2O_data.setValue(a, 1, f[a].quant*parseInt(target.getAttribute('water')));
-  //     CO2_data.setValue(a, 1, f[a].quant*parseInt(target.getAttribute('CO2')));
-  //     Cal_data.setValue(a, 1, f[a].quant*parseInt(target.getAttribute('Cal')));
-  // }
-  // else{
     console.log("set attrib to 0");
     target.setAttribute("in",0);
     f.splice(a,1);
     H2O_data.removeRow(a);
     CO2_data.removeRow(a);
     Cal_data.removeRow(a);
-    // console.log("plate arr size before" + onplate.length);
-
-    // //if new, remove from plate arr
-    // console.log("remove from plate arr");
-    // for(var i = 0; onplate.length; i++){
-    //     if(onplate[i] == item){
-    //       onplate.splice(i,1);
-    //       console.log("item found");
-
-    //       // break;
-    //     }
-    // }
-    //   console.log("plate arr size after" + onplate.length);
-
-    //dont think we need to reassign zidx of plate here...   
-    // for(var i = 0; i < onplate.length; i ++){
-    //   onplate[i].style.zIndex = plate_zidx_arr[i]; 
-    // }
-
-      //if new, add to onplate and set zIndx 
-      // ontable.push(item);
-      // for(var i = 0; i < ontable.length; i ++){
-      //     ontable[i].style.zIndex = table_zidx_arr[i]; 
-      // }
-      // var zidx = window.getComputedStyle(item,null).getPropertyValue('z-index');
-      // console.log("\n ontable zIndex" + zidx); //event.target.getAttribute.style.zIndex);
-    // }  
   }  
 }  
 
@@ -222,6 +177,5 @@ for(var a = 0; a < f.length; a++){
   H2O_chart.draw(H2O_data, H2O_options);
   CO2_chart.draw(CO2_data, CO2_options);
   Cal_chart.draw(Cal_data, Cal_options);
-
 }
 

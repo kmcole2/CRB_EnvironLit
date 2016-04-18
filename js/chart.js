@@ -12,9 +12,7 @@ var Cal_options;
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawBasic);
 
-
-    /*drawBasic, 
-    draws initial chart*/
+    //  draws initial charts
     function drawBasic() {
       H2O_data = new google.visualization.DataTable();
       H2O_data.addColumn('string', 'Water');
@@ -36,7 +34,6 @@ google.charts.setOnLoadCallback(drawBasic);
       Cal_data.addColumn({type: 'number', role: 'annotation'});
       Cal_data.addRows([
       ]);
-// var title 1 =  
 
       H2O_options = {
         title: 'H2O', 
