@@ -15,18 +15,60 @@ google.charts.setOnLoadCallback(drawBasic);
 var f = new Array();              // name, price
 var exist = 0;                    //exist flag
   
+var onplate = new Array();
+var ontable = new Array();
+var plate_zidx_arr = [1,2,3,4,5,6,7,8];
+var table_zidx_arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
+
 ///INTERACT CODE
 (function (interact) {
 
   'use strict';
 
   var transformProp;
+  
+  var scale1 = 1;
+  var scale2 = 1;
+  var scale3 = 1;
+  var scale4 = 1;
 
-  interact.maxInteractions(Infinity);
+  var angle1 = 0;
+  var angle2 = 0;
+  var angle3 = 0;
+  var angle4 = 0;
+
+  var arrow1, arrow2, arrow3, arrow4;
 
   // setup draggable elements.
   interact('.js-drag')
-      .draggable({ max: Infinity })
+      .draggable({})
+      .on('dragstart', function (event) {
+          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+      })
+      .on('dragmove', function (event) {
+          event.interaction.x += event.dx;
+          event.interaction.y += event.dy;
+          event.target.style.zIndex = 25;  
+          // var zidx = window.getComputedStyle(event.target,null).getPropertyValue('z-index');
+          // console.log("\n drag move: zIndex" + zidx); //event.target.getAttribute.style.zIndex);
+
+          if (transformProp) {
+              event.target.style[transformProp] =
+                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+          }
+          else {
+              event.target.style.left = event.interaction.x + 'px';
+              event.target.style.top  = event.interaction.y + 'px';
+          }
+      })
+      .on('dragend', function (event) {
+          event.target.setAttribute('data-x', event.interaction.x);
+          event.target.setAttribute('data-y', event.interaction.y);
+      }) 
+
+  interact('.chart1')
+      .draggable({})
       .on('dragstart', function (event) {
           event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
           event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
@@ -49,148 +91,170 @@ var exist = 0;                    //exist flag
           event.target.setAttribute('data-y', event.interaction.y);
 
       }) 
+      .gesturable({
+      onmove: function (event) {
+        var arrow1 = event.target;//document.getElementsByClass('Calories');
 
-      .on('drop', function (event) {
-          // document.getElementById('')
-          //chart.draw(data, options);
+        angle1 += event.da;
+
+        //1.8 max scale
+     
+           scale1 = scale1 * (1 + event.ds);
+           var s = parseFloat(scale1);
+           if(s <= 1.8 && s >= 1){
+            var transformVals = window.getComputedStyle(arrow1,null).getPropertyValue('transform');
+            var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+            var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+            var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle1 + "deg) scale(" +
+            scale1 + ")";
+
+            arrow1.style.webkitTransform = arrow1.style.transform = newtransform;
+          }
+          else if(s < 1){   scale1 = 1;  }
+          else{             scale1 = 1.8;}
+      }
       });
+  interact('.chart2')
+      .draggable({})
+      .on('dragstart', function (event) {
+          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+      })
+      .on('dragmove', function (event) {
+          event.interaction.x += event.dx;
+          event.interaction.y += event.dy;
 
-  // setup drop areas.
-  // dropzone #1 accepts draggable #1
-  setupDropzone1('#drop1', '#drag1');
-  setupDropzone('#drop2', '#drag1');
+          if (transformProp) {
+              event.target.style[transformProp] =
+                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+          }
+          else {
+              event.target.style.left = event.interaction.x + 'px';
+              event.target.style.top  = event.interaction.y + 'px';
+          }
+      })
+      .on('dragend', function (event) {
+          event.target.setAttribute('data-x', event.interaction.x);
+          event.target.setAttribute('data-y', event.interaction.y);
 
-  function setupDropzone(el, accept) {
-    interact(el)
-        .dropzone({
-            accept: accept,
-            ondropactivate: function (event) {
-                addClass(event.relatedTarget, '-drop-possible');
-            },
-            ondropdeactivate: function (event) {
-                removeClass(event.relatedTarget, '-drop-possible');
-            }
-        })
-        .on('dropactivate', function (event) {
-            var active = event.target.getAttribute('active')|0;
+      }) 
+      .gesturable({
+      onmove: function (event) {
+        var arrow2 = event.target;
 
-            // change style if it was previously not active
-            if (active === 0) {
-                addClass(event.target, '-drop-possible');
-                event.target.textContent = 'Drop me here!';
-            }
+        angle2 += event.da;
 
-            event.target.setAttribute('active', active + 1);
-        })
-        .on('dropdeactivate', function (event) {
-            var active = event.target.getAttribute('active')|0;
-
-            // change style if it was previously active
-            // but will no longer be active
-            if (active === 1) {
-                removeClass(event.target, '-drop-possible');
-                event.target.textContent = 'Dropzone';
-            }
-
-            event.target.setAttribute('active', active - 1);
-        })
-        .on('dragenter', function (event) {
-            addClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'I\'m in';
-        })
-        .on('dragleave', function (event) {
-            removeClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'Drag me…';
-        })
-        .on('drop', function (event) {
-
-            removeClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'Dropped';
-
-            console.log("event.target = " + event.target);
-            console.log(event.relatedTarget.getAttribute('name'));
-
-            //double image size
-            doublesize(event.relatedTarget);
-            chart_cost_add(event);
-
-            costTable_redraw();
-            calc_cost();
-  });
-  }
-
-  function setupDropzone1(el, accept) {
-    interact(el)
-        .dropzone({
-            accept: accept,
-            ondropactivate: function (event) {
-                addClass(event.relatedTarget, '-drop-possible');
-            },
-            ondropdeactivate: function (event) {
-                removeClass(event.relatedTarget, '-drop-possible');
-            }
-        })
-        .on('dropactivate', function (event) {
-            var active = event.target.getAttribute('active')|0;
-
-            // change style if it was previously not active
-            if (active === 0) {
-                addClass(event.target, '-drop-possible');
-                event.target.textContent = 'Drop me here!';
-            }
-
-            event.target.setAttribute('active', active + 1);
-        })
-        .on('dropdeactivate', function (event) {
-            var active = event.target.getAttribute('active')|0;
-
-            // change style if it was previously active
-            // but will no longer be active
-            if (active === 1) {
-                removeClass(event.target, '-drop-possible');
-                event.target.textContent = 'Dropzone';
-            }
-
-            event.target.setAttribute('active', active - 1);
-        })
-        .on('dragenter', function (event) {
-            addClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'I\'m in';
-        })
-        .on('dragleave', function (event) {
-            removeClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'Drag me…';
-        })
-        .on('drop', function (event) {
-
-            removeClass(event.target, '-drop-over');
-            event.relatedTarget.textContent = 'Dropped';
-
-            
-            halfsize(event.relatedTarget);            //half image size
-            chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
-            costTable_redraw();                       //redraw table
-            calc_cost();                              
-  });}
-
-  function addClass (element, className) {
-      if (element.classList) {
-          return element.classList.add(className);
+        //1.8 max scale
+          scale2 = scale2 * (1 + event.ds);
+          var s = parseFloat(scale2);
+          
+          if(s <= 1.8 && s >= 1){
+            var transformVals = window.getComputedStyle(arrow2,null).getPropertyValue('transform');
+            var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+            var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+            var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle2 + "deg) scale(" +
+            scale2 + ")";
+            // console.log(newtransform);
+            // arrow.style.webkitTransform =
+            arrow2.style.webkitTransform = arrow2.style.transform = newtransform;
+          }
+          else if(s < 1){   scale2 = 1;  }
+          else{             scale2 = 1.8;}
       }
-      else {
-          element.className += ' ' + className;
-      }
-  }
+      });
+  interact('.chart3')
+      .draggable({})
+      .on('dragstart', function (event) {
+          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+      })
+      .on('dragmove', function (event) {
+          event.interaction.x += event.dx;
+          event.interaction.y += event.dy;
 
-  function removeClass (element, className) {
-      if (element.classList) {
-          return element.classList.remove(className);
-      }
-      else {
-          element.className = element.className.replace(new RegExp(className + ' *', 'g'), '');
-      }
-  }
+          if (transformProp) {
+              event.target.style[transformProp] =
+                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+          }
+          else {
+              event.target.style.left = event.interaction.x + 'px';
+              event.target.style.top  = event.interaction.y + 'px';
+          }
+      })
+      .on('dragend', function (event) {
+          event.target.setAttribute('data-x', event.interaction.x);
+          event.target.setAttribute('data-y', event.interaction.y);
+      }) 
+      .gesturable({
+      onmove: function (event) {
+        var arrow3 = event.target;//document.getElementsByClass('Calories');
 
+        angle3 += event.da;
+          scale3 = scale3 * (1 + event.ds);
+          var s = parseFloat(scale3)
+
+        if(s <= 1.8 && s >= 1){ 
+          var transformVals = window.getComputedStyle(arrow3,null).getPropertyValue('transform');
+          var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+          var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+          var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle3 + "deg) scale(" +
+          scale3 + ")";
+          // console.log(newtransform);
+          // arrow.style.webkitTransform =
+          arrow3.style.webkitTransform = arrow3.style.transform = newtransform;
+        }
+          else if(s < 1){   scale3 = 1;  }
+          else{             scale3 = 1.8;}
+        }
+
+      });
+  interact('.chart4')
+      .draggable({})
+      .on('dragstart', function (event) {
+          event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0;
+          event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0;
+      })
+      .on('dragmove', function (event) {
+          event.interaction.x += event.dx;
+          event.interaction.y += event.dy;
+
+          if (transformProp) {
+              event.target.style[transformProp] =
+                  'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)';
+          }
+          else {
+              event.target.style.left = event.interaction.x + 'px';
+              event.target.style.top  = event.interaction.y + 'px';
+          }
+      })
+      .on('dragend', function (event) {
+          event.target.setAttribute('data-x', event.interaction.x);
+          event.target.setAttribute('data-y', event.interaction.y);
+
+      }) 
+      .gesturable({
+      onmove: function (event) {
+        var arrow4 = event.target;
+
+        angle4 += event.da;
+          
+        scale4 = scale4 * (1 + event.ds);
+        var s = parseFloat(scale4);
+
+        if(s <= 1.8 && s >= 1){    
+          var transformVals = window.getComputedStyle(arrow4,null).getPropertyValue('transform');
+          var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+          var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+          var newtransform = "translate(" + transX + "px," + transY + "px) rotate(" + angle4 + "deg) scale(" +
+          scale4 + ")";
+
+          arrow4.style.webkitTransform = arrow4.style.transform = newtransform;
+        }
+          else if(s < 1){   scale4 = 1;  }
+          else{             scale4 = 1.8;}
+
+      }
+      });
   interact(document).on('ready', function () {
       transformProp = 'transform' in document.body.style
           ? 'transform': 'webkitTransform' in document.body.style
@@ -199,40 +263,66 @@ var exist = 0;                    //exist flag
           ? 'oTransform': 'msTransform' in document.body.style
           ? 'msTransform': null;
   });
-
 }(window.interact));
 
     
 //image size
 function doublesize(target){
-    target.style.height = '100px';
-    target.style.width = '100px';
+  var transformVals =  window.getComputedStyle(target,null).getPropertyValue('transform');
+  var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+  var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+  var value = "translate(" + transX + "px," + transY + "px) scale(1.5,1.5)";
+  target.style.transform = value;
 };
+
+// //remove from table arr add to plate 
+// function toplate_zIdx(target){
+//   // if()
+
+// };
+// //remove from plate arr, add to table
+// function totable_zIdx(target){
+//         for(var a = 0; a < f.length; a++){
+//           //if more than one instance exists decrement
+//           if (f[a].name == target.getAttribute('name')){
+//   f.splice(a,1);
+//   ontable.push(target);
+
+// }
+
+
 function halfsize(target){
-    target.style.height = '50px';
-    target.style.width = '50px';  
-}
+  var transformVals =  window.getComputedStyle(target,null).getPropertyValue('transform');
+  var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+  var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+  var value = "translate(" + transX + "px," + transY + "px) scale(1,1)";
+  target.style.transform = value;
+};
 
     /*drawBasic, 
     draws initial chart*/
     function drawBasic() {
       H2O_data = new google.visualization.DataTable();
       H2O_data.addColumn('string', 'Water');
-      H2O_data.addColumn('number', 'Liters');
+      H2O_data.addColumn('number', 'Gal/serving');
+      H2O_data.addColumn({type: 'number', role: 'annotation'});
       H2O_data.addRows([
       ]);
              
       CO2_data = new google.visualization.DataTable();
       CO2_data.addColumn('string', 'Carbon Dioxide');
-      CO2_data.addColumn('number', 'kilograms');
+      CO2_data.addColumn('number', 'CO2e/lb');
+      CO2_data.addColumn({type: 'string', role: 'annotation'});
       CO2_data.addRows([
       ]);
 
       Cal_data = new google.visualization.DataTable();
       Cal_data.addColumn('string', 'Food');
       Cal_data.addColumn('number', 'Calories');
+      Cal_data.addColumn({type: 'number', role: 'annotation'});
       Cal_data.addRows([
       ]);
+// var title 1 =  
 
       H2O_options = {
         title: 'H2O', 
@@ -242,28 +332,28 @@ function halfsize(target){
           fontSize: '16', 
           fontWidth: 'normal'},
         hAxis: {
-          titleTextStyle: {color: '#e8e3da'}, textStyle:{color: '#e8e3da'},
+          titleTextStyle: {color: '#e8e3da'}, textStyle:{color: '#e8e3da', fontSize:7},
           gridlines: { color: "#fff"},
           baselineColor: '#fff'
         },
         vAxis: {
-          title:'L', 
+          title:'Gallons', 
           titleTextStyle: {color: '#e8e3da'},
           textStyle:{color: '#e8e3da'},
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:18000,
+              max:900,
               min:0
           }
        },
         legend: {position: 'none'},
+        backgroundColor: '#5099ab',
         width: 300,
-        backgroundColor: '#827f7f',
+        height: 175,
         bar:{ groupWidth:20},
         colors: ['#e8e3da']
       };
-
       CO2_options = {
         title: 'CO2',
         titleTextStyle: {
@@ -274,22 +364,24 @@ function halfsize(target){
         },
         hAxis: {
           titleTextStyle: {color: '#e8e3da'}, 
-          textStyle:{color: '#e8e3da'}
+          textStyle:{color: '#e8e3da', fontSize:7}
+
         },
         vAxis: {  
-          title: 'kg', 
+          title: 'lbs', 
           titleTextStyle: {color: '#e8e3da'}, 
           textStyle:{color: '#e8e3da'},
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:60,
+              max:8,
               min:0
           }
         },
         legend: {position: 'none'},
-        backgroundColor: '#5099ab',
         width: 300,
+        height: 175,
+        backgroundColor: '#827f7f',
         bar:{ groupWidth:20},
         colors: ['#e8e3da']
       };
@@ -304,22 +396,23 @@ function halfsize(target){
         },
         hAxis: {
           titleTextStyle: {color: '#e8e3da'}, 
-          textStyle:{color: '#e8e3da'}
+          textStyle:{color: '#e8e3da', fontSize:7}
         },
         vAxis: {
-          title:'kcal', 
+          title:'Calories', 
           titleTextStyle: {color: '#e8e3da'},
           textStyle:{color: '#e8e3da'},
           baselineColor: '#ccc',
           viewWindowMode:'explicit',
           viewWindow: {
-              max:500,
+              max:800,
               min:0
           }
         },
         legend: {position: 'none'},
         backgroundColor: '#57b947',
         width: 300,
+        height: 175,
         bar:{ groupWidth:20},
         colors: ['#e8e3da']
       };
@@ -340,78 +433,93 @@ function halfsize(target){
     calculates a and returns chart total */
     function graphtotal(dataset){
       var total=0;
-       
       for (var i=0; i<(dataset.getNumberOfRows()); i++){
         total += dataset.getValue(i, 1);
       }      
+      total = total.toFixed(2);
      return total;
     }
 
-    /* chart_cost_add
+    /* chart_cost_add -- guaranteed all elem that hit here are NEW
     append item to cost list & chart (with 8 item limit)*/ 
     function chart_cost_add(event){
-      var item_quant = 0
-      for(var a = 0; a < f.length; a++){
-        item_quant += parseFloat(f[a].quant);
-      }
-        console.log(item_quant + " " +" " + f.length);
-
-      if (f.length < 8 && item_quant < 8){
-        //check for prexisting - edit array
-        var item = event.relatedTarget;
-        for(var a = 0; a < f.length; a++){
-          if (f[a].name == event.relatedTarget.getAttribute('name')){
-              f[a].quant = parseFloat(f[a].quant) + 1 ;
-              f[a].price = parseFloat(f[a].price) + parseFloat(event.relatedTarget.getAttribute('cost')); 
-              exist = 1;
-
-              //accumulator for preexisting chart elements
-              H2O_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('water')));
-              CO2_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('CO2')));
-              Cal_data.setValue(a, 1, f[a].quant*parseInt(event.relatedTarget.getAttribute('Cal')));
-          }  
+      var item = event.relatedTarget; 
+      if(f.length == 8){
+        console.log("more than 8");
+        exist = 1;
+        if(event.relatedTarget.getAttribute("in")==0){
+          snapback(event);
         }
+      } 
+      // else{
+      // console.log('*DO NOTHING* item already exists');
+      //   // check for prexisting element 
+      //   for(var a = 0; a < f.length; a++){
+      //     if (f[a].name == event.relatedTarget.getAttribute('name')){
+      //         //if preexisting, remove and reinset to onplate
+      //         exist = 1;
+      //         console.log("preexisting elem");
+
+      //         for(var i = 0; onplate.length; i++){
+      //           if(onplate[i] == item){
+      //             onplate.splice(i,1);
+      //             onplate.push(item);
+      //             // break;
+      //           }
+      //         }
+      //     }  
+      //   }}
         //add element if it doesn't exist 
         if(exist == 0){
-          
-          var cost = item.getAttribute('cost')
-            
+          event.relatedTarget.setAttribute("in",1);
+          var cost = item.getAttribute('cost');
             f.push({  
+              // target: event.relatedTarget,
               name:  item.getAttribute('name'),
               price: parseFloat(cost).toFixed(2),
-              quant: item.getAttribute('quant'),
+              quant: 1,
               water: item.getAttribute('water'),
               CO2:   item.getAttribute('CO2'),
               Cal:   item.getAttribute('Cal'),
-              idx:   H2O_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('water'))])
+              idx:   H2O_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('water')), parseInt(item.getAttribute('water'))])
             });   
-            CO2_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('CO2'))]);
-            Cal_data.addRow([item.getAttribute('name'), parseInt(item.getAttribute('Cal'))]);
-        }
-        //reset flag
-        exist = 0;
-        }
-        else{
-          console.log("more than 8");
-        }
+
+            CO2_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('CO2')), item.getAttribute('CO2')]);
+            Cal_data.addRow([item.getAttribute('name'), parseFloat(item.getAttribute('Cal')), parseInt(item.getAttribute('Cal'))]);
+
           document.getElementById('chartTotal1').innerHTML = "Total    " + graphtotal(H2O_data);
           document.getElementById('chartTotal2').innerHTML = "Total    " + graphtotal(CO2_data);
           document.getElementById('chartTotal3').innerHTML = "Total    " + graphtotal(Cal_data);
           
           H2O_chart.draw(H2O_data, H2O_options);
           CO2_chart.draw(CO2_data, CO2_options);
-          Cal_chart.draw(Cal_data, Cal_options);      
-    }
+          Cal_chart.draw(Cal_data, Cal_options);  
 
+          //if new, add to onplate and set zIndx 
+          onplate.push(item);
+          for(var i = 0; i < onplate.length; i ++){
+              onplate[i].style.zIndex = plate_zidx_arr[i]; 
+          }
+          var zidx = window.getComputedStyle(event.target,null).getPropertyValue('z-index');
+          console.log("\n drag move: zIndex" + zidx); //event.target.getAttribute.style.zIndex);
+
+          }
+
+        //reset flag
+        exist = 0;
+    }
+ 
     /* costTable_redraw,
     reassign table w/ updated entries and update pricing  */
     function costTable_redraw(){
-      var food_table = '<tr><td width=80 height=50 >Item</td><td width=50>Quantity</td><td width=50>Price</td></tr><br>';
+      var food_table = '<tr><td width=60 height=50 >Item</td><td width=50>Price</td></tr><br>';
+      // var food_table = '<tr><td width=80 height=50 >Item</td><td width=50>Quantity</td><td width=50>Price</td></tr><br>';
 
       //populate food table array html to print array as table 
       for(var i = 0; i < f.length; i ++){
         food_table +=
-        '<tr ' + 'id=\"' + f[i].name + '"\'> <td>' + f[i].name + ' </td> <td> x ' + f[i].quant + '</td> <td class=\"price\">' + parseFloat(f[i].price).toFixed(2) + '</td> </tr>';
+        '<tr ' + 'id=\"' + f[i].name + '"\'> <td>' + f[i].name + ' </td>  <td class=\"price\">' + parseFloat(f[i].price).toFixed(2) + '</td> </tr>';
+        // '<tr ' + 'id=\"' + f[i].name + '"\'> <td>' + f[i].name + ' </td> <td> x ' + f[i].quant + '</td> <td class=\"price\">' + parseFloat(f[i].price).toFixed(2) + '</td> </tr>';
       }
       // update cost table
       food_table +=  '</table>';
@@ -426,7 +534,7 @@ function halfsize(target){
               total += isNaN(fooditems[i].innerHTML) ? 0: parseFloat(fooditems[i].innerHTML);
             }
         }
-        document.getElementById('totalprice').innerHTML = "$ " + parseFloat(total).toFixed(2);
+        document.getElementById('totalprice').innerHTML = "Total: $ " + parseFloat(total).toFixed(2);
 
 
     }
@@ -448,6 +556,7 @@ function halfsize(target){
               Cal_data.setValue(a, 1, f[a].quant*parseInt(target.getAttribute('Cal')));
             }
             else{
+              target.setAttribute("in",0);
               f.splice(a,1);
               H2O_data.removeRow(a);
               CO2_data.removeRow(a);
@@ -463,5 +572,6 @@ function halfsize(target){
     H2O_chart.draw(H2O_data, H2O_options);
     CO2_chart.draw(CO2_data, CO2_options);
     Cal_chart.draw(Cal_data, Cal_options);
-
+    
     }
+
