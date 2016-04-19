@@ -22,7 +22,6 @@
   }
   #H20{
     transform: translate(-690px,-610px);
-     /*rotate(180deg);*/
     width:300px;
     height:230px;
     z-index: 0;
@@ -34,7 +33,7 @@
     z-index: 0;
   }
   #Calories{
-    transform: translate(0px,-1100px);
+    transform: translate(0px,-1100px) rotate(180deg);
     width:300px;
     height:230px;
     z-index: 0;
@@ -42,9 +41,7 @@
   .food{  
    height:80px;
   }
-/*  .chart_tite_1{
-    transform: translate(-690px,-610px);
-  }*/
+
   img[name=Burger]          { transform: translate(667px,-1133px);}
   img[name="Steak"]         { transform: translate(547px,-592px);}
   img[name="Cheese"]        { transform: translate(411px,-714px);}
@@ -70,3 +67,8 @@
   img[name="Spaghetti"]     { transform: translate(-5px,-880px);  height:90px;}
   img[name="Bun"]           { transform: translate(-104px,-1023px);}
 
+
+  .chart_tite_1{
+    z-index: 1;
+    transform: translate(-690px,-300px);
+  }

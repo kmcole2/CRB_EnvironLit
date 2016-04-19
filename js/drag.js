@@ -12,7 +12,7 @@
 
   var angle1 = 0;
   var angle2 = 0;
-  var angle3 = 0;
+  var angle3 = 180;
   var angle4 = 0;
 
   var arrow1, arrow2, arrow3, arrow4;

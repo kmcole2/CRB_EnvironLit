@@ -1,6 +1,6 @@
   body {
-     overflow:hidden;
-     color: rgb(253,242,228)
+    overflow:hidden;
+    color: rgb(253,242,228);
    }
    p{
     text-align:center;
@@ -12,13 +12,11 @@
     transform: translate(0px,0px);
     background-color: #ea8524;
   }
-
   #chartTotal1{
     background-color: #96ccda;
     color:#276f82;
     margin:0px;
     font-size: 13px;
-
   }
   #chartTotal2{
     background-color: #b0afaf;
@@ -46,7 +44,7 @@
 
   }
   .graphpadding{
-      padding: 20px 0px 15px 0px ; 
+    padding: 20px 0px 15px 0px ; 
   }
   .chartbase{
     width: 300px;
@@ -57,17 +55,9 @@
     height: 3px;
     transform: translate(0px,-18px);
   } 
-  #chartline1{
-    background-color: #276f82;
-
-  }
-  #chartline2{
-    background-color: #575757;
-
-  }
-  #chartline3{  
-    background-color: #3c8d44;
-  }
+  #chartline1{ background-color: #276f82;  }
+  #chartline2{ background-color: #575757;  }
+  #chartline3{ background-color: #3c8d44;  }
 
   .table {
     border: dashed 4px transparent;
@@ -94,11 +84,8 @@
   } 
   .draggable {
     position:relative;
-      z-index: 1;
-      margin: .25em;
-      padding: 0em 0em;
-      text-align: center;
-
-      -ms-touch-action: none;
-          touch-action: none;
+    z-index: 1;
+    margin: .25em;
+    padding: 0em 0em;
+    text-align: center;
   }
