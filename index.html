@@ -145,6 +145,7 @@ interact('.table').dropzone({
       var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
       var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
       e.interaction.y = 0;
+      e.interaction.x = 0;
 
       var value = "transform: translate(" + transX + "px," + transY + "px); top:0px; left:0px;";
       // console.log(value);
