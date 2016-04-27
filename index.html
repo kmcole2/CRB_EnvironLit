@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html id="html" lang="en" style "zoom:reset">
-<meta charset="UTF-8">
-  <head>
+<head>
     <!--Load the AJAX API-->
     <!-- tried and failed <meta name="viewport" content="user-scalable=no" /> -->
 <meta content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
@@ -38,13 +37,12 @@
         -webkit-text-size-adjust: none;
       }
       body {
-    min-width: 1280px; // change width as needed to fit your page
+      min-width: 1280px; /*change width as needed to fit your page*/
     }
   </style>  
 
 <script>
 
-// document.getElementById("html")
 window.addEventListener("onscroll", function(event){
     console.log('onscroll?');
     event.preventDefault(); 
@@ -76,7 +74,6 @@ document.addEventListener("scroll", function(event){
     return false;
 });
 
-// document.addEventListener
 document.addEventListener("resize", function(event){
   console.log('resize?');
     // document.getElementById("demo").innerHTML = 'sometext';
@@ -145,6 +142,7 @@ interact('.table').dropzone({
 
     if(item.getAttribute('table') == 0){
       item.setAttribute("table",1);
+      console.log("one table first time");
     }
 
     if(item.getAttribute("in") == 1){
@@ -153,56 +151,113 @@ interact('.table').dropzone({
       chart_cost_remove(event.relatedTarget);   //remove elem from chart_cost list
       costTable_redraw();                       //redraw table
       calc_cost();  
+      console.log("plate to table");
+      set_lastTableCoords(event);
+    }
+    else{
+      console.log("table-table");
+      set_lastTableCoords(event);
     }
   },
   ondropdeactivate: function (event) {
   }
 });
 
+function set_lastTableCoords(event){
+  // console.log("set_lastTableCoords");
+  var left = window.getComputedStyle(event.relatedTarget,null).getPropertyValue('left');
+  var top = window.getComputedStyle(event.relatedTarget,null).getPropertyValue('top');
+  // console.log("left: " + left);
+  // console.log("top: " + top);
+  event.relatedTarget.setAttribute("px",left);
+  event.relatedTarget.setAttribute("py",top);
 
+    var transformVals =  window.getComputedStyle(event.relatedTarget,null).getPropertyValue('transform');
+    var px =  parseInt(event.relatedTarget.getAttribute("px"));
+    var py =  parseInt(event.relatedTarget.getAttribute("py"));
+    console.log(event.interaction.y);
+    console.log(event.interaction.x);
+
+    console.log("set_lastTableCoords" + transformVals + " left: " + left + "; top: " + top + ";px: "+ px + "; py: " + py);
+}
 //GESTURE ATTEMPT
-  function snapback(e){
-      var transformVals =  window.getComputedStyle(e.relatedTarget,null).getPropertyValue('transform');
-      var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
-      var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
-      e.interaction.y = 0;
-      e.interaction.x = 0;
+function snapback(e){
+    var transformVals =  window.getComputedStyle(event.relatedTarget,null).getPropertyValue('transform');
+    var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+    var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+    e.interaction.y = 0;
+    e.interaction.x = 0;
 
-      var value = "transform: translate(" + transX + "px," + transY + "px); top:0px; left:0px;";
-      // console.log(value);
-      e.relatedTarget.setAttribute ("style",value); 
-    }
-</script>
+    var value = "transform: translate(" + transX + "px," + transY + "px); top:0px; left:0px;";
+    e.relatedTarget.setAttribute ("style",value); 
+  }
+
+function snap_prev(e){
+  console.log("snap_prev");
+
+    var transformVals =  window.getComputedStyle(e.relatedTarget,null).getPropertyValue('transform');
+    var top = window.getComputedStyle(e.relatedTarget,null).getPropertyValue('top');
+    var left = window.getComputedStyle(e.relatedTarget,null).getPropertyValue('left');
+
+    var px =  parseInt(e.relatedTarget.getAttribute("px"));
+    var py =  parseInt(e.relatedTarget.getAttribute("py"));
+    // var top =  e.relatedTarget.getAttribute('top');
+    // var left =  e.relatedTarget.getAttribute('left');
+
+    console.log("before" + transformVals + " left: " + left + "; top: " + top + ";px: "+ px + "; py: " + py);
+    console.log(e.interaction.y);
+    console.log(e.interaction.x);
+
+    var transX = parseInt((transformVals.replace (/,/g, "")).split(" ")[4]); 
+    var transY = parseInt((transformVals.replace (/,/g, "")).split(" ")[5]); 
+
+
+    var value = "transform: translate(" + transX + "px," + transY + "px); left:" + px + "px; top: " + py + "px;";//" top:0px; left:0px;";
+    e.relatedTarget.setAttribute("style",value); 
+
+    px =  parseInt(e.relatedTarget.getAttribute("px"));
+    py =  parseInt(e.relatedTarget.getAttribute("py"));
+    top = window.getComputedStyle(e.relatedTarget,null).getPropertyValue('top');
+    left = window.getComputedStyle(e.relatedTarget,null).getPropertyValue('left');   
+    transformVals =  window.getComputedStyle(e.relatedTarget,null).getPropertyValue('transform');
+
+    e.interaction.y = top;        
+    e.interaction.x = left;    
+    console.log(e.interaction.y);
+    console.log(e.interaction.x);
+
+
+    console.log("after" + transformVals + " left: " + left + "; top: " + top + "; px: "+ px + "; py: " + py);
+  }
+  </script>
 </head>
   <body> 
-    <div id = "circle"></div>
-<!-- <div id="demo"> </div> -->
   <div id="outer-dropzone" class="table js-drop"></div>
     <img src= "img/plate_HR_11x11.png" id="inner-dropzone" name="plate" class="plate js-drop">
-   <img src="img/food/hamburger_HR_icon.png"    id="drag1" class="draggable js-drag food" name="Burger"        table="0" in="0"  cost="2.05"  water="701.60" CO2="5.11" Cal="287">
-   <img src="img/food/steak_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Steak"         table="0" in="0"  cost="4.45"  water="692.25" CO2="4.60" Cal="414">
-   <img src="img/food/cheese_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Cheese"        table="0" in="0"  cost="0.62"  water="75.77"  CO2="0.77" Cal="228">
-   <img src="img/food/bacon_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Bacon"         table="0" in="0"  cost="1.87"  water="269.55" CO2="2.06" Cal="390" >
-   <img src="img/food/chicken_HR_icon.png"      id="drag1" class="draggable js-drag food" name="Chicken"       table="0" in="0"  cost="2.48"  water="194.52" CO2="1.18" Cal="282">
-   <img src="img/food/egg_HR_icon.png"          id="drag1" class="draggable js-drag food" name="Egg"           table="0" in="0"  cost="0.37"  water="106.00" CO2="0.55" Cal="154">
-   <img src="img/food/potato_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Potato"        table="0" in="0"  cost="0.39"  water="15.19"  CO2="0.66" Cal="121">
-   <img src="img/food/fries_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Fries"         table="0" in="0"  cost="1.86"  water="31.30"  CO2="4.47" Cal="558">
-   <img src="img/food/chips_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Chips"         table="0" in="0"  cost="0.99"  water="30.00"  CO2="2.98" Cal="600">
-   <img src="img/food/rice_HR_icon.png"         id="drag1" class="draggable js-drag food" name="Rice"          table="0" in="0"  cost="0.12"  water="37.39"  CO2="0.15" Cal="204">
-   <img src="img/food/peanutbutter_HR_icon.png" id="drag1" class="draggable js-drag food" name="Peanut Butter" table="0" in="0"  cost="0.24"  water="29.73"  CO2="0.07" Cal="173">
-   <img src="img/food/tofu_HR_icon.png"         id="drag1" class="draggable js-drag food" name="Tofu"          table="0" in="0"  cost="1.04"  water="75.50"  CO2="0.23" Cal="176"> 
-   <img src="img/food/beans_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Beans"         table="0" in="0"  cost="0.31"  water="142.60" CO2="0.05" Cal="157">
-   <img src="img/food/lettuce_HR_icon.png"      id="drag1" class="draggable js-drag food" name="Lettuce"       table="0" in="0"  cost="0.16"  water="1.88"   CO2="0.06" Cal="8">
-   <img src="img/food/broccoli_HR_icon.png"     id="drag1" class="draggable js-drag food" name="Broccoli"      table="0" in="0"  cost="0.38"  water="3.83"   CO2="0.23" Cal="34">
-   <img src="img/food/corn_HR_icon.png"         id="drag1" class="draggable js-drag food" name="Corn"          table="0" in="0"  cost="0.27"  water="73.08"  CO2="0.34" Cal="156">
-   <img src="img/food/strawberries_HR_icon.png" id="drag1" class="draggable js-drag food" name="Strawberry"    table="0" in="0"  cost="0.73"  water="9.91"   CO2="0.19" Cal="53">
-   <img src="img/food/tomato_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Tomato"        table="0" in="0"  cost="0.99"  water="24.00"  CO2="0.25" Cal="22">
-   <img src="img/food/orange_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Orange"        table="0" in="0"  cost="0.79"  water="16.77"  CO2="0.13" Cal="86">
-   <img src="img/food/banana_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Bananas"       table="0" in="0"  cost="0.15"  water="47.32"  CO2="0.09" Cal="121">
-   <img src="img/food/bread_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Bread"         table="0" in="0"  cost="0.38"  water="24.04"  CO2="0.14" Cal="69">
-   <img src="img/food/spaghetti_HR_icon.png"    id="drag1" class="draggable js-drag food" name="Spaghetti"     table="0" in="0"  cost="0.36"  water="49.40"  CO2="0.56" Cal="377">
-   <img src="img/food/bun_HR_icon.png"          id="drag1" class="draggable js-drag food" name="Bun"           table="0" in="0"  cost="0.45"  water="36.06"  CO2="0.28" Cal="250">
-   <img src="img/food/asparagus_HR_icon.png"    id="drag1" class="draggable js-drag food" name="Asparagus"     table="0" in="0"  cost="0.88"  water="81.30"  CO2="1.01" Cal="45">
+   <img src="img/food/hamburger_HR_icon.png"    id="drag1" class="draggable js-drag food" name="Burger"        px="0" py="0" table="0" in="0"  cost="2.05"  water="701.60" CO2="5.11" Cal="287">
+   <img src="img/food/steak_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Steak"         px="0" py="0" table="0" in="0"  cost="4.45"  water="692.25" CO2="4.60" Cal="414">
+   <img src="img/food/cheese_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Cheese"        px="0" py="0" table="0" in="0"  cost="0.62"  water="75.77"  CO2="0.77" Cal="228">
+   <img src="img/food/bacon_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Bacon"         px="0" py="0" table="0" in="0"  cost="1.87"  water="269.55" CO2="2.06" Cal="390" >
+   <img src="img/food/chicken_HR_icon.png"      id="drag1" class="draggable js-drag food" name="Chicken"       px="0" py="0" table="0" in="0"  cost="2.48"  water="194.52" CO2="1.18" Cal="282">
+   <img src="img/food/egg_HR_icon.png"          id="drag1" class="draggable js-drag food" name="Egg"           px="0" py="0" table="0" in="0"  cost="0.37"  water="106.00" CO2="0.55" Cal="154">
+   <img src="img/food/potato_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Potato"        px="0" py="0" table="0" in="0"  cost="0.39"  water="15.19"  CO2="0.66" Cal="121">
+   <img src="img/food/fries_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Fries"         px="0" py="0" table="0" in="0"  cost="1.86"  water="31.30"  CO2="4.47" Cal="558">
+   <img src="img/food/chips_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Chips"         px="0" py="0" table="0" in="0"  cost="0.99"  water="30.00"  CO2="2.98" Cal="320">
+   <img src="img/food/rice_HR_icon.png"         id="drag1" class="draggable js-drag food" name="Rice"          px="0" py="0" table="0" in="0"  cost="0.12"  water="37.39"  CO2="0.15" Cal="204">
+   <img src="img/food/peanutbutter_HR_icon.png" id="drag1" class="draggable js-drag food" name="Peanut Butter" px="0" py="0" table="0" in="0"  cost="0.24"  water="29.73"  CO2="0.07" Cal="173">
+   <img src="img/food/tofu_HR_icon.png"         id="drag1" class="draggable js-drag food" name="Tofu"          px="0" py="0" table="0" in="0"  cost="1.04"  water="75.50"  CO2="0.23" Cal="176"> 
+   <img src="img/food/beans_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Beans"         px="0" py="0" table="0" in="0"  cost="0.31"  water="142.60" CO2="0.05" Cal="157">
+   <img src="img/food/lettuce_HR_icon.png"      id="drag1" class="draggable js-drag food" name="Lettuce"       px="0" py="0" table="0" in="0"  cost="0.16"  water="1.88"   CO2="0.06" Cal="8">
+   <img src="img/food/broccoli_HR_icon.png"     id="drag1" class="draggable js-drag food" name="Broccoli"      px="0" py="0" table="0" in="0"  cost="0.38"  water="3.83"   CO2="0.23" Cal="34">
+   <img src="img/food/corn_HR_icon.png"         id="drag1" class="draggable js-drag food" name="Corn"          px="0" py="0" table="0" in="0"  cost="0.27"  water="73.08"  CO2="0.34" Cal="156">
+   <img src="img/food/strawberries_HR_icon.png" id="drag1" class="draggable js-drag food" name="Strawberry"    px="0" py="0" table="0" in="0"  cost="0.73"  water="9.91"   CO2="0.19" Cal="53">
+   <img src="img/food/tomato_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Tomato"        px="0" py="0" table="0" in="0"  cost="0.99"  water="24.00"  CO2="0.25" Cal="22">
+   <img src="img/food/orange_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Orange"        px="0" py="0" table="0" in="0"  cost="0.79"  water="16.77"  CO2="0.13" Cal="86">
+   <img src="img/food/banana_HR_icon.png"       id="drag1" class="draggable js-drag food" name="Bananas"       px="0" py="0" table="0" in="0"  cost="0.15"  water="47.32"  CO2="0.09" Cal="121">
+   <img src="img/food/bread_HR_icon.png"        id="drag1" class="draggable js-drag food" name="Bread"         px="0" py="0" table="0" in="0"  cost="0.38"  water="24.04"  CO2="0.14" Cal="69">
+   <img src="img/food/spaghetti_HR_icon.png"    id="drag1" class="draggable js-drag food" name="Spaghetti"     px="0" py="0" table="0" in="0"  cost="0.36"  water="49.40"  CO2="0.56" Cal="377">
+   <img src="img/food/bun_HR_icon.png"          id="drag1" class="draggable js-drag food" name="Bun"           px="0" py="0" table="0" in="0"  cost="0.45"  water="36.06"  CO2="0.28" Cal="250">
+   <img src="img/food/asparagus_HR_icon.png"    id="drag1" class="draggable js-drag food" name="Asparagus"     px="0" py="0" table="0" in="0"  cost="0.88"  water="81.30"  CO2="1.01" Cal="45">
  <div id="H20" class="container draggable chart1 gesture-area">
     <div id ="chart_div1" class="chart scale-element"></div>
       <p id="chartline1" class="chartline"></p>
@@ -225,9 +280,5 @@ interact('.table').dropzone({
     <p class="tableline"></p>
     <p id="totalprice" class="graphpadding">Total $0.00</p>	
   </div>
-<br>
-
- 
   </body>
-
 </html>

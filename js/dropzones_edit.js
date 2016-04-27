@@ -22,7 +22,7 @@ function toplate_zIdx(target){
   //reassign zidx 
   for(var i = 0; i < onplate.length; i ++){
     onplate[i].style.zIndex = plate_zidx_arr[i]; 
-    console.log(onplate[i].getAttribute('name') + "  " + plate_zidx_arr[i]);
+    // console.log(onplate[i].getAttribute('name') + "  " + plate_zidx_arr[i]);
   }  
 };
 //remove from plate arr, add to table
@@ -42,7 +42,7 @@ function totable_zIdx(target){
   //reassign zidx 
   for(var i = 0; i < ontable.length; i ++){
     ontable[i].style.zIndex = table_zidx_arr[i]; 
-    console.log(ontable[i].getAttribute('name') + "  " + table_zidx_arr[i]);
+    // console.log(ontable[i].getAttribute('name') + "  " + table_zidx_arr[i]);
   } 
 }
 function splice_other(arr, target){
@@ -123,7 +123,7 @@ function chart_cost_add(event){
 
   if(f.length == 8){
     console.log("more than 8");
-    snapback(event);
+    snap_prev(event);
    }
  
   //add element if it doesn't exist 
