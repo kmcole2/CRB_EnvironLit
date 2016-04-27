@@ -46,7 +46,7 @@
   img[name="Steak"]         { transform: translate(547px,-592px);}
   img[name="Cheese"]        { transform: translate(411px,-714px);}
   img[name="Bacon"]         { transform: translate(290px,-838px); height:60px;}
-  img[name="Chicken"]       { transform: translate(180px,-950px); height:70px;}
+  img[name="Chicken"]       { transform: translate(170px,-945px); height:70px;}
   img[name="Egg"]           { transform: translate(90px,-1040px);}
   img[name="Potato"]        { transform: translate(-10px,-714px);}
   img[name="Fries"]         { transform: translate(-152px,-373px); height:90px;}
@@ -55,10 +55,10 @@
   img[name="Peanut Butter"] { transform: translate(-701px,-896px);}
   img[name="Tofu"]          { transform: translate(-720px,-380px);}
   img[name="Beans"]         { transform: translate(-890px,-510px);}
-  img[name="Lettuce"]       { transform: translate(-684px,-914px);}
+  img[name="Lettuce"]       { transform: translate(-681px,-914px);}
   img[name="Broccoli"]      { transform: translate(-832px,-816px);}
   img[name="Corn"]          { transform: translate(-820px,-1000px);}
-  img[name="Strawberry"]    { transform: translate(843px,-1396px);}
+  img[name="Strawberry"]    { transform: translate(843px,-1390px);}
   img[name="Tomato"]        { transform: translate(595px,-537px);}
   img[name="Orange"]        { transform: translate(647px,-759px);}
   img[name="Bananas"]       { transform: translate(611px,-668px);}

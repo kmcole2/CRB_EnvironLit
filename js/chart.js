@@ -79,7 +79,7 @@ google.charts.setOnLoadCallback(drawBasic);
 
         },
         vAxis: {  
-          title: 'lbs', 
+          title: 'CO2 equivalents', 
           titleTextStyle: {color: '#e8e3da'}, 
           textStyle:{color: '#e8e3da'},
           baselineColor: '#ccc',

@@ -37,18 +37,38 @@
         font-family: UniverseLight;
         -webkit-text-size-adjust: none;
       }
+      body {
+    min-width: 1280px; // change width as needed to fit your page
+    }
   </style>  
 
 <script>
 
 // document.getElementById("html")
+window.addEventListener("onscroll", function(event){
+    console.log('onscroll?');
+    event.preventDefault(); 
+    event.stopPropagation();
+    return false;
+});
+window.addEventListener("ondrag", function(event){
+    console.log('ondrag?');
+    event.preventDefault(); 
+    event.stopPropagation();
+    return false;
+});
+window.addEventListener("onwheel", function(event){
+    console.log('onwheel?');
+    event.preventDefault(); 
+    event.stopPropagation();
+    return false;
+});
 window.addEventListener("mousewheel", function(event){
     console.log('mousewheel?');
     event.preventDefault(); 
     event.stopPropagation();
     return false;
 });
-
 document.addEventListener("scroll", function(event){
     console.log('scroll?');
     event.preventDefault(); 
@@ -58,6 +78,7 @@ document.addEventListener("scroll", function(event){
 
 // document.addEventListener
 document.addEventListener("resize", function(event){
+  console.log('resize?');
     // document.getElementById("demo").innerHTML = 'sometext';
     event.preventDefault(); 
     event.stopPropagation();
